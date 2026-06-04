@@ -1,19 +1,47 @@
-/** @type { import('@storybook/react-vite').Preview } */
+import '../src/index.css';
+
+/** @type { import('@storybook/react').Preview } */
 const preview = {
+  globalTypes: {
+    theme: {
+      description: 'KK Group tema',
+      defaultValue: 'light',
+      toolbar: {
+        title: 'Tema',
+        icon: 'paintbrush',
+        items: [
+          { value: 'light',     title: 'Light',     left: '☀️' },
+          { value: 'dark',      title: 'Dark',      left: '🌙' },
+          { value: 'kk-orange', title: 'KK Orange', left: '🟠' },
+        ],
+        dynamicTitle: true,
+      },
+    },
+  },
+  decorators: [
+    (Story, context) => {
+      const theme = context.globals.theme || 'light';
+      const bg = theme === 'light' ? '#ffffff' : '#0a0a0a';
+      return (
+        <div
+          data-theme={theme}
+          style={{ background: bg, padding: '24px', minHeight: '100vh' }}
+        >
+          <Story />
+        </div>
+      );
+    },
+  ],
   parameters: {
     controls: {
       matchers: {
-       color: /(background|color)$/i,
-       date: /Date$/i,
+        color: /(background|color)$/i,
+        date: /Date$/i,
       },
     },
-
     a11y: {
-      // 'todo' - show a11y violations in the test UI only
-      // 'error' - fail CI on a11y violations
-      // 'off' - skip a11y checks entirely
-      test: "todo"
-    }
+      test: 'todo',
+    },
   },
 };
 
