@@ -29,6 +29,32 @@ const MODE_MAP = {
   'KK Group': 'kk-orange',
 };
 
+// Figma variable-navn (lowercase) → shadcn CSS token-navn.
+// Mapped variabler udskrives under det kanoniske navn (fx --primary),
+// så de fødes ind i @theme inline og driver komponenterne.
+// Umappede variabler beholder deres kebab-navn (fx --brand-shades-600).
+const NAME_MAP = {
+  'general/background': 'background',
+  'general/foreground': 'foreground',
+  'general/primary': 'primary',
+  'general/primary foreground': 'primary-foreground',
+  'general/secondary': 'secondary',
+  'general/secondary foreground': 'secondary-foreground',
+  'general/muted': 'muted',
+  'general/muted foreground': 'muted-foreground',
+  'general/accent': 'accent',
+  'general/accent foreground': 'accent-foreground',
+  'general/destructive': 'destructive',
+  'general/destructive foreground': 'destructive-foreground',
+  'general/border': 'border',
+  'general/input': 'input',
+  'general/ring': 'ring',
+  'general/card': 'card',
+  'general/card foreground': 'card-foreground',
+  'general/popover': 'popover',
+  'general/popover foreground': 'popover-foreground',
+};
+
 // --- Hjælpefunktioner ---
 
 function rgbToHex(r, g, b) {
@@ -119,7 +145,8 @@ function buildCssBlocks(collections) {
         // Spring over skjulte/interne variabler
         if (variable.hiddenFromPublishing) continue;
 
-        const cssVar = `--${toKebab(variable.name)}`;
+        const mapped = NAME_MAP[variable.name.trim().toLowerCase()];
+        const cssVar = mapped ? `--${mapped}` : `--${toKebab(variable.name)}`;
         const value = formatValue(variable, modeId);
         if (value !== null) {
           modeTokens[modeName][cssVar] = value;
