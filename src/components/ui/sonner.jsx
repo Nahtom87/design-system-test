@@ -24,14 +24,14 @@ function Toaster({ ...props }) {
         "--normal-text":   "var(--popover-foreground)",
         "--normal-border": "var(--border)",
         "--border-radius": "8px",
-        "--font-family":   "'IBM Plex Sans', system-ui, sans-serif",
+        "--font-family":   "var(--font-sans)",
         "--font-size":     "14px",
-        "--success-bg":    "#f0fdf4",
-        "--success-text":  "#16a34a",
-        "--error-bg":      "#fef2f2",
+        "--success-bg":    "color-mix(in oklch, var(--success) 12%, var(--background))",
+        "--success-text":  "var(--success)",
+        "--error-bg":      "color-mix(in oklch, var(--destructive) 12%, var(--background))",
         "--error-text":    "var(--destructive)",
-        "--warning-bg":    "#fffbeb",
-        "--warning-text":  "#d97706",
+        "--warning-bg":    "color-mix(in oklch, var(--warning) 12%, var(--background))",
+        "--warning-text":  "var(--warning)",
       }}
       {...props}
     />

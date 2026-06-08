@@ -22,9 +22,9 @@ const alertVariants = cva(
         // Destructive: rød toning
         destructive: "bg-destructive/10 border-destructive/30 text-destructive",
         // Success
-        success:     "bg-green-50 border-green-300 text-green-600",
+        success:     "bg-success/10 border-success/30 text-success",
         // Warning
-        warning:     "bg-amber-50 border-amber-300 text-amber-600",
+        warning:     "bg-warning/10 border-warning/30 text-warning",
       },
     },
     defaultVariants: { variant: "default" },
