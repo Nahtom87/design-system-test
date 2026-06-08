@@ -26,7 +26,7 @@ const CSS_FILE = join(ROOT, 'src', 'index.css');
 const MODE_MAP = {
   'shadcn': null,        // default :root
   'shadcn-dark': 'dark',
-  'KK Group': 'kk-orange',
+  'KK Group': 'kk-group',
 };
 
 // Figma variable-navn (lowercase) → shadcn CSS token-navn.

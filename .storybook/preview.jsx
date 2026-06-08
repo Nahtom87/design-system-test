@@ -12,7 +12,7 @@ const preview = {
         items: [
           { value: 'light',     title: 'Light',     left: '☀️' },
           { value: 'dark',      title: 'Dark',      left: '🌙' },
-          { value: 'kk-orange', title: 'KK Orange', left: '🟠' },
+          { value: 'kk-group', title: 'KK Group', left: '🟠' },
         ],
         dynamicTitle: true,
       },

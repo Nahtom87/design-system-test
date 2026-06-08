@@ -108,11 +108,11 @@ export const SemanticeFarver = {
   ),
 };
 
-export const KKOrangeTema = {
-  name: 'KK Orange tema',
+export const KKGroupTema = {
+  name: 'KK Group tema',
   render: () => (
-    <div data-theme="kk-orange" style={{ background: '#0A0A0A', padding: '24px', borderRadius: '10px' }}>
-      <Section title="KK Orange tema — primær">
+    <div data-theme="kk-group" style={{ background: '#0A0A0A', padding: '24px', borderRadius: '10px' }}>
+      <Section title="KK Group tema — primær">
         {[
           { name: 'primary', value: '#EF3407', textColor: '#fff' },
           { name: 'primary-fg', value: '#FFFFFF', border: '1px solid rgba(255,255,255,0.2)' },

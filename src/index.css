@@ -53,7 +53,7 @@
   --destructive-foreground: #ffffff;
 }
 
-[data-theme="kk-orange"] {
+[data-theme="kk-group"] {
   --background: #ffffff;
   --foreground: #0a0a0a;
   --primary: #ff7133;
@@ -79,7 +79,7 @@
 
 /* ============================================================
    DESIGN TOKENS — KK Group brand
-   Tre temaer: light (standard), dark, kk-orange
+   Tre temaer: light (standard), dark, kk-group
    ============================================================ */
 
 /* --- Raw brand palette ------------------------------------ */
@@ -154,9 +154,9 @@
   --popover-foreground:  oklch(0.985 0 0);
 }
 
-/* --- Tema: kk-orange — semantic colors come from the synced FIGMA TOKENS
-   [data-theme="kk-orange"] block above; only non-Figma tokens are kept here. */
-[data-theme="kk-orange"] {
+/* --- Tema: kk-group — semantic colors come from the synced FIGMA TOKENS
+   [data-theme="kk-group"] block above; only non-Figma tokens are kept here. */
+[data-theme="kk-group"] {
   --success:             oklch(0.72 0.19 150);
   --success-foreground:  oklch(0.205 0 0);
   --warning:             oklch(0.77 0.16 70);
