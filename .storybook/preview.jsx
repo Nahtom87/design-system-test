@@ -22,10 +22,13 @@ const preview = {
     (Story, context) => {
       const theme = context.globals.theme || 'light';
       const bg = theme === 'light' ? '#ffffff' : '#0a0a0a';
+      // In docs, each Canvas should fit its content; only fill the viewport
+      // in the standalone story view.
+      const isDocs = context.viewMode === 'docs';
       return (
         <div
           data-theme={theme}
-          style={{ background: bg, padding: '24px', minHeight: '100vh' }}
+          style={{ background: bg, padding: '24px', minHeight: isDocs ? 'auto' : '100vh' }}
         >
           <Story />
         </div>
