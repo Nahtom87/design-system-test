@@ -15,9 +15,9 @@ import { cn } from "@/lib/utils"
 const toggleVariants = cva(
   [
     "inline-flex items-center justify-center gap-2",
-    "font-['IBM_Plex_Sans',system-ui,sans-serif] font-medium text-[14px] leading-[20px] text-[#0a0a0a]",
+    "font-sans font-medium text-[14px] leading-[20px] text-foreground",
     "whitespace-nowrap transition-all outline-none",
-    "focus-visible:ring-[3px] focus-visible:ring-[#d4d4d4]",
+    "focus-visible:ring-[3px] focus-visible:ring-ring/50",
     "disabled:pointer-events-none disabled:opacity-50",
     "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg]:size-4",
   ],
@@ -27,14 +27,14 @@ const toggleVariants = cva(
         // Default: ingen border
         default: [
           "bg-transparent",
-          "hover:bg-[rgba(0,0,0,0.05)]",
-          "data-[state=on]:bg-[rgba(0,0,0,0.05)]",
+          "hover:bg-accent hover:text-accent-foreground",
+          "data-[state=on]:bg-accent data-[state=on]:text-accent-foreground",
         ],
         // Outline: border #e5e5e5
         outline: [
-          "bg-transparent border border-[#e5e5e5]",
-          "hover:bg-[rgba(0,0,0,0.03)]",
-          "data-[state=on]:bg-[rgba(0,0,0,0.05)] data-[state=on]:border-[#d4d4d4]",
+          "bg-transparent border border-border",
+          "hover:bg-accent hover:text-accent-foreground",
+          "data-[state=on]:bg-accent data-[state=on]:text-accent-foreground data-[state=on]:border-ring",
         ],
       },
       size: {

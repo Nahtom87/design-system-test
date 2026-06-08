@@ -13,47 +13,42 @@ import { cn } from "@/lib/utils"
 const buttonVariants = cva(
   [
     "inline-flex items-center justify-center gap-2 whitespace-nowrap",
-    "font-['IBM_Plex_Sans',system-ui,sans-serif] font-medium",
+    "font-sans font-medium",
     "transition-colors outline-none select-none",
     "disabled:pointer-events-none disabled:opacity-50",
-    "focus-visible:ring-[3px]",
+    "focus-visible:ring-[3px] focus-visible:ring-ring/50",
     "[&_svg]:pointer-events-none [&_svg]:shrink-0",
   ],
   {
     variants: {
       variant: {
         primary: [
-          "bg-[#171717] text-[#fafafa]",
-          "hover:bg-[#404040]",
-          "focus-visible:ring-[#d4d4d4]",
+          "bg-primary text-primary-foreground",
+          "hover:bg-primary/90",
         ],
         secondary: [
-          "bg-[#f5f5f5] text-[#171717]",
-          "hover:bg-[#e5e5e5]",
-          "focus-visible:ring-[#d4d4d4]",
+          "bg-secondary text-secondary-foreground",
+          "hover:bg-secondary/80",
         ],
         outline: [
-          "bg-transparent border border-[#e5e5e5] text-[#0a0a0a]",
-          "hover:bg-[rgba(0,0,0,0.03)]",
-          "focus-visible:ring-[#d4d4d4]",
+          "border border-input bg-background text-foreground",
+          "hover:bg-accent hover:text-accent-foreground",
         ],
         ghost: [
-          "bg-transparent text-[#0a0a0a]",
-          "hover:bg-[rgba(0,0,0,0.05)]",
-          "focus-visible:ring-[#d4d4d4]",
+          "text-foreground",
+          "hover:bg-accent hover:text-accent-foreground",
         ],
         destructive: [
-          "bg-[#dc2626] text-white",
-          "hover:bg-[#b91c1c]",
-          "focus-visible:ring-[#fca5a5]",
+          "bg-destructive text-white",
+          "hover:bg-destructive/90",
+          "focus-visible:ring-destructive/30",
         ],
         // Alias for shadcn compatibility
         default: [
-          "bg-[#171717] text-[#fafafa]",
-          "hover:bg-[#404040]",
-          "focus-visible:ring-[#d4d4d4]",
+          "bg-primary text-primary-foreground",
+          "hover:bg-primary/90",
         ],
-        link: "text-[#171717] underline-offset-4 hover:underline",
+        link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
         mini:          "h-6 px-2 py-0.5 text-[12px] leading-[16px] [&_svg]:size-3",

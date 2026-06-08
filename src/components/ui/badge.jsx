@@ -13,19 +13,19 @@ const badgeVariants = cva(
       variant: {
         // Primary: #171717 bg, #fafafa text — fra --general/primary
         primary:
-          "bg-[#171717] text-[#fafafa] focus-visible:ring-[#d4d4d4]",
+          "bg-primary text-primary-foreground focus-visible:ring-ring/50",
         // Secondary: #f5f5f5 bg, #171717 text — fra --general/secondary
         secondary:
-          "bg-[#f5f5f5] text-[#171717] focus-visible:ring-[#d4d4d4]",
+          "bg-secondary text-secondary-foreground focus-visible:ring-ring/50",
         // Outline: transparent bg, border, #0a0a0a text
         outline:
-          "bg-transparent border border-[#e5e5e5] text-[#0a0a0a] focus-visible:ring-[#d4d4d4]",
+          "bg-transparent border border-border text-foreground focus-visible:ring-ring/50",
         // Ghost: transparent bg, #0a0a0a text
         ghost:
-          "bg-transparent text-[#0a0a0a] focus-visible:ring-[#d4d4d4]",
+          "bg-transparent text-foreground focus-visible:ring-ring/50",
         // Destructive: #dc2626 bg, hvid text
         destructive:
-          "bg-[#dc2626] text-white focus-visible:ring-[#fca5a5]",
+          "bg-destructive text-white focus-visible:ring-destructive/30",
       },
       roundness: {
         // Default: rounded-lg = 8px — fra --rounded-lg

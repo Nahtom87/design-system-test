@@ -24,7 +24,7 @@ function TabsList({ className, ...props }) {
       data-slot="tabs-list"
       className={cn(
         "inline-flex items-center gap-1 p-1",
-        "bg-[#f5f5f5] rounded-[10px]",
+        "bg-muted rounded-[10px]",
         className
       )}
       {...props}
@@ -42,15 +42,15 @@ function TabsTrigger({ className, ...props }) {
         "min-h-[29px] min-w-[29px] px-2 py-1",
         "rounded-[8px]",
         // Typografi
-        "font-['IBM_Plex_Sans',system-ui,sans-serif] font-medium text-[14px] leading-[20px]",
+        "font-sans font-medium text-[14px] leading-[20px]",
         "whitespace-nowrap",
         // Inactive
-        "text-[#737373] transition-all",
+        "text-muted-foreground transition-all",
         // Active
-        "data-[state=active]:bg-white data-[state=active]:text-[#0a0a0a]",
+        "data-[state=active]:bg-card data-[state=active]:text-foreground",
         "data-[state=active]:shadow-[0px_1px_2px_0px_rgba(0,0,0,0.08)]",
         // Focus
-        "outline-none focus-visible:ring-[3px] focus-visible:ring-[#d4d4d4]",
+        "outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50",
         // Disabled
         "disabled:pointer-events-none disabled:opacity-50",
         "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg]:size-4",

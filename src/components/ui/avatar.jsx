@@ -75,7 +75,7 @@ function AvatarFallback({ className, size = "regular", ...props }) {
       data-slot="avatar-fallback"
       className={cn(
         "flex size-full items-center justify-center",
-        "bg-[#f5f5f5] text-[#0a0a0a] font-[family-name:'IBM_Plex_Sans',system-ui,sans-serif]",
+        "bg-accent text-accent-foreground font-sans",
         textClass,
         className
       )}

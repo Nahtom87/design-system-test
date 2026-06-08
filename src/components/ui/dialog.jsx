@@ -49,7 +49,7 @@ function DialogContent({ className, children, showCloseButton = true, ...props }
           "fixed top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2",
           "flex flex-col w-full max-w-[640px] max-h-[90vh] overflow-hidden",
           // Stil fra Figma
-          "bg-white border border-[#e5e5e5] rounded-[10px]",
+          "bg-background border border-border rounded-[10px]",
           "shadow-[0px_10px_15px_-3px_rgba(0,0,0,0.1),0px_4px_6px_-4px_rgba(0,0,0,0.1)]",
           "outline-none",
           "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
@@ -62,7 +62,7 @@ function DialogContent({ className, children, showCloseButton = true, ...props }
         {showCloseButton && (
           <DialogPrimitive.Close
             data-slot="dialog-close"
-            className="absolute top-4 right-4 text-[#737373] hover:text-[#0a0a0a] transition-colors outline-none focus-visible:ring-[3px] focus-visible:ring-[#d4d4d4] rounded-[4px]"
+            className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 rounded-[4px]"
           >
             <XIcon className="size-4" />
             <span className="sr-only">Luk</span>
@@ -89,7 +89,7 @@ function DialogFooter({ className, children, ...props }) {
       data-slot="dialog-footer"
       className={cn(
         "flex items-center justify-end gap-2 px-6 py-4",
-        "border-t border-[#e5e5e5] bg-[#fafafa]",
+        "border-t border-border bg-muted",
         className
       )}
       {...props}
@@ -104,7 +104,7 @@ function DialogTitle({ className, ...props }) {
     <DialogPrimitive.Title
       data-slot="dialog-title"
       className={cn(
-        "font-['IBM_Plex_Sans',system-ui,sans-serif] font-medium text-[16px] leading-[24px] text-[#0a0a0a]",
+        "font-sans font-medium text-[16px] leading-[24px] text-foreground",
         className
       )}
       {...props}
@@ -117,7 +117,7 @@ function DialogDescription({ className, ...props }) {
     <DialogPrimitive.Description
       data-slot="dialog-description"
       className={cn(
-        "font-['IBM_Plex_Sans',system-ui,sans-serif] font-normal text-[14px] leading-[20px] text-[#737373]",
+        "font-sans font-normal text-[14px] leading-[20px] text-muted-foreground",
         className
       )}
       {...props}

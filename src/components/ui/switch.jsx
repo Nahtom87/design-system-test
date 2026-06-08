@@ -21,13 +21,13 @@ function Switch({ className, ...props }) {
         // Shadow
         "shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)]",
         // Off state: #e5e5e5
-        "bg-[#e5e5e5]",
+        "bg-input",
         // On state: #171717
-        "data-[state=checked]:bg-[#171717]",
+        "data-[state=checked]:bg-primary",
         // Transition
         "transition-colors outline-none",
         // Focus
-        "focus-visible:ring-[3px] focus-visible:ring-[#d4d4d4]",
+        "focus-visible:ring-[3px] focus-visible:ring-ring/50",
         // Disabled
         "disabled:cursor-not-allowed disabled:opacity-50",
         className
@@ -38,7 +38,7 @@ function Switch({ className, ...props }) {
         data-slot="switch-thumb"
         className={cn(
           // Hvid cirkel, 14px
-          "pointer-events-none block size-[14px] rounded-full bg-white",
+          "pointer-events-none block size-[14px] rounded-full bg-background",
           "shadow-[0px_1px_2px_0px_rgba(0,0,0,0.15)]",
           "transition-transform duration-200",
           // Position: off=left, on=right

@@ -23,18 +23,18 @@ function RadioGroupItem({ className, ...props }) {
       data-slot="radio-group-item"
       className={cn(
         "relative flex size-4 shrink-0 items-center justify-center rounded-full",
-        "border border-[#d4d4d4] bg-white",
+        "border border-input bg-background",
         "shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)]",
         "outline-none transition-colors",
-        "focus-visible:ring-[3px] focus-visible:ring-[#d4d4d4]",
-        "data-[state=checked]:border-[#171717] data-[state=checked]:bg-[#171717]",
+        "focus-visible:ring-[3px] focus-visible:ring-ring/50",
+        "data-[state=checked]:border-primary data-[state=checked]:bg-primary",
         "disabled:cursor-not-allowed disabled:opacity-50",
         className
       )}
       {...props}
     >
       <RadioGroupPrimitive.Indicator className="flex items-center justify-center">
-        <span className="size-[6px] rounded-full bg-white" />
+        <span className="size-[6px] rounded-full bg-primary-foreground" />
       </RadioGroupPrimitive.Indicator>
     </RadioGroupPrimitive.Item>
   )

@@ -12,9 +12,9 @@ function Card({ className, ...props }) {
       data-slot="card"
       className={cn(
         "flex flex-col overflow-hidden",
-        "bg-white border border-[#e5e5e5] rounded-[10px]",
+        "bg-card text-card-foreground border border-border rounded-[10px]",
         "shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.1),0px_2px_4px_-2px_rgba(0,0,0,0.1)]",
-        "font-['IBM_Plex_Sans',system-ui,sans-serif] text-[14px]",
+        "font-sans text-[14px]",
         className
       )}
       {...props}
@@ -36,7 +36,7 @@ function CardTitle({ className, ...props }) {
   return (
     <div
       data-slot="card-title"
-      className={cn("font-medium text-[16px] leading-[24px] text-[#0a0a0a]", className)}
+      className={cn("font-medium text-[16px] leading-[24px] text-card-foreground", className)}
       {...props}
     />
   )
@@ -46,7 +46,7 @@ function CardDescription({ className, ...props }) {
   return (
     <div
       data-slot="card-description"
-      className={cn("text-[14px] leading-[20px] text-[#737373]", className)}
+      className={cn("text-[14px] leading-[20px] text-muted-foreground", className)}
       {...props}
     />
   )
@@ -68,7 +68,7 @@ function CardFooter({ className, ...props }) {
       data-slot="card-footer"
       className={cn(
         "flex items-center justify-end gap-2 px-4 py-3",
-        "border-t border-[#e5e5e5] bg-[#fafafa]",
+        "border-t border-border bg-muted",
         className
       )}
       {...props}

@@ -12,19 +12,19 @@ const alertVariants = cva(
   [
     "relative flex w-full gap-4 items-center overflow-hidden",
     "px-4 py-3 rounded-[8px] border",
-    "font-['IBM_Plex_Sans',system-ui,sans-serif] text-[14px] leading-[20px]",
+    "font-sans text-[14px] leading-[20px]",
   ],
   {
     variants: {
       variant: {
         // Neutral: hvid bg, grå border
-        default:     "bg-white border-[#e5e5e5] text-[#0a0a0a]",
+        default:     "bg-card border-border text-foreground",
         // Destructive: rød toning
-        destructive: "bg-[#fef2f2] border-[#fca5a5] text-[#dc2626]",
+        destructive: "bg-destructive/10 border-destructive/30 text-destructive",
         // Success
-        success:     "bg-[#f0fdf4] border-[#86efac] text-[#16a34a]",
+        success:     "bg-green-50 border-green-300 text-green-600",
         // Warning
-        warning:     "bg-[#fffbeb] border-[#fcd34d] text-[#d97706]",
+        warning:     "bg-amber-50 border-amber-300 text-amber-600",
       },
     },
     defaultVariants: { variant: "default" },
@@ -56,7 +56,7 @@ function AlertDescription({ className, ...props }) {
   return (
     <div
       data-slot="alert-description"
-      className={cn("font-normal text-[14px] leading-[20px] text-[#737373]", className)}
+      className={cn("font-normal text-[14px] leading-[20px] text-muted-foreground", className)}
       {...props}
     />
   )

@@ -26,10 +26,10 @@ function SheetOverlay({ className, ...props }) {
 }
 
 const sideClasses = {
-  right:  "inset-y-0 right-0 h-full w-[342px] border-l border-[#e5e5e5] data-[state=open]:slide-in-from-right data-[state=closed]:slide-out-to-right",
-  left:   "inset-y-0 left-0 h-full w-[342px] border-r border-[#e5e5e5] data-[state=open]:slide-in-from-left data-[state=closed]:slide-out-to-left",
-  top:    "inset-x-0 top-0 border-b border-[#e5e5e5] data-[state=open]:slide-in-from-top data-[state=closed]:slide-out-to-top",
-  bottom: "inset-x-0 bottom-0 border-t border-[#e5e5e5] data-[state=open]:slide-in-from-bottom data-[state=closed]:slide-out-to-bottom",
+  right:  "inset-y-0 right-0 h-full w-[342px] border-l border-border data-[state=open]:slide-in-from-right data-[state=closed]:slide-out-to-right",
+  left:   "inset-y-0 left-0 h-full w-[342px] border-r border-border data-[state=open]:slide-in-from-left data-[state=closed]:slide-out-to-left",
+  top:    "inset-x-0 top-0 border-b border-border data-[state=open]:slide-in-from-top data-[state=closed]:slide-out-to-top",
+  bottom: "inset-x-0 bottom-0 border-t border-border data-[state=open]:slide-in-from-bottom data-[state=closed]:slide-out-to-bottom",
 }
 
 function SheetContent({ className, children, side = "right", showCloseButton = true, ...props }) {
@@ -39,7 +39,7 @@ function SheetContent({ className, children, side = "right", showCloseButton = t
       <SheetPrimitive.Content
         data-slot="sheet-content"
         className={cn(
-          "fixed z-50 flex flex-col bg-white",
+          "fixed z-50 flex flex-col bg-background",
           "shadow-[0px_10px_15px_-3px_rgba(0,0,0,0.1),0px_4px_6px_-4px_rgba(0,0,0,0.1)]",
           "transition-transform duration-200 ease-in-out",
           "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
@@ -49,7 +49,7 @@ function SheetContent({ className, children, side = "right", showCloseButton = t
         {...props}
       >
         {showCloseButton && (
-          <SheetPrimitive.Close className="absolute top-4 right-4 text-[#737373] hover:text-[#0a0a0a] transition-colors outline-none focus-visible:ring-[3px] focus-visible:ring-[#d4d4d4] rounded-[4px]">
+          <SheetPrimitive.Close className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition-colors outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 rounded-[4px]">
             <XIcon className="size-4" />
             <span className="sr-only">Luk</span>
           </SheetPrimitive.Close>
@@ -65,14 +65,14 @@ function SheetHeader({ className, ...props }) {
 }
 
 function SheetFooter({ className, ...props }) {
-  return <div data-slot="sheet-footer" className={cn("mt-auto flex items-center justify-end gap-2 px-4 py-4 border-t border-[#e5e5e5]", className)} {...props} />
+  return <div data-slot="sheet-footer" className={cn("mt-auto flex items-center justify-end gap-2 px-4 py-4 border-t border-border", className)} {...props} />
 }
 
 function SheetTitle({ className, ...props }) {
   return (
     <SheetPrimitive.Title
       data-slot="sheet-title"
-      className={cn("font-['IBM_Plex_Sans',system-ui,sans-serif] font-medium text-[16px] leading-[24px] text-[#0a0a0a]", className)}
+      className={cn("font-sans font-medium text-[16px] leading-[24px] text-foreground", className)}
       {...props}
     />
   )
@@ -82,7 +82,7 @@ function SheetDescription({ className, ...props }) {
   return (
     <SheetPrimitive.Description
       data-slot="sheet-description"
-      className={cn("font-['IBM_Plex_Sans',system-ui,sans-serif] font-normal text-[14px] leading-[20px] text-[#737373]", className)}
+      className={cn("font-sans font-normal text-[14px] leading-[20px] text-muted-foreground", className)}
       {...props}
     />
   )

@@ -23,7 +23,7 @@ function AccordionItem({ className, ...props }) {
     <AccordionPrimitive.Item
       data-slot="accordion-item"
       className={cn(
-        "border border-[#e5e5e5] rounded-[8px] mb-1 overflow-hidden",
+        "border border-border rounded-[8px] mb-1 overflow-hidden",
         className
       )}
       {...props}
@@ -40,10 +40,10 @@ function AccordionTrigger({ className, children, ...props }) {
           // Base — IBM Plex Sans Medium, 14px, #0a0a0a
           "flex flex-1 items-center justify-between w-full",
           "px-4 py-4",
-          "font-['IBM_Plex_Sans',system-ui,sans-serif] font-medium text-[14px] leading-[20px] text-[#0a0a0a] text-left",
-          "bg-white transition-colors",
+          "font-sans font-medium text-[14px] leading-[20px] text-foreground text-left",
+          "bg-card transition-colors",
           // Focus
-          "outline-none focus-visible:ring-[3px] focus-visible:ring-[#d4d4d4]",
+          "outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50",
           // Disabled
           "disabled:pointer-events-none disabled:opacity-50",
           // Chevron roterer ved åbning
@@ -53,7 +53,7 @@ function AccordionTrigger({ className, children, ...props }) {
         {...props}
       >
         {children}
-        <ChevronDownIcon className="size-4 shrink-0 text-[#737373] transition-transform duration-200" />
+        <ChevronDownIcon className="size-4 shrink-0 text-muted-foreground transition-transform duration-200" />
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
   )
@@ -68,7 +68,7 @@ function AccordionContent({ className, children, ...props }) {
     >
       <div className={cn(
         "px-4 pb-4 pt-0",
-        "font-['IBM_Plex_Sans',system-ui,sans-serif] text-[14px] leading-[20px] text-[#404040]",
+        "font-sans text-[14px] leading-[20px] text-muted-foreground",
         className
       )}>
         {children}

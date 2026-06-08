@@ -11,8 +11,8 @@ function Kbd({ className, ...props }) {
       className={cn(
         "pointer-events-none inline-flex items-center justify-center select-none",
         "px-1 py-0.5 rounded-[4px]",
-        "bg-[#f5f5f5] text-[#737373]",
-        "font-['IBM_Plex_Sans',system-ui,sans-serif] font-normal text-[12px] leading-[16px]",
+        "bg-muted text-muted-foreground",
+        "font-sans font-normal text-[12px] leading-[16px]",
         "whitespace-nowrap",
         className
       )}

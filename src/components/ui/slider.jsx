@@ -33,11 +33,11 @@ function Slider({ className, defaultValue, value, min = 0, max = 100, ...props }
     >
       <SliderPrimitive.Track
         data-slot="slider-track"
-        className="relative grow overflow-hidden rounded-[10px] bg-[#d4d4d4] h-[6px] w-full"
+        className="relative grow overflow-hidden rounded-[10px] bg-muted h-[6px] w-full"
       >
         <SliderPrimitive.Range
           data-slot="slider-range"
-          className="absolute h-full bg-[#171717]"
+          className="absolute h-full bg-primary"
         />
       </SliderPrimitive.Track>
 
@@ -48,11 +48,11 @@ function Slider({ className, defaultValue, value, min = 0, max = 100, ...props }
           className={cn(
             // Størrelse: 14px, hvid med sort border — fra Figma
             "relative block size-[14px] shrink-0 rounded-full",
-            "bg-white border border-[#0a0a0a]",
+            "bg-background border border-foreground",
             "shadow-[0px_1px_2px_0px_rgba(0,0,0,0.15)]",
             "transition-shadow outline-none",
             "after:absolute after:-inset-2",
-            "focus-visible:ring-[3px] focus-visible:ring-[#d4d4d4]",
+            "focus-visible:ring-[3px] focus-visible:ring-ring/50",
             "disabled:pointer-events-none disabled:opacity-50",
           )}
         />

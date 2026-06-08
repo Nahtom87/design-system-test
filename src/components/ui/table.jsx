@@ -28,7 +28,7 @@ function TableHeader({ className, ...props }) {
   return (
     <thead
       data-slot="table-header"
-      className={cn("[&_tr]:border-b [&_tr]:border-[#e5e5e5]", className)}
+      className={cn("[&_tr]:border-b [&_tr]:border-border", className)}
       {...props}
     />
   )
@@ -48,7 +48,7 @@ function TableFooter({ className, ...props }) {
   return (
     <tfoot
       data-slot="table-footer"
-      className={cn("border-t border-[#e5e5e5] bg-[#fafafa] font-medium [&>tr]:last:border-b-0", className)}
+      className={cn("border-t border-border bg-muted font-medium [&>tr]:last:border-b-0", className)}
       {...props}
     />
   )
@@ -59,9 +59,9 @@ function TableRow({ className, ...props }) {
     <tr
       data-slot="table-row"
       className={cn(
-        "border-b border-[#e5e5e5] transition-colors",
-        "hover:bg-[#fafafa]",
-        "data-[state=selected]:bg-[#f5f5f5]",
+        "border-b border-border transition-colors",
+        "hover:bg-accent",
+        "data-[state=selected]:bg-accent",
         className
       )}
       {...props}
@@ -76,7 +76,7 @@ function TableHead({ className, ...props }) {
       className={cn(
         // Fra Figma: IBM Plex Sans Medium 14px, #0a0a0a, px-2 py-2
         "px-2 py-2 text-left align-middle",
-        "font-medium text-[14px] leading-[20px] text-[#0a0a0a]",
+        "font-medium text-[14px] leading-[20px] text-foreground",
         "whitespace-nowrap",
         "[&:has([role=checkbox])]:pr-0",
         className
@@ -93,7 +93,7 @@ function TableCell({ className, ...props }) {
       className={cn(
         // Fra Figma: IBM Plex Sans Regular 16px, #0a0a0a, p-2, h-[38px]
         "p-2 h-[38px] align-middle",
-        "font-normal text-[16px] leading-[24px] text-[#0a0a0a]",
+        "font-normal text-[16px] leading-[24px] text-foreground",
         "whitespace-nowrap",
         "[&:has([role=checkbox])]:pr-0",
         className
@@ -107,7 +107,7 @@ function TableCaption({ className, ...props }) {
   return (
     <caption
       data-slot="table-caption"
-      className={cn("mt-4 text-[14px] text-[#737373]", className)}
+      className={cn("mt-4 text-[14px] text-muted-foreground", className)}
       {...props}
     />
   )

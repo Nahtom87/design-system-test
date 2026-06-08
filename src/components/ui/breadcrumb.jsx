@@ -19,7 +19,7 @@ function BreadcrumbList({ className, ...props }) {
       data-slot="breadcrumb-list"
       className={cn(
         "flex flex-wrap items-center gap-1",
-        "font-['IBM_Plex_Sans',system-ui,sans-serif] font-normal text-[14px] leading-[20px]",
+        "font-sans font-normal text-[14px] leading-[20px]",
         className
       )}
       {...props}
@@ -37,7 +37,7 @@ function BreadcrumbLink({ asChild, className, ...props }) {
     <Comp
       data-slot="breadcrumb-link"
       className={cn(
-        "text-[#737373] hover:text-[#0a0a0a] transition-colors",
+        "text-muted-foreground hover:text-foreground transition-colors",
         className
       )}
       {...props}
@@ -52,7 +52,7 @@ function BreadcrumbPage({ className, ...props }) {
       role="link"
       aria-disabled="true"
       aria-current="page"
-      className={cn("text-[#0a0a0a] font-normal", className)}
+      className={cn("text-foreground font-normal", className)}
       {...props}
     />
   )
@@ -64,7 +64,7 @@ function BreadcrumbSeparator({ children, className, ...props }) {
       data-slot="breadcrumb-separator"
       role="presentation"
       aria-hidden="true"
-      className={cn("text-[#737373] [&>svg]:size-[14px]", className)}
+      className={cn("text-muted-foreground [&>svg]:size-[14px]", className)}
       {...props}
     >
       {children ?? <ChevronRightIcon />}
@@ -78,7 +78,7 @@ function BreadcrumbEllipsis({ className, ...props }) {
       data-slot="breadcrumb-ellipsis"
       role="presentation"
       aria-hidden="true"
-      className={cn("flex size-5 items-center justify-center text-[#737373] [&>svg]:size-4", className)}
+      className={cn("flex size-5 items-center justify-center text-muted-foreground [&>svg]:size-4", className)}
       {...props}
     >
       <MoreHorizontalIcon />

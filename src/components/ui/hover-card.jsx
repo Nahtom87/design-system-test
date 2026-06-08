@@ -23,9 +23,9 @@ function HoverCardContent({ className, align = "center", sideOffset = 6, ...prop
         className={cn(
           "z-50 w-[200px] outline-none",
           // Fra Figma: white bg, border #e5e5e5, rounded-8px, p-2, shadow-md
-          "bg-white border border-[#e5e5e5] rounded-[8px] p-2",
+          "bg-popover border border-border rounded-[8px] p-2",
           "shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.1),0px_2px_4px_-2px_rgba(0,0,0,0.1)]",
-          "font-['IBM_Plex_Sans',system-ui,sans-serif] text-[14px] text-[#0a0a0a]",
+          "font-sans text-[14px] text-popover-foreground",
           "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95",
           "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95",
           "data-[side=bottom]:slide-in-from-top-2 data-[side=top]:slide-in-from-bottom-2",

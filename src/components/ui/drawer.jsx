@@ -50,14 +50,14 @@ function DrawerContent({ className, children, ...props }) {
           "fixed bottom-0 inset-x-0 z-50 flex flex-col",
           "max-h-[80vh] mt-24",
           // Stil fra Figma
-          "bg-white rounded-tl-[10px] rounded-tr-[10px]",
+          "bg-background rounded-tl-[10px] rounded-tr-[10px]",
           "shadow-[0px_10px_15px_-3px_rgba(0,0,0,0.1),0px_4px_6px_-4px_rgba(0,0,0,0.1)]",
           className
         )}
         {...props}
       >
         {/* Handle fra Figma: 50x3px, bg #f5f5f5, centreret */}
-        <div className="mx-auto mt-2 h-[3px] w-[50px] shrink-0 rounded-full bg-[#f5f5f5]" />
+        <div className="mx-auto mt-2 h-[3px] w-[50px] shrink-0 rounded-full bg-muted" />
         {children}
       </DrawerPrimitive.Content>
     </DrawerPortal>
@@ -78,7 +78,7 @@ function DrawerFooter({ className, ...props }) {
   return (
     <div
       data-slot="drawer-footer"
-      className={cn("mt-auto flex items-center justify-end gap-2 px-4 py-4 border-t border-[#e5e5e5]", className)}
+      className={cn("mt-auto flex items-center justify-end gap-2 px-4 py-4 border-t border-border", className)}
       {...props}
     />
   )
@@ -89,7 +89,7 @@ function DrawerTitle({ className, ...props }) {
     <DrawerPrimitive.Title
       data-slot="drawer-title"
       className={cn(
-        "font-['IBM_Plex_Sans',system-ui,sans-serif] font-medium text-[16px] leading-[24px] text-[#0a0a0a]",
+        "font-sans font-medium text-[16px] leading-[24px] text-foreground",
         className
       )}
       {...props}
@@ -102,7 +102,7 @@ function DrawerDescription({ className, ...props }) {
     <DrawerPrimitive.Description
       data-slot="drawer-description"
       className={cn(
-        "font-['IBM_Plex_Sans',system-ui,sans-serif] font-normal text-[14px] leading-[20px] text-[#737373]",
+        "font-sans font-normal text-[14px] leading-[20px] text-muted-foreground",
         className
       )}
       {...props}

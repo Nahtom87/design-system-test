@@ -12,7 +12,7 @@ function Label({ className, ...props }) {
       data-slot="label"
       className={cn(
         "inline-flex items-center gap-2 select-none",
-        "font-['IBM_Plex_Sans',system-ui,sans-serif] font-medium text-[14px] leading-[20px] text-[#0a0a0a]",
+        "font-sans font-medium text-[14px] leading-[20px] text-foreground",
         "peer-disabled:cursor-not-allowed peer-disabled:opacity-50",
         "group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50",
         className

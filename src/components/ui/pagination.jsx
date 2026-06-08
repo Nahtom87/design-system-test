@@ -12,13 +12,13 @@ const PaginationBtn = ({ className, isActive, children, ...props }) => (
     className={cn(
       "inline-flex items-center justify-center",
       "min-h-[36px] min-w-[34px] px-3 py-2",
-      "border border-[#e5e5e5] rounded-[8px]",
+      "border border-border rounded-[8px]",
       "shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)]",
-      "font-['IBM_Plex_Sans',system-ui,sans-serif] font-medium text-[14px] leading-[20px] text-[#0a0a0a]",
+      "font-sans font-medium text-[14px] leading-[20px] text-foreground",
       "cursor-pointer transition-colors select-none text-decoration-none",
-      "hover:bg-[#f5f5f5]",
-      isActive && "bg-white border-[#d4d4d4] font-bold",
-      !isActive && "bg-white",
+      "hover:bg-accent hover:text-accent-foreground",
+      isActive && "bg-background border-border font-bold",
+      !isActive && "bg-background",
       className
     )}
     aria-current={isActive ? "page" : undefined}
@@ -81,7 +81,7 @@ function PaginationEllipsis({ className, ...props }) {
     <span
       aria-hidden
       data-slot="pagination-ellipsis"
-      className={cn("flex items-center justify-center min-h-[36px] min-w-[34px] text-[#737373]", className)}
+      className={cn("flex items-center justify-center min-h-[36px] min-w-[34px] text-muted-foreground", className)}
       {...props}
     >
       <MoreHorizontalIcon className="size-4" />

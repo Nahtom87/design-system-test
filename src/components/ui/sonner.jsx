@@ -20,16 +20,16 @@ function Toaster({ ...props }) {
         loading: <Loader2Icon className="size-4 animate-spin" />,
       }}
       style={{
-        "--normal-bg":     "#ffffff",
-        "--normal-text":   "#0a0a0a",
-        "--normal-border": "#e5e5e5",
+        "--normal-bg":     "var(--popover)",
+        "--normal-text":   "var(--popover-foreground)",
+        "--normal-border": "var(--border)",
         "--border-radius": "8px",
         "--font-family":   "'IBM Plex Sans', system-ui, sans-serif",
         "--font-size":     "14px",
         "--success-bg":    "#f0fdf4",
         "--success-text":  "#16a34a",
         "--error-bg":      "#fef2f2",
-        "--error-text":    "#dc2626",
+        "--error-text":    "var(--destructive)",
         "--warning-bg":    "#fffbeb",
         "--warning-text":  "#d97706",
       }}

@@ -47,7 +47,7 @@ function AlertDialogContent({ className, type = "mobile", ...props }) {
         className={cn(
           "fixed top-1/2 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2",
           "flex flex-col gap-4 w-full",
-          "bg-white border border-[#e5e5e5] rounded-[12px] p-8",
+          "bg-background border border-border rounded-[12px] p-8",
           "shadow-[0px_10px_15px_-3px_rgba(0,0,0,0.1),0px_4px_6px_-4px_rgba(0,0,0,0.1)]",
           "outline-none",
           // Mobile: 320px — Desktop: 480px
@@ -95,7 +95,7 @@ function AlertDialogTitle({ className, type = "mobile", ...props }) {
     <AlertDialogPrimitive.Title
       data-slot="alert-dialog-title"
       className={cn(
-        "font-['IBM_Plex_Sans',system-ui,sans-serif] font-medium text-[20px] leading-[24px] text-[#0a0a0a]",
+        "font-sans font-medium text-[20px] leading-[24px] text-foreground",
         isDesktop ? "text-left" : "text-center",
         className
       )}
@@ -111,7 +111,7 @@ function AlertDialogDescription({ className, type = "mobile", ...props }) {
     <AlertDialogPrimitive.Description
       data-slot="alert-dialog-description"
       className={cn(
-        "font-['IBM_Plex_Sans',system-ui,sans-serif] font-normal text-[14px] leading-[20px] text-[#737373]",
+        "font-sans font-normal text-[14px] leading-[20px] text-muted-foreground",
         isDesktop ? "text-left" : "text-center",
         className
       )}

@@ -21,16 +21,16 @@ function Checkbox({ className, error = false, ...props }) {
         "transition-colors outline-none",
         "shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)]",
         // Default state
-        !error && "border border-[#d4d4d4] bg-white",
+        !error && "border border-input bg-background",
         // Error state — rød border
-        error && "border border-[#dc2626] bg-white",
+        error && "border border-destructive bg-background",
         // Focus rings
-        !error && "focus-visible:ring-[3px] focus-visible:ring-[#d4d4d4]",
-        error && "focus-visible:ring-[3px] focus-visible:ring-[#fca5a5]",
+        !error && "focus-visible:ring-[3px] focus-visible:ring-ring/50",
+        error && "focus-visible:ring-[3px] focus-visible:ring-destructive/30",
         // Checked state
-        "data-[state=checked]:bg-[#171717] data-[state=checked]:border-[#171717] data-[state=checked]:text-white",
+        "data-[state=checked]:bg-primary data-[state=checked]:border-primary data-[state=checked]:text-primary-foreground",
         // Indeterminate state
-        "data-[state=indeterminate]:bg-[#171717] data-[state=indeterminate]:border-[#171717] data-[state=indeterminate]:text-white",
+        "data-[state=indeterminate]:bg-primary data-[state=indeterminate]:border-primary data-[state=indeterminate]:text-primary-foreground",
         // Disabled
         "disabled:cursor-not-allowed disabled:opacity-50",
         className
