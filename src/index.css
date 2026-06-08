@@ -100,11 +100,11 @@
   --destructive: #dc2626;
   --border: #e5e5e5;
   --input: #ffffff;
-  --focus-ring: #d4d4d4;
-  --card-card: #ffffff;
-  --card-card-foreground: #0a0a0a;
-  --popover-popover: #000000;
-  --popover-popover-foreground: #ffffff;
+  --ring: #d4d4d4;
+  --card: #ffffff;
+  --card-foreground: #0a0a0a;
+  --popover: #000000;
+  --popover-foreground: #ffffff;
   --unofficial-border-1: #f5f5f5;
   --unofficial-accent-2: #e5e5e5;
   --unofficial-accent-3: #d4d4d4;
@@ -316,11 +316,11 @@
   --destructive: #9e4042;
   --border: #404040;
   --input: rgba(255, 255, 255, 0.05);
-  --focus-ring: #404040;
-  --card-card: #171717;
-  --card-card-foreground: #ffffff;
-  --popover-popover: #ffffff;
-  --popover-popover-foreground: #000000;
+  --ring: #404040;
+  --card: #171717;
+  --card-foreground: #ffffff;
+  --popover: #ffffff;
+  --popover-foreground: #000000;
   --unofficial-border-1: #171717;
   --unofficial-accent-2: #262626;
   --unofficial-accent-3: #404040;
@@ -373,11 +373,11 @@
   --destructive: #dc2626;
   --border: #e5e5e5;
   --input: #ffffff;
-  --focus-ring: #d4d4d4;
-  --card-card: #ff7133;
-  --card-card-foreground: #0a0a0a;
-  --popover-popover: #000000;
-  --popover-popover-foreground: #ffffff;
+  --ring: #d4d4d4;
+  --card: #ff7133;
+  --card-foreground: #0a0a0a;
+  --popover: #000000;
+  --popover-foreground: #ffffff;
   --unofficial-border-1: #f5f5f5;
   --unofficial-accent-2: #e5e5e5;
   --unofficial-accent-3: #d4d4d4;
@@ -454,34 +454,27 @@
   --neutral-800: #262626;
   --neutral-900: #171717;
   --neutral-950: #0A0A0A;
-  --background:  oklch(1 0 0);
-  --foreground:  oklch(0.145 0 0);
-  --card:  oklch(1 0 0);
-  --card-foreground:  oklch(0.145 0 0);
-  --popover:  oklch(1 0 0);
-  --popover-foreground:  oklch(0.145 0 0);
-  --primary:  oklch(0.205 0 0);
-  --primary-foreground:  oklch(0.985 0 0);
-  --secondary:  oklch(0.97 0 0);
-  --secondary-foreground:  oklch(0.205 0 0);
-  --muted:  oklch(0.97 0 0);
-  --muted-foreground:  oklch(0.556 0 0);
-  --accent:  oklch(0.97 0 0);
-  --accent-foreground:  oklch(0.205 0 0);
-  --destructive:  oklch(0.577 0.245 27.325);
+
+  /* Semantic color tokens (background, foreground, primary, secondary, muted,
+     accent, destructive, border, input, ring, card, popover) and --radius are
+     generated in the FIGMA TOKENS block above (synced from Figma). Only tokens
+     NOT present in the Figma export are kept below. */
   --success:  oklch(0.627 0.17 149.2);
   --success-foreground:  oklch(1 0 0);
   --warning:  oklch(0.681 0.162 66);
   --warning-foreground:  oklch(0.205 0 0);
-  --border:  oklch(0.922 0 0);
-  --input:  oklch(0.922 0 0);
-  --ring:  oklch(0.708 0 0);
+
+  /* Override: the Figma `popover/popover` variable is inverted (black in the
+     light/shadcn mode). Restore correct values here until it is fixed in Figma
+     and re-synced. These win the cascade over the FIGMA TOKENS block above. */
+  --popover:  oklch(1 0 0);
+  --popover-foreground:  oklch(0.145 0 0);
+
   --chart-1:  oklch(0.87 0 0);
   --chart-2:  oklch(0.556 0 0);
   --chart-3:  oklch(0.439 0 0);
   --chart-4:  oklch(0.371 0 0);
   --chart-5:  oklch(0.269 0 0);
-  --radius:  0.625rem;
   --sidebar:  oklch(0.985 0 0);
   --sidebar-foreground:  oklch(0.145 0 0);
   --sidebar-primary:  oklch(0.205 0 0);
@@ -492,85 +485,33 @@
   --sidebar-ring:  oklch(0.708 0 0);
 }
 
-/* --- Tema: light (standard) -------------------------------- */
-[data-theme="light"] {
-  --background:          oklch(1 0 0);
-  --foreground:          oklch(0.145 0 0);
-  --card:                oklch(1 0 0);
-  --card-foreground:     oklch(0.145 0 0);
-  --popover:             oklch(1 0 0);
-  --popover-foreground:  oklch(0.145 0 0);
-  --primary:             oklch(0.205 0 0);
-  --primary-foreground:  oklch(0.985 0 0);
-  --secondary:           oklch(0.97 0 0);
-  --secondary-foreground:oklch(0.205 0 0);
-  --muted:               oklch(0.97 0 0);
-  --muted-foreground:    oklch(0.556 0 0);
-  --accent:              oklch(0.97 0 0);
-  --accent-foreground:   oklch(0.205 0 0);
-  --destructive:         oklch(0.577 0.245 27.325);
-  --success:             oklch(0.627 0.17 149.2);
-  --success-foreground:  oklch(1 0 0);
-  --warning:             oklch(0.681 0.162 66);
-  --warning-foreground:  oklch(0.205 0 0);
-  --border:              oklch(0.922 0 0);
-  --input:               oklch(0.922 0 0);
-  --ring:                oklch(0.708 0 0);
-  --radius:              0.5rem;
-}
+/* Light theme = :root defaults (synced FIGMA TOKENS shadcn mode). No override
+   block needed. */
 
-/* --- Tema: dark ------------------------------------------ */
+/* --- Tema: dark — semantic colors come from the synced FIGMA TOKENS
+   [data-theme="dark"] block above; only non-Figma tokens are kept here. */
 [data-theme="dark"] {
-  --background:          oklch(0.145 0 0);
-  --foreground:          oklch(0.985 0 0);
-  --card:                oklch(0.205 0 0);
-  --card-foreground:     oklch(0.985 0 0);
-  --popover:             oklch(0.205 0 0);
-  --popover-foreground:  oklch(0.985 0 0);
-  --primary:             oklch(0.922 0 0);
-  --primary-foreground:  oklch(0.205 0 0);
-  --secondary:           oklch(0.269 0 0);
-  --secondary-foreground:oklch(0.985 0 0);
-  --muted:               oklch(0.269 0 0);
-  --muted-foreground:    oklch(0.708 0 0);
-  --accent:              oklch(0.269 0 0);
-  --accent-foreground:   oklch(0.985 0 0);
-  --destructive:         oklch(0.704 0.191 22.216);
   --success:             oklch(0.72 0.19 150);
   --success-foreground:  oklch(0.205 0 0);
   --warning:             oklch(0.77 0.16 70);
   --warning-foreground:  oklch(0.205 0 0);
-  --border:              oklch(1 0 0 / 10%);
-  --input:               oklch(1 0 0 / 15%);
-  --ring:                oklch(0.556 0 0);
+  /* Override inverted Figma popover (synced value is white in dark). */
+  --popover:             oklch(0.205 0 0);
+  --popover-foreground:  oklch(0.985 0 0);
 }
 
-/* --- Tema: kk-orange (KK Group brandtema) ---------------- */
-/* Primær: #EF3407 = oklch(0.527 0.213 29.2) */
+/* --- Tema: kk-orange — semantic colors come from the synced FIGMA TOKENS
+   [data-theme="kk-orange"] block above; only non-Figma tokens are kept here. */
 [data-theme="kk-orange"] {
-  --background:          oklch(0.145 0 0);
-  --foreground:          oklch(0.985 0 0);
-  --card:                oklch(0.205 0 0);
-  --card-foreground:     oklch(0.985 0 0);
-  --popover:             oklch(0.205 0 0);
-  --popover-foreground:  oklch(0.985 0 0);
-  --primary:             oklch(0.527 0.213 29.2);   /* #EF3407 brand orange */
-  --primary-foreground:  oklch(1 0 0);
-  --secondary:           oklch(0.269 0 0);
-  --secondary-foreground:oklch(0.985 0 0);
-  --muted:               oklch(0.269 0 0);
-  --muted-foreground:    oklch(0.708 0 0);
-  --accent:              oklch(0.527 0.213 29.2);
-  --accent-foreground:   oklch(1 0 0);
-  --destructive:         oklch(0.704 0.191 22.216);
   --success:             oklch(0.72 0.19 150);
   --success-foreground:  oklch(0.205 0 0);
   --warning:             oklch(0.77 0.16 70);
   --warning-foreground:  oklch(0.205 0 0);
-  --border:              oklch(1 0 0 / 10%);
-  --input:               oklch(1 0 0 / 15%);
-  --ring:                oklch(0.65 0.18 29.2);     /* brand-400 */
-  --radius:              0.5rem;
+  /* Override inverted Figma popover + orange card for the brand dark theme. */
+  --popover:             oklch(0.205 0 0);
+  --popover-foreground:  oklch(0.985 0 0);
+  --card:                oklch(0.205 0 0);
+  --card-foreground:     oklch(0.985 0 0);
 }
 
 /* --- Base styles ----------------------------------------- */

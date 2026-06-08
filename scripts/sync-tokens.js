@@ -48,11 +48,11 @@ const NAME_MAP = {
   'general/destructive foreground': 'destructive-foreground',
   'general/border': 'border',
   'general/input': 'input',
-  'general/ring': 'ring',
-  'general/card': 'card',
-  'general/card foreground': 'card-foreground',
-  'general/popover': 'popover',
-  'general/popover foreground': 'popover-foreground',
+  'focus/ring': 'ring',
+  'card/card': 'card',
+  'card/card foreground': 'card-foreground',
+  'popover/popover': 'popover',
+  'popover/popover foreground': 'popover-foreground',
 };
 
 // --- Hjælpefunktioner ---
