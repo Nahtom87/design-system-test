@@ -25,3 +25,11 @@ dist-ssr
 
 *storybook.log
 storybook-static
+
+# Local secrets (e.g. FIGMA_TOKEN)
+.env
+.env.local
+.env.*.local
+
+# Exported Figma variable JSON (input for npm run sync-tokens)
+figma-tokens/
