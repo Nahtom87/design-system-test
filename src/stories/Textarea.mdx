@@ -1,0 +1,65 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { Guidelines, Do, Dont } from './_doc';
+import * as Stories from './Textarea.stories';
+
+<Meta of={Stories} />
+
+# Textarea
+
+A multi-line text field for longer, free-form input such as comments, messages, descriptions, or notes. It grows to a default minimum height and is vertically resizable by the user.
+
+## When to use
+
+- To collect more than one line of text: messages, comments, feedback, or descriptions.
+- When the expected answer length is variable or open-ended.
+- For content where line breaks and paragraphs are meaningful.
+
+## When not to use
+
+- For short, single-line values such as a name or email — use [Input](?path=/docs/design-system-input--docs).
+- For choosing among predefined options — use [Radio Group](?path=/docs/design-system-radio-group--docs) or a select.
+- For a single yes/no answer — use [Checkbox](?path=/docs/design-system-checkbox--docs) or [Switch](?path=/docs/design-system-switch--docs).
+
+## Examples
+
+Pair the textarea with a [Label](?path=/docs/design-system-label--docs) tied via `htmlFor`/`id`.
+
+<Canvas of={Stories.WithLabel} />
+
+Resting, filled, and disabled states.
+
+<Canvas of={Stories.States} />
+
+## Usage guidelines
+
+<Guidelines>
+  <Do items={[
+    'Provide a visible label linked with htmlFor/id.',
+    'Size the default height to the typical expected length so users see room to type.',
+    'Keep vertical resize enabled so users can expand for longer content.',
+    'Show character or word limits near the field when one applies.',
+  ]} />
+  <Dont items={[
+    "Don't use a textarea for one-line values; use Input instead.",
+    "Don't lock the height so small that expected content is hidden.",
+    "Don't rely on the placeholder as the only label.",
+    "Don't silently truncate input at a limit without telling the user.",
+  ]} />
+</Guidelines>
+
+## Props
+
+`Textarea` renders a native `<textarea>` and forwards all attributes to it. It defines no custom variant props.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `disabled` | `boolean` | `false` | Disables interaction; applies reduced opacity and muted background. |
+| `className` | `string` | — | Additional classes, merged. |
+| `...props` | `TextareaHTMLAttributes` | — | Forwarded to the underlying `<textarea>` (`value`, `rows`, `placeholder`, `onChange`, `id`, `aria-*`, …). |
+
+## Accessibility
+
+- Renders a native `<textarea>`, focusable and operable with the keyboard by default.
+- Associate a `<Label htmlFor>` with the textarea's `id` so the field has an accessible name.
+- Provides a visible focus ring (`focus-visible:ring`); never remove focus styling.
+- For invalid input set `aria-invalid` and link the error message with `aria-describedby`.

@@ -1,0 +1,78 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { Guidelines, Do, Dont } from './_doc';
+import * as Stories from './Sheet.stories';
+
+<Meta of={Stories} />
+
+# Sheet
+
+A panel that slides in from an edge of the screen — most often the right or left — over a dimmed overlay. Use it for secondary content that sits alongside the main page: edit forms, filters, detail views, or navigation, without fully covering the underlying context.
+
+## When to use
+
+- For an edit form or settings panel that should appear beside the page rather than centered over it.
+- For navigation drawers or menus that slide in from the left.
+- For detail or filter panels where the user benefits from a tall, scrollable side surface.
+- When you need more vertical room than a centered dialog comfortably allows.
+
+## When not to use
+
+- For a short, centered task that should grab full focus — use [Dialog](?path=/docs/design-system-dialog--docs).
+- For a destructive confirmation requiring an explicit decision — use [Alert Dialog](?path=/docs/design-system-alert-dialog--docs).
+- On mobile for a bottom, swipe-to-dismiss surface — use [Drawer](?path=/docs/design-system-drawer--docs).
+- For small contextual content tied to a trigger — use [Popover](?path=/docs/design-system-popover--docs).
+
+## Anatomy
+
+- `Sheet` — root state container.
+- `SheetTrigger` — element that opens the sheet; use `asChild`.
+- `SheetContent` — the sliding panel; `side` controls which edge it enters from; includes a close button.
+- `SheetHeader` — top region for the title and description (reserves space for the close button).
+- `SheetTitle` — accessible heading.
+- `SheetDescription` — supporting text.
+- `SheetFooter` — bottom action bar, pinned to the bottom, right-aligned.
+- `SheetClose` — dismisses the sheet; wrap a button with `asChild`.
+
+## Examples
+
+<Canvas of={Stories.HøjreSide} />
+
+<Canvas of={Stories.VenstreSide} />
+
+## Usage guidelines
+
+<Guidelines>
+  <Do items={[
+    'Use side="left" for navigation and side="right" for contextual edit/detail panels.',
+    'Always include a SheetTitle so the panel has an accessible name.',
+    'Pin actions in SheetFooter so they stay reachable as content scrolls.',
+    'Keep the panel scoped to one task or section of related content.',
+  ]} />
+  <Dont items={[
+    "Don't cram a long multi-step flow into a sheet; move it to a dedicated page.",
+    "Don't open a sheet for a decision that must not be dismissed; use Alert Dialog.",
+    "Don't remove the close button without giving another obvious way to dismiss.",
+    "Don't use top/bottom sides for content better served by a Drawer on mobile.",
+  ]} />
+</Guidelines>
+
+## Props
+
+Root props apply to `Sheet`; `side` and `showCloseButton` apply to `SheetContent`.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `open` | `boolean` | — | Controlled open state. |
+| `defaultOpen` | `boolean` | `false` | Initial open state when uncontrolled. |
+| `onOpenChange` | `(open: boolean) => void` | — | Called when the open state changes. |
+| `side` | `'right' \| 'left' \| 'top' \| 'bottom'` | `'right'` | On `SheetContent`: edge the panel slides in from. |
+| `showCloseButton` | `boolean` | `true` | On `SheetContent`: render the top-right close (X) button. |
+| `className` | `string` | — | Additional classes, merged. |
+| `...props` | `DialogHTMLAttributes` | — | Forwarded to the underlying Radix `Dialog` primitive (Sheet is built on it). |
+
+## Accessibility
+
+- Built on the Radix Dialog primitive: sets `role="dialog"`, `aria-modal`, traps focus while open, and restores focus to the trigger on close.
+- `SheetTitle` supplies the accessible name; pair it with `SheetDescription` for context.
+- `Escape` and overlay click dismiss the sheet; the close button has an `sr-only` "Luk" label.
+- Content scrolls within the panel while the page behind stays fixed.

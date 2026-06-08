@@ -1,0 +1,83 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { Guidelines, Do, Dont } from './_doc';
+import * as Stories from './Select.stories';
+
+<Meta of={Stories} />
+
+# Select
+
+Select lets a user choose a single value from a list that opens in a dropdown. It keeps long option sets compact by hiding them behind a trigger until needed, and is built on the Radix Select primitive for full keyboard and screen-reader support.
+
+## When to use
+
+- To pick one option from a list of roughly five or more choices (countries, categories, statuses).
+- When screen space is limited and showing every option inline would crowd the layout.
+- When options are mutually exclusive and the user only needs to commit to one.
+- Inside forms where the chosen value is submitted as a single field.
+
+## When not to use
+
+- For short sets (2–5 options) that benefit from being visible at once — use [Radio Group](?path=/docs/design-system-radio-group--docs).
+- For an on/off or binary choice — use [Switch](?path=/docs/design-system-switch--docs) or [Checkbox](?path=/docs/design-system-checkbox--docs).
+- When the user must select more than one value — Select is single-value only; use a multi-select or a group of [Checkbox](?path=/docs/design-system-checkbox--docs)es.
+- When users need to type to filter a very large list — use a combobox pattern instead.
+
+## Anatomy
+
+- `<Select>` — root, owns the open/value state.
+- `<SelectTrigger>` — the clickable control showing the current value; renders the chevron icon.
+- `<SelectValue>` — displays the selected value or a `placeholder`.
+- `<SelectContent>` — the portalled dropdown panel; positioned with `popper` by default.
+- `<SelectGroup>` / `<SelectLabel>` — group related items under a non-selectable heading.
+- `<SelectItem>` — one selectable option; requires a `value`.
+- `<SelectSeparator>` — a thin divider between groups.
+- `<SelectScrollUpButton>` / `<SelectScrollDownButton>` — scroll affordances when the list overflows.
+
+## Examples
+
+<Canvas of={Stories.Default} />
+
+<Canvas of={Stories.WithLabel} />
+
+## Usage guidelines
+
+<Guidelines>
+  <Do items={[
+    'Give the trigger a meaningful placeholder that names the choice, e.g. “Vælg land”.',
+    'Pair the Select with a visible Label tied to the trigger for context.',
+    'Order options predictably — alphabetical, numeric, or by frequency of use.',
+    'Use SelectGroup with SelectLabel to organise long lists into sections.',
+  ]} />
+  <Dont items={[
+    "Don't use Select for two or three options that fit inline — reach for Radio Group.",
+    "Don't rely on the placeholder as the only label; assistive tech needs a real label.",
+    "Don't put interactive controls inside a SelectItem; items are single selectable values.",
+    "Don't leave items without a unique value prop — selection state depends on it.",
+  ]} />
+</Guidelines>
+
+## Props
+
+Props apply to `Select` (the root); each sub-component forwards `...props` to its matching Radix primitive.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | — | Controlled selected value. |
+| `defaultValue` | `string` | — | Uncontrolled initial value. |
+| `onValueChange` | `(value: string) => void` | — | Called when the selection changes. |
+| `open` | `boolean` | — | Controlled open state of the dropdown. |
+| `defaultOpen` | `boolean` | — | Uncontrolled initial open state. |
+| `onOpenChange` | `(open: boolean) => void` | — | Called when the dropdown opens or closes. |
+| `disabled` | `boolean` | `false` | Disables the whole control. |
+| `name` | `string` | — | Form field name for the hidden submitted value. |
+| `required` | `boolean` | `false` | Marks the field as required in a form. |
+| `...props` | `SelectPrimitive.Root` props | — | Forwarded to the Radix Select `Root`. |
+
+`SelectContent` additionally accepts `position` (`'popper' \| 'item-aligned'`, default `'popper'`). `SelectItem` requires `value` and accepts `disabled`. All sub-components accept `className` (merged).
+
+## Accessibility
+
+- Built on Radix Select, which manages roles (`combobox`/`listbox`/`option`), focus, and typeahead automatically.
+- Keyboard: `Space`/`Enter` opens the list, arrow keys move between items, typing jumps to a matching option, `Esc` closes.
+- The trigger needs an accessible name — associate a `<Label>` or pass `aria-label`.
+- The selected item shows a check indicator; selection is also conveyed via `aria-selected` to screen readers.

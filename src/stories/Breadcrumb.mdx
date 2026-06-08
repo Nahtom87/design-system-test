@@ -1,0 +1,76 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { Guidelines, Do, Dont } from './_doc';
+import * as Stories from './Breadcrumb.stories';
+
+<Meta of={Stories} />
+
+# Breadcrumb
+
+Breadcrumbs show where the current page sits within a site's hierarchy and let users step back up the path. They give orientation and a quick way to return to a parent section.
+
+## When to use
+
+- When pages live in a clear, nested hierarchy (e.g. Home › Products › Design System).
+- To help users understand their current location and move up one or more levels.
+- On deep pages where the path back to a parent is not otherwise obvious.
+
+## When not to use
+
+- For top-level site navigation between major sections — use [Navigation Menu](?path=/docs/design-system-navigation-menu--docs).
+- For moving through pages of a result set — use [Pagination](?path=/docs/design-system-pagination--docs).
+- For switching between views on the same page — use [Tabs](?path=/docs/design-system-tabs--docs).
+- For a flat structure with no hierarchy — breadcrumbs add no value.
+
+## Anatomy
+
+- `<Breadcrumb>` — the `<nav aria-label="breadcrumb">` wrapper.
+- `<BreadcrumbList>` — the ordered list of crumbs.
+- `<BreadcrumbItem>` — a single crumb.
+- `<BreadcrumbLink>` — a navigable ancestor link (supports `asChild`).
+- `<BreadcrumbPage>` — the current page; non-interactive, marked `aria-current="page"`.
+- `<BreadcrumbSeparator>` — separator between crumbs (defaults to a chevron).
+- `<BreadcrumbEllipsis>` — collapsed indicator for hidden intermediate levels.
+
+## Examples
+
+<Canvas of={Stories.Default} />
+
+<Canvas of={Stories.MedEllipsis} />
+
+## Usage guidelines
+
+<Guidelines>
+  <Do items={[
+    'Mirror the actual page hierarchy, ending with the current page as BreadcrumbPage.',
+    'Make every ancestor crumb a working link.',
+    'Collapse long paths with BreadcrumbEllipsis to keep the trail compact.',
+    'Place breadcrumbs near the top of the page, above the title.',
+  ]} />
+  <Dont items={[
+    "Don't make the current page (BreadcrumbPage) a clickable link.",
+    "Don't use breadcrumbs as the primary navigation of the site.",
+    "Don't include the current page twice or skip levels in the path.",
+    "Don't use them when there is no real hierarchy to express.",
+  ]} />
+</Guidelines>
+
+## Props
+
+These are plain semantic elements; none take variant props. Each forwards `...props` to its underlying element and accepts `className`.
+
+| Component | Element | Notes |
+|-----------|---------|-------|
+| `Breadcrumb` | `nav` | Labelled `aria-label="breadcrumb"`. `...props` forwarded to `<nav>`. |
+| `BreadcrumbList` | `ol` | `...props` forwarded to `<ol>`. |
+| `BreadcrumbItem` | `li` | `...props` forwarded to `<li>`. |
+| `BreadcrumbLink` | `a` (or child via `asChild`) | `asChild: boolean` renders the child element instead of `<a>`. `...props` forwarded. |
+| `BreadcrumbPage` | `span` | Adds `role="link"`, `aria-disabled`, `aria-current="page"`. |
+| `BreadcrumbSeparator` | `li` | `role="presentation"`, `aria-hidden`. `children` overrides the default chevron. |
+| `BreadcrumbEllipsis` | `span` | `role="presentation"`, `aria-hidden`, with `sr-only` "Mere" label. |
+
+## Accessibility
+
+- The wrapper is a `<nav aria-label="breadcrumb">` containing an ordered list, so screen readers announce it as a breadcrumb landmark.
+- `BreadcrumbPage` carries `aria-current="page"` and is non-interactive, marking the current location.
+- Separators and the ellipsis are `aria-hidden`/`role="presentation"` so they are skipped by assistive tech; the ellipsis still exposes an `sr-only` label.
+- Use `asChild` on `BreadcrumbLink` to render a router link while keeping correct link semantics.

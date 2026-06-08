@@ -1,0 +1,65 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { Guidelines, Do, Dont } from './_doc';
+import * as Stories from './ScrollArea.stories';
+
+<Meta of={Stories} />
+
+# Scroll Area
+
+A scrollable container with a styled, consistent scrollbar that replaces the native one across browsers. Built on the Radix Scroll Area primitive, it keeps long content within a fixed region while preserving keyboard and pointer scrolling.
+
+## When to use
+
+- To constrain a long list, menu, or panel to a fixed height with a tidy custom scrollbar.
+- Inside dialogs, sheets, popovers, or sidebars where overflow content must stay contained.
+- When you want a uniform scrollbar appearance across operating systems and browsers.
+- For horizontally scrolling rows (set the `ScrollBar` orientation to `horizontal`).
+
+## When not to use
+
+- For the main page scroll — let the browser handle document-level scrolling natively.
+- For paginated or progressively loaded data sets — use pagination or a [Data Table](?path=/docs/design-system-data-table--docs).
+- When content fits without overflow — a plain container is enough.
+
+## Anatomy
+
+- `ScrollArea` — the root container; renders the viewport, a vertical `ScrollBar`, and a corner.
+- `ScrollBar` — the styled scrollbar track and thumb; accepts `orientation` for vertical or horizontal use.
+
+## Examples
+
+<Canvas of={Stories.Default} />
+
+## Usage guidelines
+
+<Guidelines>
+  <Do items={[
+    'Give the ScrollArea an explicit height (or max-height) so overflow can occur.',
+    'Add horizontal scrollbars only when content genuinely overflows sideways.',
+    'Keep interactive items inside the viewport reachable by keyboard.',
+    'Use it inside constrained surfaces like dialogs and sidebars to contain long content.',
+  ]} />
+  <Dont items={[
+    "Don't wrap the whole page in a ScrollArea; use native document scroll.",
+    "Don't nest scroll areas within scroll areas — it traps and confuses scrolling.",
+    "Don't omit a height; without one there is nothing to scroll.",
+    "Don't hide the scrollbar entirely when content overflows — users need the affordance.",
+  ]} />
+</Guidelines>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `className` | `string` | — | Additional classes, merged onto the root. Set height/width here. |
+| `children` | `ReactNode` | — | The scrollable content rendered inside the viewport. |
+| `...props` | `ScrollArea.RootProps` | — | Forwarded to the Radix `ScrollArea.Root` primitive. |
+
+`ScrollBar` accepts `orientation` (`'vertical' \| 'horizontal'`, default `'vertical'`), `className`, and forwards the rest to `ScrollArea.ScrollAreaScrollbar`.
+
+## Accessibility
+
+- Built on the Radix Scroll Area primitive; the viewport is focusable and supports keyboard scrolling.
+- The viewport shows a focus ring (`focus-visible:ring`) so keyboard users can locate it.
+- Native scrolling behavior (wheel, touch, keyboard arrows/Page keys) is preserved; the custom scrollbar is purely visual.
+- Ensure content inside remains reachable in tab order; the styled scrollbar does not change the document structure.

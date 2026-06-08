@@ -1,0 +1,66 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { Guidelines, Do, Dont } from './_doc';
+import * as Stories from './Kbd.stories';
+
+<Meta of={Stories} />
+
+# Kbd
+
+A small, presentational element for displaying keyboard keys and shortcuts — `⌘`, `S`, `Esc`. It renders a native `<kbd>` styled as a muted key cap, with an optional `KbdGroup` to lay out multi-key combinations.
+
+## When to use
+
+- To document a keyboard shortcut in menus, tooltips, command palettes, or help text.
+- To show an individual key or key combination inline within prose.
+- Alongside a menu or command item to reveal its accelerator key.
+
+## When not to use
+
+- As an interactive trigger — `Kbd` is display-only and not focusable; use a [Button](?path=/docs/design-system-button--docs).
+- To capture or bind shortcuts — `Kbd` only renders the visual; the binding logic lives elsewhere.
+- For code or commands — use an inline `<code>` element instead.
+
+## Anatomy
+
+- `Kbd` — a single key cap rendering one key label.
+- `KbdGroup` — an inline flex wrapper that spaces multiple `Kbd` elements into one shortcut (e.g. `⌘` + `K`).
+
+## Examples
+
+<Canvas of={Stories.Genveje} />
+
+<Canvas of={Stories.ITooltip} />
+
+## Usage guidelines
+
+<Guidelines>
+  <Do items={[
+    'Use KbdGroup to lay out multi-key shortcuts so they read as a single combination.',
+    'Mirror the symbols the platform shows (⌘ on macOS, Ctrl on Windows/Linux).',
+    'Keep labels short — a single key or modifier symbol per Kbd.',
+    'Pair shortcuts with the action label they trigger for clarity.',
+  ]} />
+  <Dont items={[
+    "Don't attach click handlers — Kbd is presentational and pointer-events are disabled.",
+    "Don't use Kbd for code snippets or commands; use a code element.",
+    "Don't put a whole phrase inside one Kbd; split keys across separate Kbd elements.",
+    "Don't rely on Kbd alone to register a shortcut — implement the key handler separately.",
+  ]} />
+</Guidelines>
+
+## Props
+
+Both `Kbd` and `KbdGroup` are thin wrappers with no custom named props beyond `className`.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `className` | `string` | — | Additional classes, merged. |
+| `children` | `ReactNode` | — | The key label (`Kbd`) or the set of `Kbd` elements (`KbdGroup`). |
+| `...props` | `HTMLAttributes` | — | Forwarded to the underlying `<kbd>` element. |
+
+## Accessibility
+
+- Renders a native `<kbd>` element, conveying "keyboard input" semantics to assistive technology.
+- Marked `select-none` and `pointer-events-none`; it is purely presentational and not focusable.
+- When documenting a shortcut, ensure the surrounding text names the action so the key is not meaningful in isolation.
+- The actual keyboard behavior must be implemented separately; `Kbd` does not handle key events.

@@ -1,0 +1,89 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { Guidelines, Do, Dont } from './_doc';
+import * as Stories from './Sidebar.stories';
+
+<Meta of={Stories} />
+
+# Sidebar
+
+A collapsible vertical navigation panel for application layouts. It holds primary navigation, grouped menus, headers and footers, and can collapse to an icon rail or slide out as a sheet on mobile.
+
+## When to use
+
+- As the persistent primary navigation of an app shell or dashboard.
+- When navigation needs to be grouped into labelled sections with many entries.
+- When users benefit from collapsing navigation to reclaim horizontal space.
+- For app layouts with a header/footer area (account switcher, user profile, sign out).
+
+## When not to use
+
+- For top-level marketing/site navigation in a header bar — use [Navigation Menu](?path=/docs/design-system-navigation-menu--docs).
+- For switching between views on a single page — use [Tabs](?path=/docs/design-system-tabs--docs).
+- For showing location within a hierarchy — use [Breadcrumb](?path=/docs/design-system-breadcrumb--docs).
+
+## Anatomy
+
+- `<SidebarProvider>` — required wrapper; owns open/collapsed state, the cookie persistence, and the `Cmd/Ctrl+B` shortcut.
+- `<Sidebar>` — the panel itself; supports `side`, `variant`, and `collapsible`.
+- `<SidebarTrigger>` / `<SidebarRail>` — controls that toggle the sidebar.
+- `<SidebarHeader>` / `<SidebarFooter>` — top and bottom regions (branding, user).
+- `<SidebarContent>` — scrollable body holding the groups.
+- `<SidebarGroup>`, `<SidebarGroupLabel>`, `<SidebarGroupContent>`, `<SidebarGroupAction>` — a labelled section.
+- `<SidebarMenu>`, `<SidebarMenuItem>`, `<SidebarMenuButton>` — the list of navigation entries.
+- `<SidebarMenuSub>`, `<SidebarMenuSubItem>`, `<SidebarMenuSubButton>` — nested entries.
+- `<SidebarMenuAction>`, `<SidebarMenuBadge>`, `<SidebarMenuSkeleton>` — per-item action, badge, and loading state.
+- `<SidebarInset>`, `<SidebarInput>`, `<SidebarSeparator>` — main content area, search input, and divider.
+- `useSidebar()` — hook to read/toggle state; must be used inside `SidebarProvider`.
+
+## Examples
+
+<Canvas of={Stories.Default} />
+
+## Usage guidelines
+
+<Guidelines>
+  <Do items={[
+    'Always wrap the layout in SidebarProvider so state and the keyboard shortcut work.',
+    'Group entries under SidebarGroupLabel to keep long navigation scannable.',
+    'Set isActive on the SidebarMenuButton for the current route.',
+    'Provide a tooltip on menu buttons so labels remain readable when collapsed to icons.',
+  ]} />
+  <Dont items={[
+    "Don't render Sidebar without SidebarProvider — useSidebar will throw.",
+    "Don't use it for in-page view switching — that's Tabs.",
+    "Don't overload a single group; split distinct areas into separate groups.",
+    "Don't omit text labels on icon-only collapsed items without a tooltip.",
+  ]} />
+</Guidelines>
+
+## Props
+
+`SidebarProvider`:
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `defaultOpen` | `boolean` | `true` | Initial open state for the uncontrolled sidebar. |
+| `open` | `boolean` | — | Controlled open state. |
+| `onOpenChange` | `(open: boolean) => void` | — | Called when the open state should change (controlled mode). |
+| `className` | `string` | — | Additional classes on the wrapper. |
+| `style` | `CSSProperties` | — | Merged with sidebar width CSS variables. |
+| `...props` | `div` HTMLAttributes | — | Forwarded to the wrapper `<div>`. |
+
+`Sidebar`:
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `side` | `'left' \| 'right'` | `'left'` | Which edge the sidebar attaches to. |
+| `variant` | `'sidebar' \| 'floating' \| 'inset'` | `'sidebar'` | Visual treatment of the panel. |
+| `collapsible` | `'offcanvas' \| 'icon' \| 'none'` | `'offcanvas'` | Collapse behaviour: slide off, collapse to an icon rail, or never collapse. |
+| `className` | `string` | — | Additional classes, merged. |
+| `...props` | `div` HTMLAttributes | — | Forwarded to the panel container. |
+
+`SidebarMenuButton` accepts `asChild`, `isActive`, `variant` (`'default' \| 'outline'`), `size` (`'default' \| 'sm' \| 'lg'`), and `tooltip` (`string` or `TooltipContent` props).
+
+## Accessibility
+
+- `SidebarProvider` registers a `Cmd/Ctrl+B` shortcut to toggle the sidebar; `SidebarTrigger` and `SidebarRail` expose visible toggles.
+- On mobile the sidebar renders inside a Sheet (Radix Dialog), which traps focus and labels the panel; the trigger and rail include `sr-only`/`aria-label` text.
+- Use `isActive` on the current menu button so assistive tech and styling reflect the active route.
+- When collapsed to icons, provide a `tooltip` on each menu button so the label remains discoverable.

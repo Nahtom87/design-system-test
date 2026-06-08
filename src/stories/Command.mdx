@@ -1,0 +1,76 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { Guidelines, Do, Dont } from './_doc';
+import * as Stories from './Command.stories';
+
+<Meta of={Stories} />
+
+# Command
+
+A keyboard-driven command palette and search list. Users type to filter a grouped list of actions or items and run them without leaving the keyboard. Built on `cmdk`, it can be embedded inline or opened in a dialog.
+
+## When to use
+
+- For a command palette (e.g. `Cmd/Ctrl+K`) that searches actions, pages, or entities.
+- When power users benefit from fuzzy-filtering a list and executing items by keyboard.
+- For a searchable, grouped picker with optional shortcuts and an empty state.
+
+## When not to use
+
+- For top-level site navigation — use [Navigation Menu](?path=/docs/design-system-navigation-menu--docs).
+- For paging through results — use [Pagination](?path=/docs/design-system-pagination--docs).
+- For switching between views on a page — use [Tabs](?path=/docs/design-system-tabs--docs).
+- For a simple single-select form field — use a [Select](?path=/docs/design-system-select--docs).
+
+## Anatomy
+
+- `<Command>` — root list/filter container (cmdk).
+- `<CommandDialog>` — wraps `Command` inside a Dialog for a modal palette; accepts `title` and `description`.
+- `<CommandInput>` — the search field with a leading search icon.
+- `<CommandList>` — scrollable results region.
+- `<CommandEmpty>` — shown when no item matches the query.
+- `<CommandGroup>` — a labelled section of items (`heading`).
+- `<CommandItem>` — a selectable/executable entry.
+- `<CommandShortcut>` — trailing keyboard-shortcut hint.
+- `<CommandSeparator>` — divider between groups.
+
+## Examples
+
+<Canvas of={Stories.Default} />
+
+## Usage guidelines
+
+<Guidelines>
+  <Do items={[
+    'Group related items under CommandGroup headings to keep results scannable.',
+    'Provide a CommandEmpty state so users get feedback when nothing matches.',
+    'Show shortcut hints with CommandShortcut for frequent actions.',
+    'Open it from a global Cmd/Ctrl+K binding when used as a palette.',
+  ]} />
+  <Dont items={[
+    "Don't use it as primary site navigation — that's Navigation Menu.",
+    "Don't overload a single group; split distinct intents with CommandSeparator.",
+    "Don't rely on mouse-only affordances; the palette is keyboard-first.",
+    "Don't omit a placeholder on CommandInput that hints what can be searched.",
+  ]} />
+</Guidelines>
+
+## Props
+
+`Command` (root) and most sub-components are thin wrappers over `cmdk` primitives; they accept `className` (merged) and forward `...props` to the underlying `cmdk` element.
+
+| Component | Notes |
+|-----------|-------|
+| `Command` | Forwards `...props` to `cmdk` `Command` (e.g. `value`, `onValueChange`, `filter`, `shouldFilter`, `loop`). |
+| `CommandDialog` | `title: string` (default `"Kommandopalet"`), `description: string` (default `"Søg efter en kommando..."`); remaining `...props` forwarded to the underlying `Dialog` (`open`, `onOpenChange`). |
+| `CommandInput` | Forwards `...props` (e.g. `placeholder`, `value`, `onValueChange`) to `cmdk` `Command.Input`. |
+| `CommandList` / `CommandEmpty` / `CommandSeparator` | Forward `...props` to the matching `cmdk` primitive. |
+| `CommandGroup` | `heading` labels the section; `...props` forwarded to `cmdk` `Command.Group`. |
+| `CommandItem` | Forwards `...props` (e.g. `onSelect`, `value`, `disabled`) to `cmdk` `Command.Item`. |
+| `CommandShortcut` | Renders a `<span>`; `...props` forwarded. |
+
+## Accessibility
+
+- `cmdk` manages the listbox/option roles, active-descendant tracking, and type-to-filter behaviour.
+- `Arrow` keys move the active item, `Enter` runs it, and typing filters the list; focus stays in the input.
+- When used via `CommandDialog`, the Dialog traps focus and the `sr-only` title/description label the palette for screen readers.
+- Disabled items are skipped in keyboard navigation and dimmed visually.

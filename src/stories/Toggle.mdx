@@ -1,0 +1,67 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { Guidelines, Do, Dont } from './_doc';
+import * as Stories from './Toggle.stories';
+
+<Meta of={Stories} />
+
+# Toggle
+
+A single two-state button that is either on or off. Built on the Radix Toggle primitive, it is ideal for formatting controls and view options where the pressed state takes effect immediately — bold text, list view, mute.
+
+## When to use
+
+- For a single control that flips between two states and applies instantly (e.g. bold, italic).
+- In a formatting toolbar, often as an icon-only button.
+- For a binary view or filter option where "pressed" maps to "active".
+- When the control's effect is immediate and does not require a form submit.
+
+## When not to use
+
+- For a setting that reads as on/off in preferences — use a [Switch](?path=/docs/design-system-switch--docs).
+- For a value collected and submitted with a form — use a [Checkbox](?path=/docs/design-system-checkbox--docs).
+- For selecting one option among several mutually exclusive choices — use a [Toggle Group](?path=/docs/design-system-toggle-group--docs) or [Radio Group](?path=/docs/design-system-radio-group--docs).
+- For a plain action that does not hold state — use a [Button](?path=/docs/design-system-button--docs).
+
+## Examples
+
+<Canvas of={Stories.TextFormatering} />
+
+<Canvas of={Stories.MedTekst} />
+
+## Usage guidelines
+
+<Guidelines>
+  <Do items={[
+    'Give icon-only toggles an aria-label describing the action they control.',
+    'Use defaultPressed (or controlled pressed) to reflect the current state.',
+    'Keep the on/off meaning obvious from the icon or label.',
+    'Use the outline variant when the toggle sits alone, default when grouped in a toolbar.',
+  ]} />
+  <Dont items={[
+    "Don't use a toggle for a preference setting — prefer a Switch.",
+    "Don't use a toggle inside a form where the value is submitted — use a Checkbox.",
+    "Don't build single-select groups from independent toggles; use a Toggle Group.",
+    "Don't ship an icon-only toggle without an accessible name.",
+  ]} />
+</Guidelines>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'default' \| 'outline'` | `'outline'` | `default` has no border; `outline` adds a 1px border. |
+| `size` | `'sm' \| 'default' \| 'lg'` | `'default'` | Control height: `sm` 32px, `default` 36px, `lg` 40px. |
+| `pressed` | `boolean` | — | Controlled on/off state. |
+| `defaultPressed` | `boolean` | `false` | Initial on/off state when uncontrolled. |
+| `onPressedChange` | `(pressed: boolean) => void` | — | Fired when the state changes. |
+| `disabled` | `boolean` | `false` | Disables interaction; reduces opacity and removes pointer events. |
+| `className` | `string` | — | Additional classes, merged. |
+| `children` | `ReactNode` | — | Icon and/or label. |
+| `...props` | `Toggle.RootProps` | — | Forwarded to the Radix `Toggle.Root` primitive. |
+
+## Accessibility
+
+- Built on Radix `Toggle.Root`, which sets `aria-pressed` and manages the on/off state.
+- Operable with `Enter` and `Space`; shows a visible focus ring (`focus-visible:ring`).
+- Icon-only toggles must provide an `aria-label`, since there is no text for screen readers.
+- The `data-[state=on]` styling reflects the pressed state visually in addition to `aria-pressed`.

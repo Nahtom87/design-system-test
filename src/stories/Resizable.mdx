@@ -1,0 +1,70 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { Guidelines, Do, Dont } from './_doc';
+import * as Stories from './Resizable.stories';
+
+<Meta of={Stories} />
+
+# Resizable
+
+Panels the user can resize by dragging a handle between them, laid out horizontally or vertically. Built on `react-resizable-panels`, it suits split layouts where people want to control how much space each region gets — code editors, file browsers, preview panes.
+
+## When to use
+
+- For split-pane layouts where the user should control the size of each region.
+- Side-by-side editor/preview, navigation/content, or list/detail arrangements.
+- When panel proportions are a matter of user preference rather than fixed design.
+- For nested or multi-panel layouts (three or more panels separated by handles).
+
+## When not to use
+
+- For fixed layouts where sizes should not change — use a plain CSS grid or flex layout.
+- For collapsible side regions that toggle rather than resize — use a [Sheet](?path=/docs/design-system-sheet--docs) or [Drawer](?path=/docs/design-system-drawer--docs).
+- For separating content visually without resize behavior — use a [Separator](?path=/docs/design-system-separator--docs).
+
+## Anatomy
+
+- `ResizablePanelGroup` — the container; set `direction` to `horizontal` or `vertical`.
+- `ResizablePanel` — an individual region; accepts `defaultSize`, `minSize`, `maxSize` (percentages).
+- `ResizableHandle` — the draggable divider between panels; pass `withHandle` to render a visible grip.
+
+## Examples
+
+<Canvas of={Stories.Horisontal} />
+
+<Canvas of={Stories.TrePaneler} />
+
+## Usage guidelines
+
+<Guidelines>
+  <Do items={[
+    'Set a direction on the group and a defaultSize on each panel so the initial layout is stable.',
+    'Give the group an explicit height so vertical resizing has room.',
+    'Use withHandle on the handle when the drag affordance is not otherwise obvious.',
+    'Set minSize/maxSize to stop panels from collapsing into unusable widths.',
+  ]} />
+  <Dont items={[
+    "Don't use Resizable for layouts that should never change size — use a static layout.",
+    "Don't forget a height on the group; panels need a bounded area to resize within.",
+    "Don't place a ResizableHandle without a ResizablePanel on each side.",
+    "Don't hide the resize affordance so users cannot discover the panels are adjustable.",
+  ]} />
+</Guidelines>
+
+## Props
+
+`ResizablePanelGroup` is the root component.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `direction` | `'horizontal' \| 'vertical'` | — | Axis along which panels are arranged and resized. Required. |
+| `className` | `string` | — | Additional classes, merged. Set the group's height/width here. |
+| `...props` | `PanelGroupProps` | — | Forwarded to `react-resizable-panels` `Group` (e.g. `onLayout`, `autoSaveId`). |
+
+`ResizablePanel` forwards all props to `Panel` (`defaultSize`, `minSize`, `maxSize`, `collapsible`, …). `ResizableHandle` accepts `withHandle` (`boolean`) plus `className`, and forwards the rest to `Separator`.
+
+## Accessibility
+
+- `ResizableHandle` renders the `react-resizable-panels` separator, which is keyboard-focusable and adjustable with arrow keys.
+- The handle shows a focus ring (`focus-visible:ring`) so keyboard users can locate it.
+- Panel orientation is exposed via `aria-orientation` on the handle.
+- Use `withHandle` to provide a clear visual grip, improving discoverability for pointer users.

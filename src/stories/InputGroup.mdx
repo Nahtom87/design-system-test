@@ -1,0 +1,80 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { Guidelines, Do, Dont } from './_doc';
+import * as Stories from './InputGroup.stories';
+
+<Meta of={Stories} />
+
+# Input Group
+
+Input Group composes an input or textarea together with addons — icons, text prefixes, buttons, or keyboard hints — inside a single bordered control. The wrapper owns the border, focus ring, and invalid styling so the addons and the field read as one cohesive unit.
+
+## When to use
+
+- To add a leading or trailing icon to a field (search, mail, lock).
+- To prefix or suffix a value with static text, e.g. `https://` or a currency symbol.
+- To place an inline button or action beside the input (Send, Copy, clear).
+- To show keyboard shortcut hints or units adjacent to the field.
+
+## When not to use
+
+- For a plain field with no addons — use [Input](?path=/docs/design-system-input--docs) directly.
+- For multi-character code entry split into slots — use [Input OTP](?path=/docs/design-system-input-otp--docs).
+- For choosing from a list of options — use [Select](?path=/docs/design-system-select--docs).
+- When the action is the primary control rather than an addon — use a standalone [Button](?path=/docs/design-system-button--docs) next to the field.
+
+## Anatomy
+
+- `<InputGroup>` — the bordered `role="group"` wrapper; owns focus-within ring and aria-invalid styling.
+- `<InputGroupInput>` / `<InputGroupTextarea>` — the borderless control; carries `data-slot="input-group-control"` so the wrapper can react to its focus/invalid state.
+- `<InputGroupAddon>` — positioned slot for icons, text, or buttons; `align` controls placement.
+- `<InputGroupText>` — muted inline text inside an addon (prefix/suffix label).
+- `<InputGroupButton>` — a ghost, group-sized [Button](?path=/docs/design-system-button--docs) for inline actions.
+
+## Examples
+
+<Canvas of={Stories.Playground} />
+
+<Canvas of={Stories.WithButton} />
+
+## Usage guidelines
+
+<Guidelines>
+  <Do items={[
+    'Wrap exactly one input or textarea control per group.',
+    'Use align on InputGroupAddon to place addons at the start, end, or block edges.',
+    'Give icon-only addon buttons an accessible name via aria-label.',
+    'Keep the field labelled — pair the group with a Label or aria-label on the control.',
+  ]} />
+  <Dont items={[
+    "Don't add a border or ring to the inner control; the group provides them.",
+    "Don't cram multiple inputs into one group — it breaks the focus and invalid styling.",
+    "Don't use long text in an addon; keep prefixes and suffixes concise.",
+    "Don't put the form's primary submit action inside an addon button.",
+  ]} />
+</Guidelines>
+
+## Props
+
+Props apply to `InputGroup` (the wrapper). Controls and addons forward `...props` to their underlying elements.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `className` | `string` | — | Additional classes, merged onto the wrapper. |
+| `...props` | `DivHTMLAttributes` | — | Forwarded to the wrapper `<div role="group">`. |
+
+Sub-component props:
+
+| Component | Prop | Type | Default | Description |
+|-----------|------|------|---------|-------------|
+| `InputGroupAddon` | `align` | `'inline-start' \| 'inline-end' \| 'block-start' \| 'block-end'` | `'inline-start'` | Placement of the addon within the group. |
+| `InputGroupButton` | `variant` | Button variant | `'ghost'` | Visual style of the inline button. |
+| `InputGroupButton` | `size` | `'xs' \| 'sm' \| 'icon-xs' \| 'icon-sm'` | `'xs'` | Compact button sizing for the group. |
+| `InputGroupInput` | `...props` | `InputHTMLAttributes` | — | Forwarded to the underlying [Input](?path=/docs/design-system-input--docs). |
+| `InputGroupTextarea` | `...props` | `TextareaHTMLAttributes` | — | Forwarded to the underlying [Textarea](?path=/docs/design-system-textarea--docs). |
+
+## Accessibility
+
+- The wrapper uses `role="group"` so addons and control are exposed as a single related set.
+- Clicking an addon focuses the inner input (unless the click target is a button), keeping the whole group clickable.
+- Focus and invalid styling derive from the inner control's `:focus-visible` and `aria-invalid` state, so set `aria-invalid` on the control to surface errors.
+- Icon-only `InputGroupButton`s need an `aria-label`; the underlying control still needs its own label.

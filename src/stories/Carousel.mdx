@@ -1,0 +1,76 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { Guidelines, Do, Dont } from './_doc';
+import * as Stories from './Carousel.stories';
+
+<Meta of={Stories} />
+
+# Carousel
+
+Carousel cycles through a horizontal or vertical set of slides one (or a few) at a time, with previous/next controls. It is built on Embla Carousel and suits browsable, non-essential collections such as featured cards, images, or testimonials.
+
+## When to use
+
+- To present a set of equally-weighted items (images, cards, products) in limited space.
+- For optional, browsable content the user can explore at their own pace.
+- When showing a few items per view and letting the user page through the rest.
+- For galleries or showcases where seeing every item at once is unnecessary.
+
+## When not to use
+
+- For essential sequential content users must read in order — carousels hide most content and are easily missed. Lay it out as a vertical list or [Tabs](?path=/docs/design-system-tabs--docs) instead.
+- For step-by-step flows or forms — use a dedicated stepper or [Tabs](?path=/docs/design-system-tabs--docs).
+- For a single primary call to action — content hidden in later slides gets little engagement; place it directly on the page.
+- When the items differ greatly in importance — the equal-slide model flattens hierarchy.
+
+## Anatomy
+
+- `<Carousel>` — root region; sets orientation, wires Embla, and exposes context via `useCarousel`.
+- `<CarouselContent>` — the scrolling track that holds the slides.
+- `<CarouselItem>` — a single slide; `basis` controls how many show per view.
+- `<CarouselPrevious>` / `<CarouselNext>` — Button-based controls; auto-disable at the ends.
+- `useCarousel` — hook to read state/scroll the carousel from custom controls (must be used inside `<Carousel>`).
+
+## Examples
+
+<Canvas of={Stories.Default} />
+
+<Canvas of={Stories.FlerePerVisning} />
+
+## Usage guidelines
+
+<Guidelines>
+  <Do items={[
+    'Use it for optional, browsable collections where order is not critical.',
+    'Keep slide content consistent in shape so paging feels predictable.',
+    'Show a hint of the next slide (peek) so users know more content exists.',
+    'Set opts.align and CarouselItem basis together when showing multiple slides per view.',
+  ]} />
+  <Dont items={[
+    "Don't hide essential or sequential content inside slides users may never reach.",
+    "Don't auto-advance content that users are trying to read; it disrupts comprehension.",
+    "Don't remove the previous/next controls — they are the primary way to navigate.",
+    "Don't nest interactive carousels; the arrow-key handling will conflict.",
+  ]} />
+</Guidelines>
+
+## Props
+
+Props apply to the `Carousel` root.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Scroll axis; sets Embla `axis` and control placement. |
+| `opts` | `EmblaOptionsType` | — | Embla configuration (`align`, `loop`, `slidesToScroll`, …). |
+| `plugins` | `EmblaPluginType[]` | — | Embla plugins, e.g. autoplay. |
+| `setApi` | `(api: CarouselApi) => void` | — | Receives the Embla API once initialised, for external control. |
+| `className` | `string` | — | Additional classes, merged onto the region wrapper. |
+| `...props` | `DivHTMLAttributes` | — | Forwarded to the root `<div role="region">`. |
+
+`CarouselPrevious` / `CarouselNext` accept `variant` (default `'outline'`) and `size` (default `'icon-sm'`), forwarded to the underlying [Button](?path=/docs/design-system-button--docs).
+
+## Accessibility
+
+- The root renders `role="region"` with `aria-roledescription="carousel"`; each slide is `role="group"` with `aria-roledescription="slide"`.
+- Keyboard: with focus inside the carousel, `ArrowLeft`/`ArrowRight` scroll to the previous/next slide.
+- Previous/Next controls are real buttons that disable at the start/end and carry sr-only labels (“Previous slide” / “Next slide”).
+- Avoid carousels for critical content: screen-reader and keyboard users can miss off-screen slides, and motion may affect users with vestibular sensitivities.

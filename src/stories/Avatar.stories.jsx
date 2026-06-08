@@ -8,7 +8,6 @@ const sizeLabels = { regular: 'Regular (40px)', small: 'Small (32px)', tiny: 'Ti
 export default {
   title: 'Design System/Avatar',
   component: Avatar,
-  tags: ['autodocs'],
   parameters: {
     design: { type: 'figma', url: FIGMA_URL },
   },

@@ -15,7 +15,6 @@ const statusVariant = { Aktiv: 'primary', Afventer: 'secondary', Inaktiv: 'outli
 export default {
   title: 'Design System/Table',
   component: Table,
-  tags: ['autodocs'],
   parameters: { design: { type: 'figma', url: FIGMA_URL } },
 };
 

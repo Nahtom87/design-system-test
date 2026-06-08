@@ -1,0 +1,72 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { Guidelines, Do, Dont } from './_doc';
+import * as Stories from './Pagination.stories';
+
+<Meta of={Stories} />
+
+# Pagination
+
+Pagination lets users move through a large result set split across multiple pages. It exposes the current page, nearby page numbers, and previous/next controls.
+
+## When to use
+
+- To navigate through pages of a list, table, or search results.
+- When a dataset is too large to load or scroll comfortably at once.
+- When users need to jump to a specific page or step one page at a time.
+
+## When not to use
+
+- For navigating a site's hierarchy or sections — use [Navigation Menu](?path=/docs/design-system-navigation-menu--docs) or [Breadcrumb](?path=/docs/design-system-breadcrumb--docs).
+- For switching between views on the same page — use [Tabs](?path=/docs/design-system-tabs--docs).
+- For continuous feeds where infinite scroll or a "Load more" button fits better.
+
+## Anatomy
+
+- `<Pagination>` — the `<nav aria-label="pagination">` wrapper.
+- `<PaginationContent>` — the `<ul>` holding the items.
+- `<PaginationItem>` — a single `<li>`.
+- `<PaginationLink>` — a page-number link; `isActive` marks the current page.
+- `<PaginationPrevious>` / `<PaginationNext>` — labelled step links with chevrons.
+- `<PaginationEllipsis>` — indicates skipped page ranges.
+
+## Examples
+
+<Canvas of={Stories.Default} />
+
+## Usage guidelines
+
+<Guidelines>
+  <Do items={[
+    'Mark the current page with isActive on its PaginationLink.',
+    'Show first/last pages and a window around the current page, collapsing the rest with PaginationEllipsis.',
+    'Always provide Previous and Next controls for one-step movement.',
+    'Point each link at a real href so pages are linkable and shareable.',
+  ]} />
+  <Dont items={[
+    "Don't use Pagination to switch between unrelated views — that's Tabs.",
+    "Don't render so many page numbers that the control wraps; collapse with an ellipsis.",
+    "Don't leave Previous active on the first page or Next active on the last.",
+    "Don't omit an indication of which page is currently active.",
+  ]} />
+</Guidelines>
+
+## Props
+
+| Component | Element | Notes |
+|-----------|---------|-------|
+| `Pagination` | `nav` | `role="navigation"`, `aria-label="pagination"`. `...props` forwarded to `<nav>`. |
+| `PaginationContent` | `ul` | `...props` forwarded to `<ul>`. |
+| `PaginationItem` | `li` | `...props` forwarded to `<li>`. |
+| `PaginationLink` | `a` | `isActive: boolean` sets `aria-current="page"` and active styling. `...props` (incl. `href`) forwarded to `<a>`. |
+| `PaginationPrevious` | `a` | `PaginationLink` with `aria-label="Forrige side"` and a left chevron. |
+| `PaginationNext` | `a` | `PaginationLink` with `aria-label="Næste side"` and a right chevron. |
+| `PaginationEllipsis` | `span` | `aria-hidden`, with an `sr-only` "Flere sider" label. |
+
+All accept `className` (merged).
+
+## Accessibility
+
+- The container is a `<nav aria-label="pagination">` so it is announced as a pagination region.
+- The active page link carries `aria-current="page"`; Previous/Next have descriptive `aria-label`s.
+- The ellipsis is `aria-hidden` with an `sr-only` label, so it is skipped while still conveying that pages were collapsed.
+- Items render as anchors with `href`, keeping them keyboard-focusable and operable like links.

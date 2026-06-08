@@ -1,0 +1,78 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { Guidelines, Do, Dont } from './_doc';
+import * as Stories from './InputOTP.stories';
+
+<Meta of={Stories} />
+
+# Input OTP
+
+Input OTP is a fixed-length code entry field, splitting a one-time passcode into individual slots that fill as the user types or pastes. Built on the `input-otp` library, it handles caret movement, pasting, and per-slot focus while remaining a single accessible input.
+
+## When to use
+
+- To enter a one-time passcode (OTP) sent by SMS or email.
+- For two-factor authentication or device verification codes.
+- For any short, fixed-length code (PIN, activation code) where each character is a discrete slot.
+- When you want a paste-friendly field that auto-distributes characters across slots.
+
+## When not to use
+
+- For free-form or variable-length text — use a standard [Input](?path=/docs/design-system-input--docs).
+- For longer secrets like passwords — use [Input](?path=/docs/design-system-input--docs) with a masked type.
+- For numeric quantities or amounts — use [Input](?path=/docs/design-system-input--docs) with `type="number"`.
+- When the code length is unknown or changes per user — Input OTP requires a fixed `maxLength`.
+
+## Anatomy
+
+- `<InputOTP>` — root; owns the value and `maxLength`, renders the hidden real input.
+- `<InputOTPGroup>` — visually groups a run of slots (e.g. two groups of three).
+- `<InputOTPSlot>` — a single character cell; requires its `index` into the value.
+- `<InputOTPSeparator>` — non-interactive divider (a dash) between groups.
+
+## Examples
+
+<Canvas of={Stories.Default} />
+
+<Canvas of={Stories.FireCifre} />
+
+## Usage guidelines
+
+<Guidelines>
+  <Do items={[
+    'Match the slot count to the real code length via maxLength.',
+    'Group slots (e.g. 3+3) to mirror how the code is displayed in the email or SMS.',
+    'Pair the field with a visible Label and a hint about where the code came from.',
+    'Allow paste — the component spreads a pasted code across slots automatically.',
+  ]} />
+  <Dont items={[
+    "Don't use it for variable-length input; the slot count is fixed.",
+    "Don't omit the index prop on a slot — it maps the slot to a character position.",
+    "Don't block paste; users often copy codes straight from their inbox.",
+    "Don't rely on slot styling alone to signal errors — set aria-invalid and a message.",
+  ]} />
+</Guidelines>
+
+## Props
+
+Props apply to `InputOTP` (the root), which wraps `OTPInput` from `input-otp`.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `maxLength` | `number` | — | Required. Number of slots / characters in the code. |
+| `value` | `string` | — | Controlled value. |
+| `onChange` | `(value: string) => void` | — | Called as the value changes. |
+| `onComplete` | `(value: string) => void` | — | Called when all slots are filled. |
+| `pattern` | `string` | — | Regex restricting allowed characters (e.g. digits only). |
+| `disabled` | `boolean` | `false` | Disables entry; dims the group. |
+| `containerClassName` | `string` | — | Classes for the slots container. |
+| `className` | `string` | — | Classes for the underlying input element. |
+| `...props` | `OTPInput` props | — | Forwarded to the `input-otp` `OTPInput`. |
+
+`InputOTPSlot` requires `index` (`number`). `InputOTPGroup` and `InputOTPSeparator` are presentational wrappers.
+
+## Accessibility
+
+- Renders a single real `<input>`; screen readers announce it as one field rather than many.
+- Keyboard: typing advances the active slot, `Backspace` moves back, and arrow keys reposition the caret across slots.
+- Paste fills the slots in order, so users can paste a full code at once.
+- Signal validation with `aria-invalid` on the group and an associated error message; the active slot shows a focus ring.

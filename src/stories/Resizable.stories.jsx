@@ -5,7 +5,6 @@ const FIGMA_URL = 'https://www.figma.com/design/6IyBOQAD2rysMi9SzXmzFX/Design-sy
 export default {
   title: 'Design System/Resizable',
   component: ResizablePanelGroup,
-  tags: ['autodocs'],
   parameters: { design: { type: 'figma', url: FIGMA_URL } },
 };
 

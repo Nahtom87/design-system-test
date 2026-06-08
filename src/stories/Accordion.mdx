@@ -1,0 +1,76 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { Guidelines, Do, Dont } from './_doc';
+import * as Stories from './Accordion.stories';
+
+<Meta of={Stories} />
+
+# Accordion
+
+An accordion is a vertically stacked set of headers that each reveal or hide an associated panel of content. It lets users progressively disclose sections, reducing the amount of content visible at once. Built on Radix `Accordion`.
+
+## When to use
+
+- For FAQs or help content where users scan headings and open only what they need.
+- To break a long page into collapsible sections that reduce scrolling.
+- When only one section is relevant at a time (`type="single"`).
+- When users may want several sections open simultaneously (`type="multiple"`).
+
+## When not to use
+
+- When users need to see all content at once to compare — show it expanded.
+- For switching between mutually exclusive views in place — use [Tabs](?path=/docs/design-system-tabs--docs).
+- For a single show/hide toggle of one region — use [Collapsible](?path=/docs/design-system-collapsible--docs).
+- For primary site navigation — use a navigation menu pattern.
+
+## Anatomy
+
+- `<Accordion>` — Radix `Root`; controls single vs multiple open behavior via `type`.
+- `<AccordionItem>` — a single collapsible section, identified by `value`.
+- `<AccordionTrigger>` — the clickable header button; includes the rotating chevron.
+- `<AccordionContent>` — the collapsible panel revealed when its item is open.
+
+## Examples
+
+<Canvas of={Stories.Default} />
+
+<Canvas of={Stories.MultipleOpen} />
+
+## Usage guidelines
+
+<Guidelines>
+  <Do items={[
+    'Write concise, descriptive trigger labels that summarize the panel content.',
+    'Use type="single" with collapsible when only one section should be open.',
+    'Give every AccordionItem a unique, stable value.',
+    'Keep panel content self-contained so it reads correctly when expanded alone.',
+  ]} />
+  <Dont items={[
+    "Don't hide critical content users always need behind a collapsed panel.",
+    "Don't use an accordion to switch between alternative views; use Tabs.",
+    "Don't nest accordions deeply — it becomes hard to track open state.",
+    "Don't remove the chevron or focus styling that signals expand/collapse.",
+  ]} />
+</Guidelines>
+
+## Props
+
+`Accordion` is the Radix `Accordion.Root` with styling. It forwards all Root props.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `type` | `'single' \| 'multiple'` | — | Whether one or several items can be open at once. Required by Radix. |
+| `collapsible` | `boolean` | `false` | For `type="single"`, allows closing the open item so none is open. |
+| `value` / `defaultValue` | `string \| string[]` | — | Controlled / uncontrolled open item(s). |
+| `onValueChange` | `(value) => void` | — | Fires when the open item(s) change. |
+| `disabled` | `boolean` | `false` | Disables the whole accordion. |
+| `className` | `string` | — | Additional classes, merged. |
+| `...props` | Radix `Accordion.Root` props | — | Forwarded to the Radix Root primitive. |
+
+`AccordionItem` requires a unique `value`. `AccordionTrigger` forwards to the Radix `Trigger` (a `<button>`); `AccordionContent` forwards to the Radix `Content` panel.
+
+## Accessibility
+
+- Built on Radix `Accordion`, which manages `aria-expanded`, `aria-controls`, and the region roles automatically.
+- Triggers are native buttons: focusable and toggled with `Enter` and `Space`.
+- `Arrow Up` / `Arrow Down` move focus between triggers; `Home` / `End` jump to the first/last.
+- The trigger provides a visible focus ring (`focus-visible:ring`); do not remove it.

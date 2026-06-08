@@ -1,0 +1,79 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { Guidelines, Do, Dont } from './_doc';
+import * as Stories from './AlertDialog.stories';
+
+<Meta of={Stories} />
+
+# Alert Dialog
+
+A modal that interrupts the user to require an explicit decision before continuing — typically confirming a destructive or irreversible action. Unlike a regular dialog it cannot be dismissed by clicking outside or pressing the X; the user must choose an action or cancel.
+
+## When to use
+
+- To confirm a destructive action such as deleting, overwriting, or permanently removing data.
+- To warn about losing unsaved work before navigating away from a page.
+- When the consequence is irreversible and a deliberate confirm/cancel choice is required.
+- For high-stakes decisions where an accidental dismissal would be harmful.
+
+## When not to use
+
+- For an editing task or form the user can simply close — use [Dialog](?path=/docs/design-system-dialog--docs).
+- For non-critical, informational content the user can dismiss freely — use [Dialog](?path=/docs/design-system-dialog--docs) or [Popover](?path=/docs/design-system-popover--docs).
+- For transient status or success messages that need no decision — use a toast/notification pattern instead.
+- For a side panel of settings or filters — use [Sheet](?path=/docs/design-system-sheet--docs).
+
+## Anatomy
+
+- `AlertDialog` — root state container.
+- `AlertDialogTrigger` — element that opens the alert; use `asChild`.
+- `AlertDialogContent` — the modal surface; `type="mobile"` (320px, centered) or `type="desktop"` (480px, left-aligned).
+- `AlertDialogHeader` — groups the title and description.
+- `AlertDialogTitle` — the question/heading; accepts the same `type` for alignment.
+- `AlertDialogDescription` — supporting consequence text; accepts `type`.
+- `AlertDialogFooter` — actions; stacked vertically on mobile, side-by-side on desktop.
+- `AlertDialogAction` — the confirming button (renders a `Button`, default `variant="primary"`).
+- `AlertDialogCancel` — the dismiss/cancel button (renders a `Button variant="outline"`).
+
+## Examples
+
+<Canvas of={Stories.Playground} />
+
+<Canvas of={Stories.DesktopSlet} />
+
+## Usage guidelines
+
+<Guidelines>
+  <Do items={[
+    'Pass the same type ("mobile" / "desktop") to Content, Title, Description, and Footer so layout stays consistent.',
+    'Label the confirm action with the verb it performs ("Delete", "Leave this page"), not "OK".',
+    'Use variant="destructive" on AlertDialogAction when the action removes or overwrites data.',
+    'Always provide an AlertDialogCancel so the user can back out safely.',
+  ]} />
+  <Dont items={[
+    "Don't use an alert dialog for routine, reversible actions — it is interruptive by design.",
+    "Don't rely on overlay click or Escape to cancel; the alert requires an explicit choice.",
+    "Don't write vague questions like \"Are you sure?\" without stating the consequence.",
+    "Don't make the cancel action visually heavier than the confirm; keep the hierarchy clear.",
+  ]} />
+</Guidelines>
+
+## Props
+
+Root props apply to `AlertDialog`; the `type` prop is shared by the layout sub-components.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `open` | `boolean` | — | Controlled open state. |
+| `defaultOpen` | `boolean` | `false` | Initial open state when uncontrolled. |
+| `onOpenChange` | `(open: boolean) => void` | — | Called when the open state changes. |
+| `type` | `'mobile' \| 'desktop'` | `'mobile'` | On Content/Title/Description/Footer: layout — `mobile` (320px, centered, stacked buttons) or `desktop` (480px, left-aligned, side-by-side). |
+| `variant` | `'primary' \| 'destructive' \| …` | `'primary'` | On `AlertDialogAction`: the underlying `Button` variant. |
+| `className` | `string` | — | Additional classes, merged. |
+| `...props` | `DialogHTMLAttributes` | — | Forwarded to the underlying Radix `AlertDialog` primitive. |
+
+## Accessibility
+
+- Built on the Radix Alert Dialog primitive: it uses `role="alertdialog"`, traps focus, and does not close on overlay click or Escape by default, matching its interruptive intent.
+- `AlertDialogTitle` is the accessible name and `AlertDialogDescription` is wired as `aria-describedby`; both are required.
+- On open, focus is moved to the dialog; the Cancel action receives focus so the safe choice is the default.
+- Returns focus to the trigger when closed.

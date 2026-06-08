@@ -1,0 +1,72 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { Guidelines, Do, Dont } from './_doc';
+import * as Stories from './Sonner.stories';
+
+<Meta of={Stories} />
+
+# Sonner (Toast)
+
+Sonner renders transient, non-blocking toast notifications that appear in a corner of the screen and dismiss themselves. Mount the `Toaster` once at the app root, then call `toast()` (and `toast.success`, `.error`, `.warning`, `.info`, `.loading`) from anywhere to show feedback without interrupting the user.
+
+## When to use
+
+- To confirm a background action succeeded or failed (saved, sent, deleted).
+- For brief, low-priority status updates that don't require acknowledgement.
+- For optimistic feedback after an async operation, with an optional undo action.
+- When you want feedback that does not steal focus or block the current task.
+
+## When not to use
+
+- For information the user must read or act on before continuing — use a blocking [Dialog](?path=/docs/design-system-dialog--docs) or [Alert Dialog](?path=/docs/design-system-alert-dialog--docs).
+- For persistent, contextual status tied to a region of the page — use an inline [Alert](?path=/docs/design-system-alert--docs).
+- For form-field validation errors — show them inline next to the [Input](?path=/docs/design-system-input--docs).
+- For long or detailed content — toasts are short-lived and easy to miss.
+
+## Anatomy
+
+- `<Toaster>` — the single host component. Mount it once near the app root; it portals and stacks all toasts and supplies the default icons and theme tokens.
+- `toast(...)` — imperative API from `sonner` used to trigger toasts; variants include `toast.success`, `toast.error`, `toast.warning`, `toast.info`, `toast.loading`, and `toast.promise`.
+
+## Examples
+
+<Canvas of={Stories.Default} />
+
+## Usage guidelines
+
+<Guidelines>
+  <Do items={[
+    'Mount a single Toaster at the app root and trigger toasts with the toast() API.',
+    'Keep messages short and specific: “Besked sendt”, “Gemt!”.',
+    'Use the matching variant (success / error / warning / info) so the icon and colour fit the meaning.',
+    'Offer an action (e.g. Undo) for reversible operations when helpful.',
+  ]} />
+  <Dont items={[
+    "Don't put critical decisions or content users must not miss in a toast.",
+    "Don't render more than one Toaster — duplicates cause doubled or misplaced toasts.",
+    "Don't stack many toasts at once; batch or summarise instead.",
+    "Don't use a toast for inline form errors — show those next to the field.",
+  ]} />
+</Guidelines>
+
+## Props
+
+`Toaster` forwards all props to Sonner's `<Toaster>`. The wrapper preselects the design-system icons and CSS variables; the most useful pass-through props:
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `position` | `'top-left' \| 'top-center' \| 'top-right' \| 'bottom-left' \| 'bottom-center' \| 'bottom-right'` | `'bottom-right'` | Where toasts appear on screen. |
+| `expand` | `boolean` | `false` | Expand stacked toasts on hover instead of overlapping. |
+| `richColors` | `boolean` | `false` | Use stronger per-variant background colours. |
+| `closeButton` | `boolean` | `false` | Show a manual close button on each toast. |
+| `duration` | `number` | `4000` | Auto-dismiss time in ms (per toast can override). |
+| `theme` | `'light' \| 'dark' \| 'system'` | `'system'` | Colour scheme of the toasts. |
+| `...props` | Sonner `Toaster` props | — | All other Sonner Toaster options are forwarded. |
+
+Per-toast options (title, `description`, `action`, `duration`, `id`) are passed to the `toast()` call, not to `Toaster`.
+
+## Accessibility
+
+- Sonner renders toasts in an `aria-live` region so screen readers announce them without moving focus.
+- Toasts are non-modal: they never trap focus or block interaction with the page.
+- Provide enough `duration` (or `closeButton`) so users relying on assistive tech can read the message before it dismisses.
+- Don't convey meaning by icon/colour alone — the message text must stand on its own.

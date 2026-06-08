@@ -1,0 +1,73 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { Guidelines, Do, Dont } from './_doc';
+import * as Stories from './Card.stories';
+
+<Meta of={Stories} />
+
+# Card
+
+A card is a surface that groups related content and actions about a single subject into a bordered, elevated container. It creates a clear visual boundary so users can scan a page as a set of discrete units.
+
+## When to use
+
+- To group the content and actions for one entity (a project, a user, a product).
+- To present a repeating set of summary items in a grid or list of cards.
+- To give a self-contained block its own header, body, and footer actions.
+- To visually separate a unit of content from the surrounding page.
+
+## When not to use
+
+- For dense, comparable records across many rows — use a [Table](?path=/docs/design-system-table--docs).
+- For transient, dismissible messages — use an [Alert](?path=/docs/design-system-alert--docs) or toast.
+- For content that must interrupt the user and capture focus — use a [Dialog](?path=/docs/design-system-dialog--docs).
+- For deep nesting of cards within cards — flatten the hierarchy instead.
+
+## Anatomy
+
+- `<Card>` — root container with border, rounded corners, and shadow.
+- `<CardHeader>` — top section for title and description.
+- `<CardTitle>` — the card's heading text.
+- `<CardDescription>` — supporting subtitle under the title.
+- `<CardContent>` — the main body content.
+- `<CardFooter>` — bottom bar, right-aligned, for actions; visually divided from the body.
+
+## Examples
+
+<Canvas of={Stories.Default} />
+
+<Canvas of={Stories.UdenFooter} />
+
+## Usage guidelines
+
+<Guidelines>
+  <Do items={[
+    'Keep each card focused on a single subject or entity.',
+    'Use CardHeader for the title/description and CardFooter for actions.',
+    'Place the primary action last in the footer, following the reading order.',
+    'Maintain consistent card widths and spacing within a grid or list.',
+  ]} />
+  <Dont items={[
+    "Don't cram unrelated topics into one card; split them into separate cards.",
+    "Don't nest cards inside cards — it muddies the visual hierarchy.",
+    "Don't use a card for tabular data that belongs in a Table.",
+    "Don't rely on the card border alone to convey state; add explicit indicators.",
+  ]} />
+</Guidelines>
+
+## Props
+
+`Card` and its sub-components are layout wrappers over `<div>`; each forwards `...props` to its `<div>`.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `className` | `string` | — | Additional classes, merged. |
+| `...props` | `HTMLAttributes<HTMLDivElement>` | — | Forwarded to the underlying `<div>`. |
+
+Sub-components (`CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, `CardFooter`) accept the same `className` + `<div>` attributes.
+
+## Accessibility
+
+- Renders plain `<div>` elements with no implicit landmark or role, so structure comes from the content you place inside.
+- Use a real heading element (or apply heading semantics) within `CardTitle` so the card is reachable in the document outline.
+- Ensure interactive elements in the footer have accessible names and a visible focus ring.
+- If the whole card is clickable, expose a single primary control rather than nesting multiple competing actions.

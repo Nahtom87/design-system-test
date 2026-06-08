@@ -13,7 +13,6 @@ const komponenter = [
 export default {
   title: 'Design System/Scroll Area',
   component: ScrollArea,
-  tags: ['autodocs'],
   parameters: { design: { type: 'figma', url: FIGMA_URL } },
 };
 

@@ -1,0 +1,63 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { Guidelines, Do, Dont } from './_doc';
+import * as Stories from './Progress.stories';
+
+<Meta of={Stories} />
+
+# Progress
+
+A progress bar shows determinate progress toward completing a task as a proportion from 0 to 100%. It tells the user how much is done and, implicitly, how much remains. Built on Radix `Progress`.
+
+## When to use
+
+- For tasks with a known, measurable completion percentage (uploads, multi-step forms, downloads).
+- To show progress through a sequence where steps map to a percentage.
+- When you can update `value` as the task advances.
+- To give continuous feedback for an operation expected to take a noticeable time.
+
+## When not to use
+
+- For waits of unknown duration with no measurable progress — use a Spinner (indeterminate loading).
+- For a brief, sub-second action — show nothing or a subtle inline state.
+- To represent a discrete rating or score — use a meter or rating component.
+- For step indicators where users navigate between named steps — use a stepper/wizard pattern.
+
+## Examples
+
+<Canvas of={Stories.AlleVærdier} />
+
+<Canvas of={Stories.Animeret} />
+
+## Usage guidelines
+
+<Guidelines>
+  <Do items={[
+    'Update value as the task progresses so the bar reflects real state.',
+    'Use this only when completion can be measured as a percentage.',
+    'Pair the bar with a textual percentage or status for clarity.',
+    'Keep the value within the 0–100 range.',
+  ]} />
+  <Dont items={[
+    "Don't use a determinate progress bar for waits of unknown length; use a Spinner.",
+    "Don't leave the value static while work continues; it misleads the user.",
+    "Don't use it as a rating or score indicator.",
+    "Don't rely on the bar alone for critical timing; provide supporting text.",
+  ]} />
+</Guidelines>
+
+## Props
+
+`Progress` is the Radix `Progress.Root` with a styled indicator.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `number` | `0` | Completion percentage (0–100); sets the indicator width. |
+| `className` | `string` | — | Additional classes, merged onto the track. |
+| `...props` | Radix `Progress.Root` props | — | Forwarded to the Radix Root primitive (e.g. `max`, `getValueLabel`). |
+
+## Accessibility
+
+- Built on Radix `Progress`, which applies `role="progressbar"` and the `aria-valuenow` / `aria-valuemin` / `aria-valuemax` attributes from the value.
+- Provide an accessible name via `aria-label` or `aria-labelledby` so the bar's purpose is announced.
+- Use `getValueLabel` (Radix) for a human-readable value announcement when needed.
+- This is determinate only; for indeterminate waits use a Spinner, which exposes the correct busy semantics.

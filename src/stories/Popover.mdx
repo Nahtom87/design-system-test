@@ -1,0 +1,72 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { Guidelines, Do, Dont } from './_doc';
+import * as Stories from './Popover.stories';
+
+<Meta of={Stories} />
+
+# Popover
+
+A small, non-modal surface that floats next to its trigger and can hold rich, interactive content — inputs, buttons, or short forms. It does not block the page; the user can interact with it or click elsewhere to dismiss it.
+
+## When to use
+
+- For contextual controls tied to a trigger, such as a quick-settings or dimensions panel.
+- For short forms or interactive content that should stay anchored to the element that opened it.
+- When the content includes focusable elements (inputs, buttons) the user can operate.
+- When you want lightweight overflow content without dimming or blocking the page.
+
+## When not to use
+
+- For a focused task that should block the page — use [Dialog](?path=/docs/design-system-dialog--docs).
+- For brief, non-interactive text describing a control — use [Tooltip](?path=/docs/design-system-tooltip--docs).
+- For hover-triggered preview content (no interaction) — use [Hover Card](?path=/docs/design-system-hover-card--docs).
+- For choosing one option from a list — use a [Select](?path=/docs/design-system-select--docs) or [Dropdown Menu](?path=/docs/design-system-dropdown-menu--docs).
+
+## Anatomy
+
+- `Popover` — root state container.
+- `PopoverTrigger` — element that toggles the popover; use `asChild`.
+- `PopoverContent` — the floating surface; `align` and `sideOffset` control positioning.
+- `PopoverAnchor` — optional element to position the content against instead of the trigger.
+
+## Examples
+
+<Canvas of={Stories.Default} />
+
+## Usage guidelines
+
+<Guidelines>
+  <Do items={[
+    'Use the popover for genuinely interactive content; reach for Tooltip for plain text.',
+    'Keep the content compact and scoped to a single context.',
+    'Adjust align and sideOffset so the surface clears the trigger and stays on screen.',
+    'Set a width on PopoverContent when the default w-fit is too narrow for inputs.',
+  ]} />
+  <Dont items={[
+    "Don't put essential, must-see information only in a popover; it is dismissed easily.",
+    "Don't nest popovers or open several at once.",
+    "Don't use a popover where a modal decision is required; use Dialog or Alert Dialog.",
+    "Don't trigger a popover on hover for interactive content; hover is for Hover Card / Tooltip.",
+  ]} />
+</Guidelines>
+
+## Props
+
+Root props apply to `Popover`; positioning props apply to `PopoverContent`.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `open` | `boolean` | — | Controlled open state. |
+| `defaultOpen` | `boolean` | `false` | Initial open state when uncontrolled. |
+| `onOpenChange` | `(open: boolean) => void` | — | Called when the open state changes. |
+| `align` | `'start' \| 'center' \| 'end'` | `'center'` | On `PopoverContent`: alignment against the trigger. |
+| `sideOffset` | `number` | `6` | On `PopoverContent`: gap in px between trigger and content. |
+| `className` | `string` | — | Additional classes, merged. |
+| `...props` | `DialogHTMLAttributes` | — | Forwarded to the underlying Radix `Popover` primitive (root or `Content`). |
+
+## Accessibility
+
+- Built on the Radix Popover primitive: it manages `aria-expanded`/`aria-controls` on the trigger and moves focus into the content when opened.
+- Non-modal — the rest of the page stays interactive; `Escape` closes the popover and returns focus to the trigger.
+- Outside clicks dismiss the popover; focus order follows the content's DOM order.
+- Give interactive content inside its own accessible labels (e.g. `<Label>` for inputs).

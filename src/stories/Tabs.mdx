@@ -1,0 +1,72 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { Guidelines, Do, Dont } from './_doc';
+import * as Stories from './Tabs.stories';
+
+<Meta of={Stories} />
+
+# Tabs
+
+Tabs let users switch between related views within a single page or section without navigating away. Only one panel is visible at a time, and the tab strip stays in place so the surrounding context is preserved.
+
+## When to use
+
+- To divide related content of one screen into sections that share context (e.g. Account / Password / Settings).
+- When users switch between views frequently and benefit from the panels staying on the same page.
+- For a small, fixed set of peer views (typically 2–6).
+
+## When not to use
+
+- For navigating between distinct pages or routes — use [Navigation Menu](?path=/docs/design-system-navigation-menu--docs) or [Breadcrumb](?path=/docs/design-system-breadcrumb--docs) to express location.
+- For moving through pages of results — use [Pagination](?path=/docs/design-system-pagination--docs).
+- For a large or growing number of sections — use a [Sidebar](?path=/docs/design-system-sidebar--docs) or accordion instead.
+
+## Anatomy
+
+- `<Tabs>` — root; owns the selected value (`defaultValue` / `value`).
+- `<TabsList>` — the row of tab triggers.
+- `<TabsTrigger>` — a single tab button; identified by its `value`.
+- `<TabsContent>` — the panel shown when its `value` matches the selected tab.
+
+## Examples
+
+<Canvas of={Stories.Default} />
+
+<Canvas of={Stories.ManyTabs} />
+
+## Usage guidelines
+
+<Guidelines>
+  <Do items={[
+    'Use Tabs only for peer views that belong to the same page and context.',
+    'Give each TabsTrigger and matching TabsContent the same value.',
+    'Set defaultValue (or control value) so a tab is selected on load.',
+    'Keep tab labels short and parallel in wording.',
+  ]} />
+  <Dont items={[
+    "Don't use Tabs to navigate between separate pages or URLs.",
+    "Don't hide critical, always-needed content behind a non-default tab.",
+    "Don't pack so many tabs that the strip wraps or scrolls awkwardly.",
+    "Don't change the meaning of a tab depending on another tab's state.",
+  ]} />
+</Guidelines>
+
+## Props
+
+`Tabs` (root):
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `defaultValue` | `string` | — | The tab selected initially (uncontrolled). |
+| `value` | `string` | — | The selected tab (controlled). |
+| `onValueChange` | `(value: string) => void` | — | Called when the selected tab changes. |
+| `className` | `string` | — | Additional classes, merged. |
+| `...props` | `TabsPrimitive.Root` props | — | Forwarded to the Radix Tabs root (e.g. `orientation`, `dir`, `activationMode`). |
+
+`TabsTrigger` and `TabsContent` each require a matching `value` and forward `...props` to their Radix primitive; `TabsList` and `TabsContent` accept `className`.
+
+## Accessibility
+
+- Built on Radix Tabs, which applies `role="tablist"`, `role="tab"`, `role="tabpanel"` and the `aria-selected`/`aria-controls` wiring automatically.
+- `Arrow` keys move between triggers; `Home`/`End` jump to first/last; the active panel is reachable in the tab order.
+- Active triggers get a visible focus ring (`focus-visible:ring`); do not remove it.
+- Disabled triggers are skipped in keyboard navigation and reduced in opacity.

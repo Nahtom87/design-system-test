@@ -7,7 +7,6 @@ const FIGMA_URL = 'https://www.figma.com/design/6IyBOQAD2rysMi9SzXmzFX/Design-sy
 export default {
   title: 'Design System/Input',
   component: Input,
-  tags: ['autodocs'],
   parameters: { design: { type: 'figma', url: FIGMA_URL } },
   argTypes: {
     type: { control: 'select', options: ['text', 'email', 'password', 'number', 'search'] },

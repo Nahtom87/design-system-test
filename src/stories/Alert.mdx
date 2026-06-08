@@ -1,0 +1,67 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { Guidelines, Do, Dont } from './_doc';
+import * as Stories from './Alert.stories';
+
+<Meta of={Stories} />
+
+# Alert
+
+An alert is an inline, static message that communicates important contextual information — informational, success, warning, or error — within the flow of a page. It stays in place and does not interrupt the user or capture focus.
+
+## When to use
+
+- To surface a persistent status or contextual message tied to a section of the page.
+- To explain the result of an action inline (e.g. a saved-successfully or validation summary).
+- To warn about a condition the user should be aware of before proceeding.
+- To convey informational notes alongside related content.
+
+## When not to use
+
+- For transient confirmations that should auto-dismiss — use a toast (Sonner).
+- For a message that must block the flow and require acknowledgement — use a [Dialog](?path=/docs/design-system-dialog--docs) or [Alert Dialog](?path=/docs/design-system-alert-dialog--docs).
+- For a tiny status label or tag — use a [Badge](?path=/docs/design-system-badge--docs).
+- For per-field validation text bound to an input — use the field's helper/error text.
+
+## Anatomy
+
+- `<Alert>` — root container with `role="alert"` and a variant style; place an icon as the first child.
+- `<AlertTitle>` — the short, prominent message heading.
+- `<AlertDescription>` — supporting detail in muted text.
+
+## Examples
+
+<Canvas of={Stories.AllVariants} />
+
+## Usage guidelines
+
+<Guidelines>
+  <Do items={[
+    'Match the variant to severity: default, success, warning, destructive.',
+    'Lead with a clear, specific title and add detail in AlertDescription.',
+    'Include an icon that reinforces the variant meaning.',
+    'Keep the alert close to the content or action it refers to.',
+  ]} />
+  <Dont items={[
+    "Don't use an Alert for transient confirmations; use a toast that auto-dismisses.",
+    "Don't use it to block the flow and force a choice; use a Dialog.",
+    "Don't rely on color alone — keep the title and icon meaningful.",
+    "Don't stack many alerts at once; consolidate or prioritize the message.",
+  ]} />
+</Guidelines>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'default' \| 'destructive' \| 'success' \| 'warning'` | `'default'` | Severity / semantic styling. |
+| `className` | `string` | — | Additional classes, merged. |
+| `...props` | `HTMLAttributes<HTMLDivElement>` | — | Forwarded to the underlying `<div>` (which carries `role="alert"`). |
+
+`AlertTitle` and `AlertDescription` are `<div>` wrappers accepting `className` + native `<div>` attributes.
+
+## Accessibility
+
+- The root sets `role="alert"`, so assistive tech announces its content when it appears; mount it in response to the event so the announcement fires.
+- Because `role="alert"` is assertive, reserve it for genuinely important messages; for non-urgent info consider rendering without the assertive role.
+- Do not convey severity by color alone — keep a textual title and a reinforcing icon (marked `aria-hidden`).
+- Ensure text/background contrast meets WCAG for each variant.

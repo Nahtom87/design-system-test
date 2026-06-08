@@ -1,0 +1,78 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { Guidelines, Do, Dont } from './_doc';
+import * as Stories from './Dialog.stories';
+
+<Meta of={Stories} />
+
+# Dialog
+
+A modal window that opens on top of the page and blocks interaction with everything behind a dimmed overlay until it is dismissed. Use it to focus the user on a self-contained task — editing a record, completing a short form, or reviewing detail — without leaving the current page.
+
+## When to use
+
+- To capture a focused task such as editing a profile or entering a few fields without navigating away.
+- To show supplementary detail or a form that the user must finish or cancel before continuing.
+- When the underlying page must be paused so the user attends to one thing at a time.
+
+## When not to use
+
+- For a destructive action that needs an explicit confirm/cancel decision — use [Alert Dialog](?path=/docs/design-system-alert-dialog--docs), which traps focus on the choice and has no dismiss-on-overlay-click escape.
+- For a side panel of settings, filters, or navigation that sits alongside the page — use [Sheet](?path=/docs/design-system-sheet--docs).
+- On mobile for a bottom-anchored, swipe-to-dismiss surface — use [Drawer](?path=/docs/design-system-drawer--docs).
+- For lightweight, non-blocking contextual content — use [Popover](?path=/docs/design-system-popover--docs).
+
+## Anatomy
+
+- `Dialog` — root state container (open/onOpenChange); wraps everything.
+- `DialogTrigger` — the element that opens the dialog; use `asChild` to wrap a `Button`.
+- `DialogContent` — the modal surface; renders an overlay, centers itself, and adds a close button.
+- `DialogHeader` — top region grouping the title and description.
+- `DialogTitle` — accessible heading (required for screen readers).
+- `DialogDescription` — supporting text below the title.
+- `DialogFooter` — bottom action bar, right-aligned, for confirm/cancel buttons.
+- `DialogClose` — dismisses the dialog; wrap a button with `asChild`.
+- `DialogTrigger`, `DialogPortal`, `DialogOverlay` — supporting primitives forwarded from Radix.
+
+## Examples
+
+<Canvas of={Stories.Default} />
+
+<Canvas of={Stories.Bekræftelse} />
+
+## Usage guidelines
+
+<Guidelines>
+  <Do items={[
+    'Always include a DialogTitle so the dialog has an accessible name.',
+    'Keep the content to a single, short task the user can complete in place.',
+    'Put the primary action last in the footer and pair it with a cancel/close.',
+    'Use controlled open/onOpenChange when the open state depends on app logic.',
+  ]} />
+  <Dont items={[
+    "Don't stack one dialog on top of another; finish or close the first.",
+    "Don't put long, scrolling, multi-step flows in a dialog — use a page.",
+    "Don't use a dialog for a decision that must not be dismissed accidentally; use Alert Dialog.",
+    "Don't omit the title, even visually hidden, or screen readers announce an unnamed dialog.",
+  ]} />
+</Guidelines>
+
+## Props
+
+These props apply to the root `Dialog`; `DialogContent` accepts `showCloseButton`.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `open` | `boolean` | — | Controlled open state. |
+| `defaultOpen` | `boolean` | `false` | Initial open state when uncontrolled. |
+| `onOpenChange` | `(open: boolean) => void` | — | Called when the open state changes. |
+| `modal` | `boolean` | `true` | When `true`, blocks interaction with the rest of the page. |
+| `showCloseButton` | `boolean` | `true` | On `DialogContent`: render the top-right close (X) button. |
+| `className` | `string` | — | Additional classes, merged. |
+| `...props` | `DialogHTMLAttributes` | — | Forwarded to the underlying Radix `Dialog` primitive (root or the specific sub-component). |
+
+## Accessibility
+
+- Built on the Radix Dialog primitive: it sets `role="dialog"`, `aria-modal`, traps focus inside while open, and returns focus to the trigger on close.
+- `DialogTitle` provides the accessible name; add `DialogDescription` and Radix wires `aria-describedby` automatically.
+- `Escape` closes the dialog and clicking the overlay dismisses it; focus is moved into the content on open.
+- The close button includes an `sr-only` "Luk" label for screen-reader users.

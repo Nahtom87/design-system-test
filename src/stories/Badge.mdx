@@ -1,0 +1,67 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { Guidelines, Do, Dont } from './_doc';
+import * as Stories from './Badge.stories';
+
+<Meta of={Stories} />
+
+# Badge
+
+A badge is a small, non-interactive label that annotates an element with a status, category, or count. It draws attention to metadata without taking the user out of their current context.
+
+## When to use
+
+- To show a status: `Active`, `Pending`, `Failed`.
+- To categorize or tag an item (labels, topics, roles).
+- To display a small count or quantity next to an element.
+- To highlight a short attribute inline within a table cell, card, or list item.
+
+## When not to use
+
+- For anything the user clicks to perform an action — badges are non-interactive; use a [Button](?path=/docs/design-system-button--docs) instead.
+- For toggling state — use a [Switch](?path=/docs/design-system-switch--docs) or [Toggle](?path=/docs/design-system-toggle--docs).
+- For long or multi-line text — badges are for short, single-line labels.
+- For dismissible filter chips with a remove action — use a dedicated interactive chip control.
+
+## Examples
+
+<Canvas of={Stories.AllVariants} />
+
+<Canvas of={Stories.Roundness} />
+
+## Usage guidelines
+
+<Guidelines>
+  <Do items={[
+    'Keep labels short — ideally one or two words.',
+    'Map variants to meaning consistently (e.g. destructive for errors/failures).',
+    'Pair color with text so status is not conveyed by color alone.',
+    'Use the optional left/right icon to reinforce, not replace, the label.',
+  ]} />
+  <Dont items={[
+    "Don't attach onClick handlers to make a badge act as a button; use Button.",
+    "Don't pack sentences or wrapping text into a badge.",
+    "Don't rely on color alone to distinguish statuses.",
+    "Don't overuse badges so the interface becomes visually noisy.",
+  ]} />
+</Guidelines>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'primary' \| 'secondary' \| 'outline' \| 'ghost' \| 'destructive'` | `'primary'` | Visual style / semantic intent. |
+| `roundness` | `'default' \| 'round'` | `'default'` | `default` = 8px radius; `round` = full pill. |
+| `showLeftIcon` | `boolean` | `false` | Render a leading icon (`iconLeft`, or a default placeholder). |
+| `showRightIcon` | `boolean` | `false` | Render a trailing icon (`iconRight`, or a default placeholder). |
+| `iconLeft` | `ReactNode` | — | Custom leading icon, shown when `showLeftIcon`. |
+| `iconRight` | `ReactNode` | — | Custom trailing icon, shown when `showRightIcon`. |
+| `children` | `ReactNode` | — | The badge label. |
+| `className` | `string` | — | Additional classes, merged. |
+| `...props` | `HTMLAttributes<HTMLSpanElement>` | — | Forwarded to the underlying `<span>`. |
+
+## Accessibility
+
+- Renders a non-interactive `<span>`, so it is not focusable and adds no role; the text content carries the meaning.
+- Do not convey status by color alone — keep a clear text label.
+- Decorative icons are marked `aria-hidden`; ensure the label still communicates the status without them.
+- If a count needs announcing on change, manage the live region in the surrounding component, not the badge.

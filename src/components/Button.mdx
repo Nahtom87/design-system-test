@@ -1,0 +1,71 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { Guidelines, Do, Dont } from '../stories/_doc';
+import * as ButtonStories from './Button.stories';
+
+<Meta of={ButtonStories} />
+
+# Button
+
+Buttons trigger an action or event — submitting a form, opening a dialog, confirming a choice, or navigating within a flow. They are the primary way users act on a screen, so their styling communicates intent and priority.
+
+## When to use
+
+- To perform an action that changes state, submits data, or advances a task.
+- To give one screen or section a single, clear primary action (`variant="primary"`).
+- For secondary or supporting actions, paired with a primary action (`secondary`, `outline`, `ghost`).
+- For irreversible or dangerous actions, paired with confirmation (`variant="destructive"`).
+
+## When not to use
+
+- For navigation to another page or an external URL — use a link instead. A button that only navigates misleads assistive technology. (Use `variant="link"` only when a link must visually read as text.)
+- For toggling a single on/off state — use [Switch](?path=/docs/design-system-switch--docs) or [Toggle](?path=/docs/design-system-toggle--docs).
+- For selecting one option from a set — use [Radio Group](?path=/docs/design-system-radio-group--docs) or [Tabs](?path=/docs/design-system-tabs--docs).
+
+## Variants
+
+Five intent levels. Use exactly one `primary` per view to keep the visual hierarchy clear.
+
+<Canvas of={ButtonStories.AllVariants} />
+
+## Sizes
+
+Five sizes from `mini` (24px) to `extra-large` (48px). Default is `default` (36px).
+
+<Canvas of={ButtonStories.AllSizes} />
+
+## Usage guidelines
+
+<Guidelines>
+  <Do items={[
+    'Use one primary button per view to mark the single most important action.',
+    'Lead with a verb: “Save changes”, “Delete account”, “Add item”.',
+    'Reserve the destructive variant for actions that remove or overwrite data, and confirm them.',
+    'Place icons with adequate context; the button still needs a text label for clarity.',
+  ]} />
+  <Dont items={[
+    "Don't stack multiple primary buttons in the same group — it removes the hierarchy.",
+    "Don't use a button for plain navigation; use a link so it reads correctly to screen readers.",
+    "Don't write vague labels like “OK”, “Click here”, or “Submit” with no object.",
+    "Don't disable a button without making the reason discoverable to the user.",
+  ]} />
+</Guidelines>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'primary' \| 'secondary' \| 'outline' \| 'ghost' \| 'destructive' \| 'link'` | `'primary'` | Visual intent and priority of the action. |
+| `size` | `'mini' \| 'small' \| 'default' \| 'large' \| 'extra-large'` | `'default'` | Control height and padding. Shadcn aliases (`sm`, `lg`, `icon`, `xs`) are also accepted. |
+| `roundness` | `'default' \| 'round'` | `'default'` | `default` = 8px radius; `round` = full pill. |
+| `asChild` | `boolean` | `false` | Render the child element instead of a `<button>` (e.g. an `<a>`), forwarding all styles via Radix `Slot`. |
+| `disabled` | `boolean` | `false` | Disables interaction; applies reduced opacity and removes pointer events. |
+| `className` | `string` | — | Additional classes, merged with the variant classes. |
+| `children` | `ReactNode` | — | Button label and/or icons. |
+| `...props` | `ButtonHTMLAttributes` | — | All native `<button>` attributes (`onClick`, `type`, `aria-*`, …) are forwarded. |
+
+## Accessibility
+
+- Renders a native `<button>`, so it is focusable and operable with `Enter` and `Space` by default.
+- Provides a visible focus ring (`focus-visible:ring`); never remove focus styling.
+- Icon-only buttons must include an accessible name via `aria-label`.
+- When `asChild` renders a link, ensure it points to a real `href` so it behaves as a link for keyboard and screen-reader users.

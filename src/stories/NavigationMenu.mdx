@@ -1,0 +1,74 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { Guidelines, Do, Dont } from './_doc';
+import * as Stories from './NavigationMenu.stories';
+
+<Meta of={Stories} />
+
+# Navigation Menu
+
+A top-level site navigation bar with optional dropdown panels. It groups primary destinations into a horizontal list, where each item can expose a rich panel of links on hover or focus.
+
+## When to use
+
+- For the primary, persistent navigation of a site or application header.
+- When top-level sections need to reveal sub-pages or featured links in a dropdown panel.
+- To present a small set of grouped destinations (usually 3–7 items) at the top of a layout.
+
+## When not to use
+
+- For moving through pages of results — use [Pagination](?path=/docs/design-system-pagination--docs).
+- For showing the user's current location in a hierarchy — use [Breadcrumb](?path=/docs/design-system-breadcrumb--docs).
+- For switching between views on a single page — use [Tabs](?path=/docs/design-system-tabs--docs).
+- For a vertical, collapsible app navigation panel — use [Sidebar](?path=/docs/design-system-sidebar--docs).
+
+## Anatomy
+
+- `<NavigationMenu>` — root; renders the menu wrapper and (when `viewport`) the shared viewport.
+- `<NavigationMenuList>` — the horizontal `<ul>` of top-level items.
+- `<NavigationMenuItem>` — a single top-level entry.
+- `<NavigationMenuTrigger>` — button that opens a content panel; includes a chevron that rotates on open.
+- `<NavigationMenuContent>` — the dropdown panel revealed by a trigger.
+- `<NavigationMenuLink>` — a navigable link, inside a panel or used directly as a top-level item.
+- `<NavigationMenuViewport>` — shared animated container the active content renders into.
+- `<NavigationMenuIndicator>` — optional arrow pointing at the active trigger.
+
+## Examples
+
+<Canvas of={Stories.Default} />
+
+## Usage guidelines
+
+<Guidelines>
+  <Do items={[
+    'Keep top-level items to a short, scannable set of primary destinations.',
+    'Use NavigationMenuLink with asChild to render your router’s link element.',
+    'Group related links under a trigger panel and give each a short description.',
+    'Mark the current section so users know where they are.',
+  ]} />
+  <Dont items={[
+    "Don't nest deep multi-level menus; flatten or move secondary nav into a Sidebar.",
+    "Don't use it for in-page view switching — that's Tabs.",
+    "Don't put primary actions (submit, save) in the navigation bar.",
+    "Don't render triggers without real links inside the panel.",
+  ]} />
+</Guidelines>
+
+## Props
+
+`NavigationMenu` (root):
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `viewport` | `boolean` | `true` | Render a shared animated viewport for content panels. Set `false` to render each panel inline beneath its item. |
+| `children` | `ReactNode` | — | The list, items, triggers and content. |
+| `className` | `string` | — | Additional classes, merged. |
+| `...props` | `NavigationMenuPrimitive.Root` props | — | Forwarded to the Radix Navigation Menu root (e.g. `value`, `defaultValue`, `onValueChange`, `delayDuration`). |
+
+Sub-components (`List`, `Item`, `Trigger`, `Content`, `Link`, `Indicator`, `Viewport`) each accept `className` and forward `...props` to the matching Radix primitive. `Link` supports `asChild` via Radix to render a custom anchor/router link.
+
+## Accessibility
+
+- Built on Radix Navigation Menu, which manages `role`, `aria-expanded` and keyboard interaction for triggers and panels.
+- Triggers open on focus/hover and are operable with `Enter`/`Space`; `Arrow` keys move between items and `Esc` closes the open panel.
+- When rendering links with `asChild`, ensure each has a real `href` so it behaves as a link for keyboard and screen-reader users.
+- The trigger chevron is `aria-hidden`; the trigger's text label provides its accessible name.

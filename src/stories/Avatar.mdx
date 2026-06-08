@@ -1,0 +1,72 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { Guidelines, Do, Dont } from './_doc';
+import * as Stories from './Avatar.stories';
+
+<Meta of={Stories} />
+
+# Avatar
+
+An avatar is a compact visual representation of a user or entity — a photo, or initials when no image is available. It helps users quickly recognize who is associated with an item. Built on Radix `Avatar`.
+
+## When to use
+
+- To represent the signed-in user or another person in the UI.
+- In lists, comments, tables, and headers where identity needs a visual anchor.
+- To show a group of participants together via `AvatarGroup`.
+- When a graceful fallback (initials) is needed if an image fails to load.
+
+## When not to use
+
+- For decorative or brand imagery unrelated to identity — use a plain image.
+- For a status dot with no identity — use a [Badge](?path=/docs/design-system-badge--docs) or status indicator.
+- For large hero or banner imagery — use a full image component.
+
+## Anatomy
+
+- `<Avatar>` — Radix `Root`; sets size and roundness.
+- `<AvatarImage>` — the user's photo; hides itself if the source fails to load.
+- `<AvatarFallback>` — shown when no image loads; typically initials.
+- `<AvatarGroup>` — wrapper that overlaps multiple avatars with a ring separator.
+
+## Examples
+
+<Canvas of={Stories.AllSizesRound} />
+
+<Canvas of={Stories.Group} />
+
+## Usage guidelines
+
+<Guidelines>
+  <Do items={[
+    'Always provide an AvatarFallback so identity still shows if the image fails.',
+    'Give AvatarImage a meaningful alt describing the person.',
+    'Match the size prop on AvatarFallback to the Avatar size for correct text scaling.',
+    'Use AvatarGroup for compact, overlapping sets of participants.',
+  ]} />
+  <Dont items={[
+    "Don't use an avatar for purely decorative imagery.",
+    "Don't omit the fallback — a broken image leaves an empty space.",
+    "Don't put long text in the fallback; use 1–2 initials.",
+    "Don't rely on the avatar alone to identify a user; pair it with a name where space allows.",
+  ]} />
+</Guidelines>
+
+## Props
+
+`Avatar` is the Radix `Avatar.Root` with sizing.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `size` | `'regular' \| 'small' \| 'tiny' \| 'extra-tiny'` | `'regular'` | Diameter: 40 / 32 / 24 / 20px. |
+| `roundness` | `'round' \| 'roundrect'` | `'round'` | `round` = circle; `roundrect` = rounded corners (radius scales with size). |
+| `className` | `string` | — | Additional classes, merged. |
+| `...props` | Radix `Avatar.Root` props | — | Forwarded to the Radix Root primitive. |
+
+`AvatarImage` forwards to Radix `Image` (`src`, `alt`, …). `AvatarFallback` accepts a matching `size` prop plus Radix `Fallback` props (`delayMs`). `AvatarGroup` is a `<div>` wrapper.
+
+## Accessibility
+
+- Built on Radix `Avatar`, which swaps to the fallback when the image is missing or fails to load.
+- Provide a descriptive `alt` on `AvatarImage`; use `alt=""` only when the avatar is purely decorative and the name appears as adjacent text.
+- The fallback initials are read as text; ensure they are meaningful or pair the avatar with a visible name.
+- Maintain sufficient contrast between fallback text and its background.

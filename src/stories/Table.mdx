@@ -1,0 +1,73 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { Guidelines, Do, Dont } from './_doc';
+import * as Stories from './Table.stories';
+
+<Meta of={Stories} />
+
+# Table
+
+Tables present structured, tabular data in rows and columns so users can scan, compare, and locate records. They are built on native HTML table elements for correct semantics and assistive-technology support.
+
+## When to use
+
+- To display a collection of records sharing the same fields (users, invoices, transactions).
+- When users need to compare values across rows or columns.
+- When the data has a clear two-dimensional structure with column headers.
+- To pair tabular values with inline status indicators or actions per row.
+
+## When not to use
+
+- For laying out non-tabular content or page structure — use CSS layout, not a table.
+- For a short list of items with no columns — use a plain list.
+- For key/value detail of a single record — use a [Card](?path=/docs/design-system-card--docs) or description list.
+- For selecting one option from a set — use [Radio Group](?path=/docs/design-system-radio-group--docs) or [Select](?path=/docs/design-system-select--docs).
+
+## Anatomy
+
+- `<Table>` — root, wraps a native `<table>` in a horizontally scrollable container.
+- `<TableHeader>` — `<thead>`, groups the header row(s).
+- `<TableBody>` — `<tbody>`, contains the data rows.
+- `<TableFooter>` — `<tfoot>`, for summary/totals rows.
+- `<TableRow>` — `<tr>`, a single row with hover and selected states.
+- `<TableHead>` — `<th>`, a column header cell.
+- `<TableCell>` — `<td>`, a data cell.
+- `<TableCaption>` — `<caption>`, an accessible description of the table.
+
+## Examples
+
+<Canvas of={Stories.Default} />
+
+## Usage guidelines
+
+<Guidelines>
+  <Do items={[
+    'Always include a TableHeader so each column has a labelled header cell.',
+    'Add a TableCaption describing what the table contains for screen-reader users.',
+    'Right-align numeric and currency columns so digits line up for scanning.',
+    'Use TableFooter for totals or summary rows rather than mixing them into the body.',
+  ]} />
+  <Dont items={[
+    "Don't use a table purely for visual layout of non-tabular content.",
+    "Don't omit column headers — rows lose meaning for assistive technology.",
+    "Don't put unrelated, single-record key/value pairs in a table; use a Card instead.",
+    "Don't nest interactive controls without giving them their own accessible labels.",
+  ]} />
+</Guidelines>
+
+## Props
+
+`Table` and its sub-components are thin wrappers over native table elements; each forwards `...props` to its element. Document the root below.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `className` | `string` | — | Additional classes, merged onto the `<table>`. |
+| `...props` | `TableHTMLAttributes` | — | Forwarded to the underlying `<table>` element. The root renders inside a scrollable `<div>` container. |
+
+Sub-components (`TableHeader`, `TableBody`, `TableFooter`, `TableRow`, `TableHead`, `TableCell`, `TableCaption`) each accept `className` plus the native attributes of their respective element (`<thead>`, `<tbody>`, `<tfoot>`, `<tr>`, `<th>`, `<td>`, `<caption>`).
+
+## Accessibility
+
+- Renders native `<table>`, `<thead>`, `<tbody>`, `<th>`, and `<td>`, so the table role and cell relationships are conveyed automatically.
+- Use `<TableCaption>` to give the table an accessible name and summary.
+- For headers that label rows rather than columns, set `scope="row"` on the relevant `<TableHead>`.
+- Mark selected rows with `data-state="selected"`; ensure selection state is also communicated, not conveyed by color alone.

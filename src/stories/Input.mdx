@@ -1,0 +1,68 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { Guidelines, Do, Dont } from './_doc';
+import * as Stories from './Input.stories';
+
+<Meta of={Stories} />
+
+# Input
+
+A single-line text field for collecting short, free-form values such as a name, email, password, or search term. It is the default control whenever the answer cannot be reduced to a fixed set of options.
+
+## When to use
+
+- To collect a short, single-line value: name, email, phone number, URL, or amount.
+- For password entry (`type="password"`) and other masked or formatted text.
+- As a search field (`type="search"`) at the top of a list or page.
+- Whenever the set of possible answers is open-ended rather than predefined.
+
+## When not to use
+
+- For longer, multi-line text such as comments or descriptions — use [Textarea](?path=/docs/design-system-textarea--docs).
+- For choosing one option from a small, known set — use [Radio Group](?path=/docs/design-system-radio-group--docs) or a select.
+- For a single boolean setting — use [Checkbox](?path=/docs/design-system-checkbox--docs) or [Switch](?path=/docs/design-system-switch--docs).
+- For picking a value from a continuous range — use [Slider](?path=/docs/design-system-slider--docs).
+
+## Examples
+
+Pair every input with a [Label](?path=/docs/design-system-label--docs) tied via `htmlFor`/`id`.
+
+<Canvas of={Stories.WithLabel} />
+
+The same field across its resting, filled, and disabled states.
+
+<Canvas of={Stories.States} />
+
+## Usage guidelines
+
+<Guidelines>
+  <Do items={[
+    'Always provide a visible label linked with htmlFor/id; placeholders are not labels.',
+    'Set type to match the data (email, password, number, search) for correct keyboards and validation.',
+    'Use placeholder text only for format hints, e.g. "navn@eksempel.dk".',
+    'Show validation errors next to the field and describe how to fix them.',
+  ]} />
+  <Dont items={[
+    "Don't rely on the placeholder as the only label — it disappears on input.",
+    "Don't use an input for multi-line content; switch to Textarea.",
+    "Don't disable a field without making the reason discoverable.",
+    "Don't pack multiple values into one field; give each its own input.",
+  ]} />
+</Guidelines>
+
+## Props
+
+`Input` renders a native `<input>` and forwards all attributes to it. It defines no custom variant props.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `type` | `string` | `'text'` | Native input type (`text`, `email`, `password`, `number`, `search`, …). |
+| `disabled` | `boolean` | `false` | Disables interaction; applies reduced opacity and muted background. |
+| `className` | `string` | — | Additional classes, merged. |
+| `...props` | `InputHTMLAttributes` | — | Forwarded to the underlying `<input>` (`value`, `placeholder`, `onChange`, `id`, `aria-*`, …). |
+
+## Accessibility
+
+- Renders a native `<input>`, so it is focusable and operable with the keyboard by default.
+- Associate a `<Label htmlFor>` with the input's `id` so clicking the label focuses the field and screen readers announce it.
+- Provides a visible focus ring (`focus-visible:ring`); never remove focus styling.
+- For invalid fields set `aria-invalid` and link the error message with `aria-describedby`.

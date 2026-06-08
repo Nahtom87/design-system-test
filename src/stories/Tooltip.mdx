@@ -1,0 +1,75 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { Guidelines, Do, Dont } from './_doc';
+import * as Stories from './Tooltip.stories';
+
+<Meta of={Stories} />
+
+# Tooltip
+
+A small black label that appears on hover or focus to give a brief text explanation of a control — for example naming an icon-only button. It holds short, non-essential text only and never interactive content.
+
+## When to use
+
+- To name or clarify an icon-only button or otherwise unlabeled control.
+- To give a brief hint about what a control does, in a few words.
+- To expose a keyboard shortcut or a truncated label in full.
+- When the same information is also conveyed elsewhere for non-pointer users.
+
+## When not to use
+
+- For rich or interactive content (inputs, buttons, links) — use [Popover](?path=/docs/design-system-popover--docs).
+- For a read-only preview of an entity on hover — use [Hover Card](?path=/docs/design-system-hover-card--docs).
+- For information the user must read to proceed; tooltips are missed on touch and easy to overlook.
+- For long explanations or anything beyond a short phrase — put it inline or in a popover.
+
+## Anatomy
+
+- `TooltipProvider` — shares hover delay across tooltips; wrap the app or a region once.
+- `Tooltip` — root state container for a single tooltip.
+- `TooltipTrigger` — element the tooltip describes; use `asChild`.
+- `TooltipContent` — the floating label; renders an arrow; `side` and `sideOffset` control positioning.
+
+## Examples
+
+<Canvas of={Stories.Default} />
+
+<Canvas of={Stories.Positioner} />
+
+## Usage guidelines
+
+<Guidelines>
+  <Do items={[
+    'Wrap tooltips in a single TooltipProvider so delay timing is consistent.',
+    'Keep the text to a short phrase — a label or brief hint.',
+    'Always pair an icon-only button with a tooltip and an aria-label.',
+    'Use the side prop to place the tooltip where it will not be clipped.',
+  ]} />
+  <Dont items={[
+    "Don't put interactive elements in a tooltip; use a Popover.",
+    "Don't rely on a tooltip for essential information; it is unavailable on touch.",
+    "Don't write long paragraphs; trim to a phrase.",
+    "Don't use a tooltip as the only label for a control without also setting aria-label.",
+  ]} />
+</Guidelines>
+
+## Props
+
+Props split across `TooltipProvider`, the root `Tooltip`, and `TooltipContent`.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `delayDuration` | `number` | `400` | On `TooltipProvider`/`Tooltip`: ms the pointer must rest before the tooltip opens. |
+| `open` | `boolean` | — | On `Tooltip`: controlled open state. |
+| `defaultOpen` | `boolean` | `false` | On `Tooltip`: initial open state when uncontrolled. |
+| `onOpenChange` | `(open: boolean) => void` | — | On `Tooltip`: called when the open state changes. |
+| `side` | `'top' \| 'right' \| 'bottom' \| 'left'` | `'top'` | On `TooltipContent`: preferred side of the trigger. |
+| `sideOffset` | `number` | `6` | On `TooltipContent`: gap in px between trigger and content. |
+| `className` | `string` | — | Additional classes, merged. |
+| `...props` | `DialogHTMLAttributes` | — | Forwarded to the underlying Radix `Tooltip` primitive. |
+
+## Accessibility
+
+- Built on the Radix Tooltip primitive: it opens on hover and on keyboard focus of the trigger, and closes on blur or `Escape`.
+- The tooltip is supplementary; for an icon-only control still set an `aria-label` so the control has a name without hovering.
+- It is non-interactive and not focusable, so it never traps focus.
+- Tooltip content is unavailable on touch devices — never place required information there.

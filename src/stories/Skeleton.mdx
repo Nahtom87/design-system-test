@@ -1,0 +1,59 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { Guidelines, Do, Dont } from './_doc';
+import * as Stories from './Skeleton.stories';
+
+<Meta of={Stories} />
+
+# Skeleton
+
+A pulsing placeholder that mirrors the shape and position of content while it loads. By matching the final layout, it reduces perceived wait time and prevents the jarring shift that happens when content pops in.
+
+## When to use
+
+- While fetching content whose layout you already know — cards, table rows, avatars, text lines.
+- For the initial load of a page or panel, to preserve structure before data arrives.
+- When you want to avoid layout shift as real content replaces the placeholder.
+- For repeated items (lists, grids), to signal that several pieces are loading at once.
+
+## When not to use
+
+- For an indeterminate wait with no predictable layout — use a [Spinner](?path=/docs/design-system-spinner--docs).
+- For a short, blocking action like a form submit — show a spinner in the [Button](?path=/docs/design-system-button--docs) instead.
+- For progress with a known completion percentage — use a [Progress](?path=/docs/design-system-progress--docs) bar.
+- After content has loaded — always remove the skeleton; never leave it as a permanent decoration.
+
+## Examples
+
+<Canvas of={Stories.KortSkeleton} />
+
+<Canvas of={Stories.TabellSkeleton} />
+
+## Usage guidelines
+
+<Guidelines>
+  <Do items={[
+    'Size and position each skeleton to match the real content it replaces.',
+    'Use multiple skeletons to mirror the layout of a card, row, or list.',
+    'Round skeletons to match their target (full circle for avatars, 8px for blocks).',
+    'Swap the skeleton out as soon as data resolves to avoid a frozen feel.',
+  ]} />
+  <Dont items={[
+    "Don't use a skeleton when you cannot predict the final layout — use a spinner.",
+    "Don't leave skeletons on screen after content has loaded.",
+    "Don't animate skeletons so aggressively that they distract from the page.",
+    "Don't use a single generic block when the content has a distinct, known shape.",
+  ]} />
+</Guidelines>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `className` | `string` | — | Additional classes, merged. Set width, height, and radius here (or via inline style) to match the target content. |
+| `...props` | `DivHTMLAttributes` | — | All native `<div>` attributes are forwarded to the underlying element. |
+
+## Accessibility
+
+- Renders a plain decorative `<div>` with no implicit role; it is invisible to assistive technology by default.
+- Announce loading state at the container level (e.g. `aria-busy="true"` on the region, or a visually hidden "Loading…" message) rather than on each skeleton block.
+- Avoid attaching focus or interactive handlers to a skeleton — it represents content that does not yet exist.

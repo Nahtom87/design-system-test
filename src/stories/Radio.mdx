@@ -1,0 +1,74 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { Guidelines, Do, Dont } from './_doc';
+import * as Stories from './Radio.stories';
+
+<Meta of={Stories} />
+
+# Radio Group
+
+A set of radio buttons for selecting exactly one option from a small, mutually exclusive list. Choosing one option automatically deselects the others.
+
+## When to use
+
+- To pick one and only one option from a known set, e.g. a plan, a shipping method, a payment type.
+- When all options should be visible at once for easy comparison (typically 2–6 items).
+- When the choice is part of a form submitted later, rather than applied instantly.
+
+## When not to use
+
+- To select more than one option, or zero, from a list — use [Checkbox](?path=/docs/design-system-checkbox--docs).
+- To toggle a single setting on or off immediately — use [Switch](?path=/docs/design-system-switch--docs).
+- To choose a value from a continuous or stepped range — use [Slider](?path=/docs/design-system-slider--docs).
+- For long option lists where vertical space matters — use a select instead.
+
+## Anatomy
+
+- `<RadioGroup>` — the root container; owns the value and arranges items in a vertical grid.
+- `<RadioGroupItem>` — one selectable option; needs a unique `value` and pairs with a [Label](?path=/docs/design-system-label--docs).
+
+## Examples
+
+A basic vertical group with one option preselected and one disabled.
+
+<Canvas of={Stories.Default} />
+
+Rich cards give each option a title and supporting description.
+
+<Canvas of={Stories.RichCard} />
+
+## Usage guidelines
+
+<Guidelines>
+  <Do items={[
+    'Use a radio group only when exactly one option may be selected.',
+    'Give each RadioGroupItem a unique value and an associated Label via htmlFor/id.',
+    'Preselect a sensible default with defaultValue when one is clearly best.',
+    'Keep the full set of options visible so users can compare them.',
+  ]} />
+  <Dont items={[
+    "Don't use radios when multiple selections are allowed; use Checkbox.",
+    "Don't use a radio group for an instant on/off toggle; use Switch.",
+    "Don't provide only one radio button; a single binary choice is a Checkbox.",
+    "Don't omit a default and leave the group with no clear selected state when one is expected.",
+  ]} />
+</Guidelines>
+
+## Props
+
+Documents the root `RadioGroup`; per-option props live on `RadioGroupItem` (see Anatomy).
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | — | Controlled selected value. |
+| `defaultValue` | `string` | — | Initially selected value when uncontrolled. |
+| `onValueChange` | `(value: string) => void` | — | Fires when the selection changes. |
+| `disabled` | `boolean` | `false` | Disables the entire group. |
+| `className` | `string` | — | Additional classes, merged. |
+| `...props` | `RadioGroup.RootProps` | — | Forwarded to the Radix `RadioGroup.Root` primitive. |
+
+## Accessibility
+
+- Built on Radix `RadioGroup`, which manages `role="radiogroup"`/`radio`, `aria-checked`, and roving focus.
+- Move between options with the `Arrow` keys; the group is a single tab stop.
+- Associate a `<Label htmlFor>` with each item's `id` so every option has an accessible name and larger target.
+- Provides a visible focus ring; never remove focus styling.

@@ -7,7 +7,6 @@ const variants = ['primary', 'secondary', 'outline', 'ghost', 'destructive'];
 export default {
   title: 'Design System/Badge',
   component: Badge,
-  tags: ['autodocs'],
   parameters: {
     design: { type: 'figma', url: FIGMA_URL },
   },

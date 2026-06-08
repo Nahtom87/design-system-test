@@ -7,7 +7,6 @@ const font = "'IBM Plex Sans', system-ui, sans-serif";
 export default {
   title: 'Design System/Checkbox',
   component: Checkbox,
-  tags: ['autodocs'],
   parameters: { design: { type: 'figma', url: FIGMA_URL } },
   argTypes: {
     disabled: { control: 'boolean' },

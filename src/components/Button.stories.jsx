@@ -10,7 +10,6 @@ const sizeLabels = { mini: 'Mini (24px)', small: 'Small (32px)', default: 'Defau
 export default {
   title: 'Design System/Button',
   component: Button,
-  tags: ['autodocs'],
   parameters: {
     design: { type: 'figma', url: FIGMA_URL },
   },

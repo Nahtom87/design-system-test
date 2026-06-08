@@ -1,0 +1,60 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { Guidelines, Do, Dont } from './_doc';
+import * as Stories from './Spinner.stories';
+
+<Meta of={Stories} />
+
+# Spinner
+
+An animated, indeterminate loading indicator for waits where neither the duration nor the resulting layout is known. It inherits its color from the surrounding text (`currentColor`), so it sits naturally inside buttons, inputs, and labels.
+
+## When to use
+
+- For an indeterminate wait of unknown length where you cannot predict the result layout.
+- Inside a [Button](?path=/docs/design-system-button--docs) to show a submit or save is in progress.
+- For small, inline async operations (validating a field, loading a fragment).
+- As a lightweight loading state when a full skeleton layout would be overkill.
+
+## When not to use
+
+- When the final layout is known — use a [Skeleton](?path=/docs/design-system-skeleton--docs) to preserve structure and reduce perceived wait.
+- For progress with a measurable percentage — use a [Progress](?path=/docs/design-system-progress--docs) bar.
+- For very long background tasks where the user can keep working — surface status via a less intrusive indicator or [Toast](?path=/docs/design-system-toast--docs).
+
+## Examples
+
+<Canvas of={Stories.AllSizes} />
+
+<Canvas of={Stories.IKnap} />
+
+## Usage guidelines
+
+<Guidelines>
+  <Do items={[
+    'Match the spinner size to its context: sm inside buttons and inputs, lg/xl for full-area loads.',
+    'Let it inherit color from the parent so it reads correctly on any background.',
+    'Pair an in-button spinner with the disabled state to block duplicate submits.',
+    'Keep an accessible label so screen-reader users know something is loading.',
+  ]} />
+  <Dont items={[
+    "Don't use a spinner when the content layout is known — use a skeleton.",
+    "Don't show a spinner for a determinate task — use a progress bar.",
+    "Don't leave a spinner running indefinitely with no timeout or error path.",
+    "Don't scatter multiple competing spinners across one view for a single load.",
+  ]} />
+</Guidelines>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `size` | `'sm' \| 'default' \| 'lg' \| 'xl'` | `'default'` | Diameter: `sm` 12px, `default` 16px, `lg` 24px, `xl` 32px. |
+| `className` | `string` | — | Additional classes, merged. Color is set via text color (`currentColor`). |
+| `...props` | `SVGAttributes` | — | All native `<svg>` attributes are forwarded to the underlying SVG element. |
+
+## Accessibility
+
+- Renders an `<svg>` with `role="status"` and a default `aria-label` ("Indlæser…"), so screen readers announce the loading state.
+- Override `aria-label` to describe the specific operation (e.g. "Saving changes") for clearer context.
+- When placed inside a disabled button, the button label should still convey what is happening (e.g. "Saving…").
+- Animation respects the user agent; avoid adding additional rapid motion around it.

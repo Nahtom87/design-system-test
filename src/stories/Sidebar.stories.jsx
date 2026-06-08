@@ -19,7 +19,6 @@ const navItems = [
 export default {
   title: 'Design System/Sidebar',
   component: Sidebar,
-  tags: ['autodocs'],
   parameters: {
     layout: 'fullscreen',
     design: { type: 'figma', url: FIGMA_URL },

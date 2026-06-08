@@ -1,0 +1,73 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { Guidelines, Do, Dont } from './_doc';
+import * as Stories from './HoverCard.stories';
+
+<Meta of={Stories} />
+
+# Hover Card
+
+A preview surface that appears when the user hovers over (or focuses) a trigger, showing supplementary context such as a profile summary or link preview. It is sighted, pointer-driven progressive enhancement — never the only place essential information lives.
+
+## When to use
+
+- To preview a user, link, or entity on hover — for example a profile card behind an @mention.
+- To surface helpful but non-essential context that enriches the trigger.
+- When the content is read-only and the user does not need to interact with it.
+- For desktop, pointer-driven experiences where hover is a natural gesture.
+
+## When not to use
+
+- For brief text explaining a control — use [Tooltip](?path=/docs/design-system-tooltip--docs).
+- For interactive content (inputs, buttons) — use [Popover](?path=/docs/design-system-popover--docs), which opens on click.
+- For information the user must see to complete a task; hover content is missed on touch and by many AT users.
+- For a focused task that should block the page — use [Dialog](?path=/docs/design-system-dialog--docs).
+
+## Anatomy
+
+- `HoverCard` — root state container.
+- `HoverCardTrigger` — element that reveals the card on hover/focus; use `asChild`.
+- `HoverCardContent` — the floating preview surface (200px wide by default); `align` and `sideOffset` control positioning.
+
+## Examples
+
+<Canvas of={Stories.Default} />
+
+## Usage guidelines
+
+<Guidelines>
+  <Do items={[
+    'Use it only for supplementary, read-only preview content.',
+    'Keep the card concise — a summary, not a full page of detail.',
+    'Ensure the same information is reachable another way for touch and AT users.',
+    'Adjust align and sideOffset so the card clears the trigger and stays on screen.',
+  ]} />
+  <Dont items={[
+    "Don't put essential information only in a hover card; it is invisible on touch.",
+    "Don't place interactive controls inside; hover content is hard to reach with a pointer.",
+    "Don't use it for plain text labels — that is a Tooltip.",
+    "Don't trigger heavy network requests on every hover without debouncing.",
+  ]} />
+</Guidelines>
+
+## Props
+
+Root props apply to `HoverCard`; positioning props apply to `HoverCardContent`.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `open` | `boolean` | — | Controlled open state. |
+| `defaultOpen` | `boolean` | `false` | Initial open state when uncontrolled. |
+| `onOpenChange` | `(open: boolean) => void` | — | Called when the open state changes. |
+| `openDelay` | `number` | `700` | Radix: ms before the card opens on hover. |
+| `closeDelay` | `number` | `300` | Radix: ms before the card closes on leave. |
+| `align` | `'start' \| 'center' \| 'end'` | `'center'` | On `HoverCardContent`: alignment against the trigger. |
+| `sideOffset` | `number` | `6` | On `HoverCardContent`: gap in px between trigger and content. |
+| `className` | `string` | — | Additional classes, merged. |
+| `...props` | `DialogHTMLAttributes` | — | Forwarded to the underlying Radix `HoverCard` primitive. |
+
+## Accessibility
+
+- Built on the Radix Hover Card primitive: it opens on hover and on keyboard focus of the trigger, so keyboard users can reach the preview.
+- The card is read-only and informational; it is not focus-trapped and does not block the page.
+- Because hover is unavailable on touch and unreliable for many assistive-tech users, treat its content as supplementary and provide the same information elsewhere.
+- `Escape` dismisses the card while it is open.

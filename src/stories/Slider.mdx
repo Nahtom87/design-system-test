@@ -1,0 +1,70 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { Guidelines, Do, Dont } from './_doc';
+import * as Stories from './Slider.stories';
+
+<Meta of={Stories} />
+
+# Slider
+
+A draggable control for choosing a numeric value, or a range of values, from a continuous or stepped scale. It suits settings where the approximate position matters more than an exact figure.
+
+## When to use
+
+- To pick a value from a bounded range, e.g. volume, brightness, or zoom.
+- To select a range between a lower and upper bound by passing two values (e.g. a price filter).
+- When relative position on the scale is more meaningful than typing an exact number.
+
+## When not to use
+
+- When a precise value must be entered or read back exactly — use a numeric [Input](?path=/docs/design-system-input--docs).
+- For an on/off setting — use [Switch](?path=/docs/design-system-switch--docs).
+- For choosing one option from a discrete, labelled set — use [Radio Group](?path=/docs/design-system-radio-group--docs).
+- For selecting several independent options — use [Checkbox](?path=/docs/design-system-checkbox--docs).
+
+## Examples
+
+A single-value slider with a [Label](?path=/docs/design-system-label--docs).
+
+<Canvas of={Stories.WithLabel} />
+
+Passing two values renders a range slider with two thumbs.
+
+<Canvas of={Stories.Range} />
+
+## Usage guidelines
+
+<Guidelines>
+  <Do items={[
+    'Give the slider a label and, where useful, show the current value.',
+    'Set min, max, and step to match the real range and the precision users need.',
+    'Pass a two-value array (defaultValue={[20, 80]}) for a range selection.',
+    'Pick a sensible default value within the range.',
+  ]} />
+  <Dont items={[
+    "Don't use a slider when an exact value matters; use a numeric Input.",
+    "Don't use a slider for a binary setting; use Switch.",
+    "Don't set a step so coarse or so fine that the target value is hard to hit.",
+    "Don't hide the selected value when the exact figure is relevant to the user.",
+  ]} />
+</Guidelines>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `number[]` | — | Controlled value(s); one entry per thumb. |
+| `defaultValue` | `number[]` | `[min]` | Initial value(s) when uncontrolled; length sets the number of thumbs. |
+| `min` | `number` | `0` | Lowest selectable value. |
+| `max` | `number` | `100` | Highest selectable value. |
+| `step` | `number` | `1` | Increment between selectable values. |
+| `onValueChange` | `(value: number[]) => void` | — | Fires as the value changes. |
+| `disabled` | `boolean` | `false` | Disables interaction; applies reduced opacity. |
+| `className` | `string` | — | Additional classes, merged. |
+| `...props` | `Slider.RootProps` | — | Forwarded to the Radix `Slider.Root` primitive. |
+
+## Accessibility
+
+- Built on Radix `Slider`, which manages `role="slider"`, `aria-valuemin`/`max`/`now`, and keyboard interaction per thumb.
+- Adjust with `Arrow` keys (and `Home`/`End`/`Page` keys); each thumb is focusable.
+- Provide an accessible name via an associated `<Label>` or `aria-label`, especially for range sliders where each thumb should be distinguishable.
+- Provides a visible focus ring on the thumb; never remove focus styling.

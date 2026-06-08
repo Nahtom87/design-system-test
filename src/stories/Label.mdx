@@ -1,0 +1,66 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { Guidelines, Do, Dont } from './_doc';
+import * as Stories from './Label.stories';
+
+<Meta of={Stories} />
+
+# Label
+
+An accessible caption for a form control. Linking a label to its control gives the field a name for assistive technology and makes the label a click target that focuses or toggles the control.
+
+## When to use
+
+- To name any form control: [Input](?path=/docs/design-system-input--docs), [Textarea](?path=/docs/design-system-textarea--docs), [Checkbox](?path=/docs/design-system-checkbox--docs), [Radio Group](?path=/docs/design-system-radio-group--docs), [Switch](?path=/docs/design-system-switch--docs), [Slider](?path=/docs/design-system-slider--docs).
+- Whenever a control needs a visible, persistent caption — which is almost always.
+- To enlarge the hit area of small controls like checkboxes and radios by wrapping or linking the label.
+
+## When not to use
+
+- For helper text, hints, or validation messages — use ordinary text linked via `aria-describedby`.
+- For non-interactive headings or section titles — use a heading element.
+- As a substitute for placeholder format hints inside an input.
+
+## Examples
+
+A label linked to an input via `htmlFor`/`id`.
+
+<Canvas of={Stories.WithInput} />
+
+Wrapping a checkbox so the whole label is clickable.
+
+<Canvas of={Stories.WithCheckbox} />
+
+## Usage guidelines
+
+<Guidelines>
+  <Do items={[
+    'Link every label to its control with htmlFor pointing at the control id.',
+    'Keep label text short, specific, and in sentence case.',
+    'Place the label adjacent to its control so the relationship is obvious.',
+    'Rely on the built-in peer-disabled styling to dim the label when its control is disabled.',
+  ]} />
+  <Dont items={[
+    "Don't use a label as the only error or helper text; that belongs in descriptive text.",
+    "Don't leave htmlFor unset — an unlinked label has no accessibility benefit.",
+    "Don't use a label for non-interactive headings.",
+    "Don't hide the label visually unless an equivalent accessible name is provided.",
+  ]} />
+</Guidelines>
+
+## Props
+
+`Label` wraps the Radix `Label` primitive and forwards all attributes to it. It defines no custom variant props.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `htmlFor` | `string` | — | `id` of the control this label names; clicking the label activates that control. |
+| `className` | `string` | — | Additional classes, merged. |
+| `children` | `ReactNode` | — | Label text and any inline control wrapped inside it. |
+| `...props` | `Label.RootProps` | — | Forwarded to the Radix `Label.Root` primitive (renders a `<label>`). |
+
+## Accessibility
+
+- Renders a native `<label>` via Radix `Label`, giving the linked control an accessible name.
+- Clicking the label focuses the associated input or toggles a checkbox/switch/radio.
+- Includes `peer-disabled` and `group-data-[disabled]` styling so the label dims when its control is disabled.
+- Either link the control with `htmlFor`/`id` or nest the control inside the label; an unassociated label provides no name to screen readers.

@@ -1,0 +1,76 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { Guidelines, Do, Dont } from './_doc';
+import * as Stories from './Drawer.stories';
+
+<Meta of={Stories} />
+
+# Drawer
+
+A surface that slides up from the bottom of the screen and can be dragged to dismiss. Built for touch: it anchors to the bottom edge, shows a drag handle, and suits mobile contexts where reaching the top of the screen is awkward.
+
+## When to use
+
+- On mobile, for actions, filters, or short forms that should rise from the bottom within thumb reach.
+- When the user benefits from a swipe-down-to-dismiss gesture.
+- For contextual menus or option lists triggered from a mobile toolbar.
+- As the touch-friendly counterpart to a dialog on small screens.
+
+## When not to use
+
+- On desktop, where a centered surface reads better — use [Dialog](?path=/docs/design-system-dialog--docs).
+- For a side panel of navigation, filters, or detail — use [Sheet](?path=/docs/design-system-sheet--docs).
+- For a destructive confirmation needing an explicit decision — use [Alert Dialog](?path=/docs/design-system-alert-dialog--docs).
+- For small contextual content tied to a trigger — use [Popover](?path=/docs/design-system-popover--docs).
+
+## Anatomy
+
+- `Drawer` — root state container (built on Vaul).
+- `DrawerTrigger` — element that opens the drawer; use `asChild`.
+- `DrawerContent` — the bottom-anchored sliding surface; renders the drag handle.
+- `DrawerHeader` — top region for the title and description.
+- `DrawerTitle` — accessible heading.
+- `DrawerDescription` — supporting text.
+- `DrawerFooter` — bottom action bar, pinned to the bottom, right-aligned.
+- `DrawerClose` — dismisses the drawer; wrap a button with `asChild`.
+
+## Examples
+
+<Canvas of={Stories.Default} />
+
+## Usage guidelines
+
+<Guidelines>
+  <Do items={[
+    'Reserve the drawer for mobile / touch contexts where the bottom edge is easiest to reach.',
+    'Always include a DrawerTitle so the surface has an accessible name.',
+    'Keep content short enough to fit the 80vh max height; let it scroll if needed.',
+    'Pin primary actions in DrawerFooter so they stay reachable.',
+  ]} />
+  <Dont items={[
+    "Don't use a drawer as the default on desktop; prefer Dialog or Sheet there.",
+    "Don't put long multi-step flows in a drawer; move them to a page.",
+    "Don't rely solely on the swipe gesture; keep a visible close/cancel control.",
+    "Don't omit the title, or screen readers announce an unnamed surface.",
+  ]} />
+</Guidelines>
+
+## Props
+
+Props apply to the root `Drawer` (Vaul). Sub-components forward to the matching Vaul parts.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `open` | `boolean` | — | Controlled open state. |
+| `defaultOpen` | `boolean` | `false` | Initial open state when uncontrolled. |
+| `onOpenChange` | `(open: boolean) => void` | — | Called when the open state changes. |
+| `shouldScaleBackground` | `boolean` | `false` | Vaul: scale the page behind while the drawer is open. |
+| `dismissible` | `boolean` | `true` | Vaul: allow swipe / overlay-click dismissal. |
+| `className` | `string` | — | Additional classes, merged. |
+| `...props` | `DialogHTMLAttributes` | — | Forwarded to the underlying Vaul `Drawer` primitive. |
+
+## Accessibility
+
+- Built on the Vaul Drawer primitive (a Radix Dialog under the hood): it sets dialog semantics, traps focus while open, and restores focus on close.
+- `DrawerTitle` provides the accessible name; pair with `DrawerDescription` for context.
+- The drag handle is decorative; the drawer is fully operable by keyboard — `Escape` dismisses it.
+- Swipe-to-dismiss is a touch enhancement, not the only way to close; keyboard and assistive tech use standard dialog dismissal.

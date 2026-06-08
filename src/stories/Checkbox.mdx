@@ -1,0 +1,68 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { Guidelines, Do, Dont } from './_doc';
+import * as Stories from './Checkbox.stories';
+
+<Meta of={Stories} />
+
+# Checkbox
+
+A control for toggling a single independent on/off value, or for selecting any number of options from a list. It supports a third `indeterminate` state for representing a partially-selected group.
+
+## When to use
+
+- To accept or decline a single condition, e.g. "I accept the terms".
+- To select zero, one, or several options from a list where choices are independent.
+- As a "select all" control whose `indeterminate` state reflects a partial selection.
+- When changes apply on form submit rather than instantly.
+
+## When not to use
+
+- To choose exactly one option from a mutually exclusive set — use [Radio Group](?path=/docs/design-system-radio-group--docs).
+- To toggle a setting that takes effect immediately — use [Switch](?path=/docs/design-system-switch--docs).
+- To pick a value from a continuous or stepped range — use [Slider](?path=/docs/design-system-slider--docs).
+
+## Examples
+
+Each checkbox pairs with a [Label](?path=/docs/design-system-label--docs); clicking the label toggles the box.
+
+<Canvas of={Stories.MedLabel} />
+
+A set of independent options forms a checkbox group.
+
+<Canvas of={Stories.CheckboxGroupInline} />
+
+## Usage guidelines
+
+<Guidelines>
+  <Do items={[
+    'Give every checkbox a clear label and link it with htmlFor/id.',
+    'Use checkboxes when several options can be selected at once.',
+    'Use checked="indeterminate" on a parent that controls a partially-selected group.',
+    'Set the error prop and an inline message when a required box is unchecked.',
+  ]} />
+  <Dont items={[
+    "Don't use a checkbox group for mutually exclusive choices; use Radio Group.",
+    "Don't use a checkbox to apply a change instantly; use Switch.",
+    "Don't toggle the value the moment a label is clicked without the box reflecting state.",
+    "Don't leave a checkbox without a visible, associated label.",
+  ]} />
+</Guidelines>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `checked` | `boolean \| 'indeterminate'` | — | Controlled state; `'indeterminate'` renders the minus indicator. |
+| `defaultChecked` | `boolean` | `false` | Initial state when uncontrolled. |
+| `error` | `boolean` | `false` | Applies the destructive border and focus ring for an invalid state. |
+| `disabled` | `boolean` | `false` | Disables interaction; applies reduced opacity. |
+| `onCheckedChange` | `(checked: boolean \| 'indeterminate') => void` | — | Fires when the checked state changes. |
+| `className` | `string` | — | Additional classes, merged. |
+| `...props` | `Checkbox.RootProps` | — | Forwarded to the Radix `Checkbox.Root` primitive. |
+
+## Accessibility
+
+- Built on Radix `Checkbox`, which manages `role="checkbox"`, `aria-checked` (including `mixed` for indeterminate), and keyboard interaction.
+- Toggle with `Space`; the control is reachable in the normal tab order.
+- Associate a `<Label htmlFor>` with the checkbox `id` so it has an accessible name and a larger click target.
+- Provides a visible focus ring; in the error state the ring uses the destructive color — keep an inline text message too, not color alone.

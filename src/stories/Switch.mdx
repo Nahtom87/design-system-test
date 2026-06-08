@@ -1,0 +1,66 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { Guidelines, Do, Dont } from './_doc';
+import * as Stories from './Switch.stories';
+
+<Meta of={Stories} />
+
+# Switch
+
+A toggle for turning a single setting on or off, where the change takes effect immediately. The thumb slides between two states to mirror a physical on/off switch.
+
+## When to use
+
+- To enable or disable a setting that applies instantly, e.g. notifications or dark mode.
+- For binary preferences in settings panels and toolbars.
+- When there is no separate "save" step — flipping the switch is the action.
+
+## When not to use
+
+- When the choice is submitted later as part of a form, especially for consent — use [Checkbox](?path=/docs/design-system-checkbox--docs).
+- To choose one option from several mutually exclusive choices — use [Radio Group](?path=/docs/design-system-radio-group--docs).
+- To select a value from a continuous or stepped range — use [Slider](?path=/docs/design-system-slider--docs).
+
+## Examples
+
+Off, on, and disabled, each paired with a [Label](?path=/docs/design-system-label--docs).
+
+<Canvas of={Stories.States} />
+
+Rich cards combine the switch with a title and supporting description.
+
+<Canvas of={Stories.RichCard} />
+
+## Usage guidelines
+
+<Guidelines>
+  <Do items={[
+    'Use a switch only when the change applies immediately.',
+    'Give the switch a clear label describing the setting it controls.',
+    'Write the label as the thing being toggled, e.g. "Notifikationer", not "On".',
+    'Reflect the resulting state immediately so users get instant feedback.',
+  ]} />
+  <Dont items={[
+    "Don't use a switch for choices that are saved later; use Checkbox.",
+    "Don't use a switch to pick one of several options; use Radio Group.",
+    "Don't pair a switch with Yes/No or Save buttons — the toggle is the action.",
+    "Don't leave a switch without an associated label.",
+  ]} />
+</Guidelines>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `checked` | `boolean` | — | Controlled on/off state. |
+| `defaultChecked` | `boolean` | `false` | Initial state when uncontrolled. |
+| `onCheckedChange` | `(checked: boolean) => void` | — | Fires when the state changes. |
+| `disabled` | `boolean` | `false` | Disables interaction; applies reduced opacity. |
+| `className` | `string` | — | Additional classes, merged. |
+| `...props` | `Switch.RootProps` | — | Forwarded to the Radix `Switch.Root` primitive. |
+
+## Accessibility
+
+- Built on Radix `Switch`, which manages `role="switch"`, `aria-checked`, and keyboard interaction.
+- Toggle with `Space` or `Enter`; the control is in the normal tab order.
+- Associate a `<Label htmlFor>` with the switch `id` so it has an accessible name.
+- Provides a visible focus ring; never remove focus styling.

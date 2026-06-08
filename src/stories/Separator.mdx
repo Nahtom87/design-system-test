@@ -1,0 +1,61 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import { Guidelines, Do, Dont } from './_doc';
+import * as Stories from './Separator.stories';
+
+<Meta of={Stories} />
+
+# Separator
+
+A thin rule that visually and semantically divides content into groups — between list items, sections of a layout, or inline pieces of metadata. Built on the Radix Separator primitive, so it can carry meaning for assistive technology or stay purely decorative.
+
+## When to use
+
+- To separate distinct groups of related content within a single surface (e.g. sections of a settings page).
+- Between rows or items in a list or menu where whitespace alone is not enough.
+- Vertically between inline elements, such as breadcrumb steps or metadata, with `orientation="vertical"`.
+- To reinforce structure inside a card, sheet, or dropdown.
+
+## When not to use
+
+- As the outer edge of a region — use a border or the surface of a [Card](?path=/docs/design-system-card--docs) instead.
+- Purely for spacing with no grouping intent — use margin or padding.
+- To frame interactive controls in a toolbar — a [Toggle Group](?path=/docs/design-system-toggle-group--docs) or button group communicates that better.
+
+## Examples
+
+<Canvas of={Stories.Horisontal} />
+
+<Canvas of={Stories.Vertikal} />
+
+## Usage guidelines
+
+<Guidelines>
+  <Do items={[
+    'Keep separators decorative (the default) unless the divide carries real semantic meaning for screen readers.',
+    'Set orientation="vertical" inside a flex row and give the container a defined height.',
+    'Use one consistent separator weight (1px) across a layout for a calm hierarchy.',
+    'Pair with adequate spacing so the rule groups content rather than crowding it.',
+  ]} />
+  <Dont items={[
+    "Don't stack multiple separators to create thicker dividers — adjust spacing instead.",
+    "Don't use a separator where a heading or section title would communicate the grouping better.",
+    "Don't make a vertical separator decorative={false} unless it genuinely separates landmark content.",
+    "Don't rely on a separator alone to convey meaning that color or labels should provide.",
+  ]} />
+</Guidelines>
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Direction of the rule. Vertical requires a sized flex container. |
+| `decorative` | `boolean` | `true` | When `true`, the separator is hidden from the accessibility tree (presentational). Set `false` to expose it as a semantic separator. |
+| `className` | `string` | — | Additional classes, merged. |
+| `...props` | `Separator.RootProps` | — | Forwarded to the Radix `Separator.Root` primitive. |
+
+## Accessibility
+
+- Built on Radix `Separator.Root`, which manages the `separator` role and `aria-orientation`.
+- With `decorative={true}` (default) the element is removed from the accessibility tree — correct for purely visual divides.
+- Set `decorative={false}` only when the separation is meaningful to non-visual users; Radix then exposes the `separator` role.
+- A separator is never focusable or interactive.
