@@ -145,8 +145,12 @@ function buildCssBlocks(collections) {
         // Spring over skjulte/interne variabler
         if (variable.hiddenFromPublishing) continue;
 
+        // Whitelist: only emit variables that map to a canonical shadcn token.
+        // This keeps the generated block lean (no raw palette/alpha/spacing/
+        // shadow/typography tokens polluting index.css).
         const mapped = NAME_MAP[variable.name.trim().toLowerCase()];
-        const cssVar = mapped ? `--${mapped}` : `--${toKebab(variable.name)}`;
+        if (!mapped) continue;
+        const cssVar = `--${mapped}`;
         const value = formatValue(variable, modeId);
         if (value !== null) {
           modeTokens[modeName][cssVar] = value;
@@ -186,6 +190,10 @@ function buildCssBlocks(collections) {
 const START_MARKER = '/* === FIGMA TOKENS START === */';
 const END_MARKER = '/* === FIGMA TOKENS END === */';
 
+function escapeRe(s) {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 function updateCss(newTokenBlock) {
   if (!existsSync(CSS_FILE)) {
     console.error(`❌ Kan ikke finde ${CSS_FILE}`);
@@ -194,22 +202,22 @@ function updateCss(newTokenBlock) {
 
   let css = readFileSync(CSS_FILE, 'utf-8');
 
-  const startIdx = css.indexOf(START_MARKER);
-  const endIdx = css.indexOf(END_MARKER);
-
   const replacement = `${START_MARKER}\n/* Autogenereret — rediger ikke manuelt. Kør: node scripts/sync-tokens.js */\n\n${newTokenBlock}\n\n${END_MARKER}`;
 
-  if (startIdx !== -1 && endIdx !== -1) {
-    // Erstat eksisterende blok
-    css = css.slice(0, startIdx) + replacement + css.slice(endIdx + END_MARKER.length);
-    console.log('✅ Eksisterende token-blok opdateret i src/index.css');
-  } else {
-    // Indsæt efter første linje (typisk @import eller @tailwind)
-    const insertAfter = css.indexOf('\n');
-    css = css.slice(0, insertAfter + 1) + '\n' + replacement + '\n' + css.slice(insertAfter + 1);
-    console.log('✅ Token-blok indsat i src/index.css');
-    console.log('   Tip: Du kan flytte blokkens placering manuelt — markørerne bevares ved næste kørsel.');
-  }
+  // 1) Strip any existing generated block (incl. surrounding blank lines), so
+  //    re-runs are idempotent and placement is always recalculated.
+  const blockRe = new RegExp(`\\n*${escapeRe(START_MARKER)}[\\s\\S]*?${escapeRe(END_MARKER)}\\n*`);
+  css = css.replace(blockRe, '\n');
+
+  // 2) Insert after the last top-of-file at-rule header (@import / @custom-variant
+  //    / @charset). CSS requires @import to precede all style rules, so the
+  //    generated :root block must come AFTER them — not before.
+  const headerRe = /^@(import|custom-variant|charset)\b[^\n]*\n/gm;
+  let insertAt = 0;
+  for (const m of css.matchAll(headerRe)) insertAt = m.index + m[0].length;
+
+  css = `${css.slice(0, insertAt)}\n${replacement}\n${css.slice(insertAt)}`;
+  console.log('✅ Token-blok skrevet til src/index.css (efter @import-linjerne)');
 
   writeFileSync(CSS_FILE, css, 'utf-8');
 }
