@@ -166,6 +166,11 @@
   --popover-foreground:  oklch(0.985 0 0);
   --card:                oklch(0.205 0 0);
   --card-foreground:     oklch(0.985 0 0);
+  /* Override garbled Figma foregrounds: secondary-foreground was #0ac77f (green)
+     and accent-foreground was #8e69f1 (purple); both sit on light-grey surfaces
+     and must be dark for contrast. */
+  --secondary-foreground:  oklch(0.205 0 0);
+  --accent-foreground:     oklch(0.205 0 0);
 }
 
 /* --- Base styles ----------------------------------------- */
