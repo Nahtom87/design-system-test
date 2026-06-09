@@ -8,6 +8,43 @@ export default {
   title: 'Design System/Card',
   component: Card,
   parameters: { design: { type: 'figma', url: FIGMA_URL } },
+  argTypes: {
+    showHeader: { control: 'boolean', description: 'Vis header sektion' },
+    showDescription: { control: 'boolean', description: 'Vis description i header' },
+    showFooter: { control: 'boolean', description: 'Vis footer med handlingsknapper' },
+  },
+  args: {
+    showHeader: true,
+    showDescription: true,
+    showFooter: true,
+  },
+};
+
+export const Playground = {
+  name: 'Playground',
+  render: ({ showHeader, showDescription, showFooter }) => (
+    <Card style={{ width: '360px' }}>
+      {showHeader && (
+        <CardHeader>
+          <CardTitle>Brugerprofil</CardTitle>
+          {showDescription && (
+            <CardDescription>Administrer dine profiloplysninger og præferencer.</CardDescription>
+          )}
+        </CardHeader>
+      )}
+      <CardContent>
+        <p className="text-sm text-muted-foreground leading-5">
+          Her kan du se og redigere dine personlige oplysninger, herunder navn, e-mail og rolletildeling i KK Group systemet.
+        </p>
+      </CardContent>
+      {showFooter && (
+        <CardFooter>
+          <Button variant="outline">Annuller</Button>
+          <Button>Gem</Button>
+        </CardFooter>
+      )}
+    </Card>
+  ),
 };
 
 export const Default = {
@@ -18,7 +55,7 @@ export const Default = {
         <CardDescription>En kort beskrivelse af indholdet i kortet.</CardDescription>
       </CardHeader>
       <CardContent>
-        <p style={{ fontSize: '14px', color: '#404040', lineHeight: '20px' }}>
+        <p className="text-sm text-[#404040] leading-5">
           Her er selve indholdet i kortet.
         </p>
       </CardContent>
@@ -39,7 +76,7 @@ export const UdenFooter = {
         <CardDescription>Uden footer-sektion.</CardDescription>
       </CardHeader>
       <CardContent>
-        <p style={{ fontSize: '14px', color: '#404040' }}>Indhold her.</p>
+        <p className="text-sm text-[#404040]">Indhold her.</p>
       </CardContent>
     </Card>
   ),
@@ -50,14 +87,14 @@ export const MedBadge = {
   render: () => (
     <Card style={{ width: '360px' }}>
       <CardHeader>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div className="flex items-center justify-between">
           <CardTitle>Projekt status</CardTitle>
           <Badge variant="secondary">Aktiv</Badge>
         </div>
         <CardDescription>Opdateret i dag kl. 14:32</CardDescription>
       </CardHeader>
       <CardContent>
-        <p style={{ fontSize: '14px', color: '#404040' }}>Projektet kører planmæssigt.</p>
+        <p className="text-sm text-[#404040]">Projektet kører planmæssigt.</p>
       </CardContent>
     </Card>
   ),

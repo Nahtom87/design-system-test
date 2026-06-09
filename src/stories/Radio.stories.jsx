@@ -7,6 +7,51 @@ export default {
   title: 'Design System/Radio Group',
   component: RadioGroup,
   parameters: { design: { type: 'figma', url: FIGMA_URL } },
+  argTypes: {
+    defaultValue: {
+      control: 'radio',
+      options: ['option1', 'option2', 'option3'],
+      description: 'Forudvalgt mulighed',
+    },
+    disabled: {
+      control: 'boolean',
+      description: 'Deaktiver hele gruppen',
+    },
+    orientation: {
+      control: 'radio',
+      options: ['vertical', 'horizontal'],
+      description: 'Layout retning',
+    },
+  },
+  args: {
+    defaultValue: 'option1',
+    disabled: false,
+    orientation: 'vertical',
+  },
+};
+
+const OPTIONS = [
+  { value: 'option1', label: 'Mulighed 1' },
+  { value: 'option2', label: 'Mulighed 2' },
+  { value: 'option3', label: 'Mulighed 3' },
+];
+
+export const Playground = {
+  render: ({ defaultValue, disabled, orientation }) => (
+    <RadioGroup
+      defaultValue={defaultValue}
+      disabled={disabled}
+      orientation={orientation}
+      style={orientation === 'horizontal' ? { display: 'flex', flexDirection: 'row', gap: '24px' } : undefined}
+    >
+      {OPTIONS.map(({ value, label }, i) => (
+        <div key={value} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <RadioGroupItem value={value} id={`pg-${value}`} />
+          <Label htmlFor={`pg-${value}`}>{label}</Label>
+        </div>
+      ))}
+    </RadioGroup>
+  ),
 };
 
 export const Default = {
@@ -28,15 +73,14 @@ export const Default = {
   ),
 };
 
-// Rich Radio Card — som Figma viser det
 export const RichCard = {
   name: 'Rich Radio Card',
   render: () => (
     <RadioGroup defaultValue="plan1" style={{ gap: '8px' }}>
       {[
-        { value: 'plan1', label: 'Basis',    secondary: 'Op til 5 brugere · Gratis' },
-        { value: 'plan2', label: 'Pro',       secondary: 'Op til 25 brugere · 99 kr./md.' },
-        { value: 'plan3', label: 'Enterprise',secondary: 'Ubegrænsede brugere · Kontakt os' },
+        { value: 'plan1', label: 'Basis',     secondary: 'Op til 5 brugere · Gratis' },
+        { value: 'plan2', label: 'Pro',        secondary: 'Op til 25 brugere · 99 kr./md.' },
+        { value: 'plan3', label: 'Enterprise', secondary: 'Ubegrænsede brugere · Kontakt os' },
       ].map(({ value, label, secondary }) => (
         <label
           key={value}

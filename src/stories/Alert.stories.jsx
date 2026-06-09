@@ -3,25 +3,68 @@ import { Info, AlertCircle, CheckCircle, AlertTriangle } from 'lucide-react';
 
 const FIGMA_URL = 'https://www.figma.com/design/6IyBOQAD2rysMi9SzXmzFX/Design-system-POC?node-id=58-5414';
 
+const variantIcon = {
+  default: Info,
+  success: CheckCircle,
+  warning: AlertTriangle,
+  destructive: AlertCircle,
+};
+
+const variantTitle = {
+  default: 'Information',
+  success: 'Succes',
+  warning: 'Advarsel',
+  destructive: 'Fejl',
+};
+
+const variantDescription = {
+  default: 'Her er en neutral informationsbesked til brugeren.',
+  success: 'Handlingen blev gennemført uden fejl.',
+  warning: 'Tjek venligst dine oplysninger, inden du fortsætter.',
+  destructive: 'Noget gik galt. Prøv igen eller kontakt support.',
+};
+
 export default {
   title: 'Design System/Alert',
   component: Alert,
   parameters: { design: { type: 'figma', url: FIGMA_URL } },
   argTypes: {
-    variant: { control: 'select', options: ['default', 'destructive', 'success', 'warning'] },
+    variant: {
+      control: 'select',
+      options: ['default', 'destructive', 'success', 'warning'],
+    },
+    showDescription: {
+      control: 'boolean',
+      description: 'Vis beskrivelsestekst under titlen',
+    },
+    showIcon: {
+      control: 'boolean',
+      description: 'Vis ikon til venstre',
+    },
+  },
+  args: {
+    variant: 'default',
+    showDescription: true,
+    showIcon: true,
   },
 };
 
 export const Playground = {
-  args: { variant: 'default' },
-  render: (args) => (
-    <Alert {...args} style={{ width: '400px' }}>
-      <Info className="size-4 shrink-0 mt-0.5" />
-      <div>
-        <AlertTitle>Information</AlertTitle>
-      </div>
-    </Alert>
-  ),
+  render: (args) => {
+    const { variant, showDescription, showIcon, ...alertProps } = args;
+    const Icon = variantIcon[variant] ?? Info;
+    return (
+      <Alert variant={variant} style={{ width: '400px' }} {...alertProps}>
+        {showIcon && <Icon className="size-4 shrink-0 mt-0.5" />}
+        <div>
+          <AlertTitle>{variantTitle[variant]}</AlertTitle>
+          {showDescription && (
+            <AlertDescription>{variantDescription[variant]}</AlertDescription>
+          )}
+        </div>
+      </Alert>
+    );
+  },
 };
 
 export const AllVariants = {

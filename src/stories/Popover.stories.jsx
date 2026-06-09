@@ -11,11 +11,50 @@ export default {
   parameters: { design: { type: 'figma', url: FIGMA_URL } },
   decorators: [
     (Story) => (
-      <div style={{ padding: '60px', display: 'flex', justifyContent: 'center' }}>
+      <div style={{ padding: '80px', display: 'flex', justifyContent: 'center' }}>
         <Story />
       </div>
     ),
   ],
+  argTypes: {
+    align: {
+      control: 'radio',
+      options: ['start', 'center', 'end'],
+      description: 'Horisontal justering',
+    },
+    side: {
+      control: 'radio',
+      options: ['top', 'right', 'bottom', 'left'],
+      description: 'Side popover åbner fra',
+    },
+  },
+  args: {
+    align: 'center',
+    side: 'bottom',
+  },
+};
+
+export const Playground = {
+  render: ({ align, side }) => (
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button variant="outline">Rediger dimensioner</Button>
+      </PopoverTrigger>
+      <PopoverContent align={align} side={side} style={{ width: '240px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+            <Label htmlFor="pg-w">Bredde</Label>
+            <Input id="pg-w" defaultValue="320px" />
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+            <Label htmlFor="pg-h">Højde</Label>
+            <Input id="pg-h" defaultValue="auto" />
+          </div>
+          <Button size="small">Anvend</Button>
+        </div>
+      </PopoverContent>
+    </Popover>
+  ),
 };
 
 export const Default = {
@@ -35,6 +74,47 @@ export const Default = {
             <Input id="pop-h" defaultValue="auto" />
           </div>
           <Button size="small">Anvend</Button>
+        </div>
+      </PopoverContent>
+    </Popover>
+  ),
+};
+
+const SWATCHES = [
+  '#171717', '#404040', '#737373',
+  '#ef4444', '#f97316', '#eab308',
+  '#22c55e', '#3b82f6', '#a855f7',
+];
+
+export const Farvepalette = {
+  name: 'Farvepalette',
+  render: () => (
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button variant="outline">Vælg farve</Button>
+      </PopoverTrigger>
+      <PopoverContent style={{ width: 'auto' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+          <span style={{ fontSize: '12px', color: '#737373', fontFamily: "'IBM Plex Sans', sans-serif" }}>
+            Farvepalette
+          </span>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '6px' }}>
+            {SWATCHES.map((color) => (
+              <button
+                key={color}
+                title={color}
+                style={{
+                  width: '32px',
+                  height: '32px',
+                  borderRadius: '6px',
+                  background: color,
+                  border: '1px solid rgba(0,0,0,0.1)',
+                  cursor: 'pointer',
+                  padding: 0,
+                }}
+              />
+            ))}
+          </div>
         </div>
       </PopoverContent>
     </Popover>

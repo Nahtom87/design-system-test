@@ -6,6 +6,17 @@ export default {
   title: 'Design System/Kbd',
   component: Kbd,
   parameters: { design: { type: 'figma', url: FIGMA_URL } },
+  argTypes: {
+    children: {
+      control: 'text',
+      description: 'Tastebogstav eller symbol',
+    },
+  },
+  args: { children: '⌘' },
+};
+
+export const Playground = {
+  render: ({ children }) => <Kbd>{children}</Kbd>,
 };
 
 export const Default = {
@@ -42,6 +53,20 @@ export const ITooltip = {
       <KbdGroup>
         <Kbd style={{ background: 'rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.8)' }}>⌘</Kbd>
         <Kbd style={{ background: 'rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.8)' }}>K</Kbd>
+      </KbdGroup>
+    </div>
+  ),
+};
+
+export const Kombination = {
+  name: 'Kombination',
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      <span style={{ fontSize: '14px', color: '#0a0a0a', fontFamily: 'IBM Plex Sans' }}>Kommandopalet</span>
+      <KbdGroup>
+        <Kbd>⌘</Kbd>
+        <Kbd>Shift</Kbd>
+        <Kbd>P</Kbd>
       </KbdGroup>
     </div>
   ),

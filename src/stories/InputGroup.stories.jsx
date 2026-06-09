@@ -10,13 +10,45 @@ import { Search, Mail } from 'lucide-react';
 export default {
   title: 'Design System/Input Group',
   component: InputGroup,
+  argTypes: {
+    addonAlign: {
+      control: 'radio',
+      options: ['inline-start', 'inline-end'],
+      description: 'Addon placering (start/slut)',
+      name: 'Addon position',
+    },
+    addonType: {
+      control: 'radio',
+      options: ['icon', 'text', 'button'],
+      description: 'Type af addon',
+    },
+  },
+  args: { addonAlign: 'inline-start', addonType: 'icon' },
 };
 
 export const Playground = {
+  render: ({ addonAlign, addonType }) => {
+    const addon = addonType === 'icon'
+      ? <Search />
+      : addonType === 'text'
+      ? <InputGroupText>https://</InputGroupText>
+      : <InputGroupButton>Søg</InputGroupButton>;
+
+    return (
+      <InputGroup style={{ maxWidth: 320 }}>
+        <InputGroupAddon align={addonAlign}>{addon}</InputGroupAddon>
+        <InputGroupInput placeholder="Søg her..." />
+      </InputGroup>
+    );
+  },
+};
+
+export const DefaultSearch = {
+  name: 'Søgefelt med ikon',
   render: () => (
     <InputGroup style={{ maxWidth: 320 }}>
       <InputGroupAddon align="inline-start"><Search /></InputGroupAddon>
-      <InputGroupInput placeholder="Search…" />
+      <InputGroupInput placeholder="Søg..." />
     </InputGroup>
   ),
 };

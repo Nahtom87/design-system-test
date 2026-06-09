@@ -8,6 +8,56 @@ export default {
   parameters: {
     design: { type: 'figma', url: FIGMA_URL },
   },
+  argTypes: {
+    type: {
+      control: 'radio',
+      options: ['single', 'multiple'],
+      description: 'Whether one or multiple items can be open at a time.',
+      table: { defaultValue: { summary: 'single' } },
+    },
+    collapsible: {
+      control: 'boolean',
+      description: 'Allow closing the open item by clicking its trigger (only applies when type="single").',
+      table: { defaultValue: { summary: 'false' } },
+      if: { arg: 'type', eq: 'single' },
+    },
+    disabled: {
+      control: 'boolean',
+      description: 'Disable all accordion items.',
+      table: { defaultValue: { summary: 'false' } },
+    },
+  },
+};
+
+export const Playground = {
+  name: 'Playground',
+  args: {
+    type: 'single',
+    collapsible: true,
+    disabled: false,
+  },
+  render: ({ type, collapsible, disabled }) => (
+    <Accordion type={type} collapsible={collapsible} style={{ width: '480px' }}>
+      <AccordionItem value="item-1" disabled={disabled}>
+        <AccordionTrigger>Hvad er KK Group?</AccordionTrigger>
+        <AccordionContent>
+          KK Group er en ledende teknologivirksomhed med fokus på bæredygtige løsninger.
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="item-2" disabled={disabled}>
+        <AccordionTrigger>Hvordan kontakter jeg support?</AccordionTrigger>
+        <AccordionContent>
+          Du kan kontakte support via email, telefon eller chat på vores hjemmeside.
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="item-3" disabled={disabled}>
+        <AccordionTrigger>Hvad er jeres åbningstider?</AccordionTrigger>
+        <AccordionContent>
+          Vi er åbne mandag til fredag fra 08:00 til 17:00.
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
+  ),
 };
 
 export const Default = {
