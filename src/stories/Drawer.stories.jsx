@@ -56,21 +56,29 @@ export const Default = {
   render: () => (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button variant="outline">Åbn drawer</Button>
+        <Button variant="outline">Søg medarbejdere</Button>
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader>
-          <DrawerTitle>Filtrer resultater</DrawerTitle>
-          <DrawerDescription>Vælg de filtre du vil anvende.</DrawerDescription>
+          <DrawerTitle>Søg medarbejdere</DrawerTitle>
+          <DrawerDescription>Filtrer listen efter afdeling og rolle.</DrawerDescription>
         </DrawerHeader>
-        <div style={{ padding: '0 16px 16px', flex: 1 }}>
-          <p style={{ fontSize: '14px', color: '#404040' }}>Indhold her...</p>
+        <div style={{ padding: '0 16px 8px', flex: 1, display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', color: '#0a0a0a', cursor: 'pointer' }}>
+            <input type="checkbox" defaultChecked /> Borgerservice
+          </label>
+          <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', color: '#0a0a0a', cursor: 'pointer' }}>
+            <input type="checkbox" /> Teknik & Miljø
+          </label>
+          <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '14px', color: '#0a0a0a', cursor: 'pointer' }}>
+            <input type="checkbox" /> Økonomi
+          </label>
         </div>
         <DrawerFooter>
           <DrawerClose asChild>
             <Button variant="outline">Annuller</Button>
           </DrawerClose>
-          <Button>Anvend</Button>
+          <Button>Søg</Button>
         </DrawerFooter>
       </DrawerContent>
     </Drawer>

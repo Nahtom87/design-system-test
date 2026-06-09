@@ -11,6 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Home, FileText, Users, Settings, HelpCircle } from 'lucide-react';
 
 const FIGMA_URL = 'https://www.figma.com/design/6IyBOQAD2rysMi9SzXmzFX/Design-system-POC?node-id=151-12343';
 
@@ -109,15 +110,28 @@ export const VenstreSide = {
       </SheetTrigger>
       <SheetContent side="left">
         <SheetHeader>
-          <SheetTitle>Navigation</SheetTitle>
+          <SheetTitle>KK Group</SheetTitle>
+          <SheetDescription>Navigationsmenuen</SheetDescription>
         </SheetHeader>
-        <nav style={{ padding: '0 16px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
-          {['Hjem', 'Produkter', 'Om os', 'Kontakt'].map((item) => (
-            <a key={item} href="#" style={{ padding: '8px', fontSize: '14px', color: '#0a0a0a', textDecoration: 'none', borderRadius: '8px' }}>
-              {item}
+        <nav style={{ padding: '0 16px', display: 'flex', flexDirection: 'column', gap: '4px', flex: 1 }}>
+          {[
+            { icon: Home,        label: 'Hjem' },
+            { icon: FileText,    label: 'Sager' },
+            { icon: Users,       label: 'Brugere' },
+            { icon: Settings,    label: 'Indstillinger' },
+            { icon: HelpCircle,  label: 'Hjælp' },
+          ].map(({ icon: Icon, label }) => (
+            <a key={label} href="#" style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px', fontSize: '14px', color: '#0a0a0a', textDecoration: 'none', borderRadius: '8px' }}>
+              <Icon size={16} />
+              {label}
             </a>
           ))}
         </nav>
+        <SheetFooter>
+          <SheetClose asChild>
+            <Button variant="outline">Luk menu</Button>
+          </SheetClose>
+        </SheetFooter>
       </SheetContent>
     </Sheet>
   ),

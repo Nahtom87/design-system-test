@@ -44,7 +44,7 @@ export const Playground = {
       orientation={orientation}
       style={orientation === 'horizontal' ? { display: 'flex', flexDirection: 'row', gap: '24px' } : undefined}
     >
-      {OPTIONS.map(({ value, label }, i) => (
+      {OPTIONS.map(({ value, label }) => (
         <div key={value} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <RadioGroupItem value={value} id={`pg-${value}`} />
           <Label htmlFor={`pg-${value}`}>{label}</Label>
@@ -56,20 +56,25 @@ export const Playground = {
 
 export const Default = {
   render: () => (
-    <RadioGroup defaultValue="option1">
-      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-        <RadioGroupItem value="option1" id="r1" />
-        <Label htmlFor="r1">Mulighed 1</Label>
-      </div>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-        <RadioGroupItem value="option2" id="r2" />
-        <Label htmlFor="r2">Mulighed 2</Label>
-      </div>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-        <RadioGroupItem value="option3" id="r3" disabled />
-        <Label htmlFor="r3" style={{ opacity: 0.5 }}>Deaktiveret</Label>
-      </div>
-    </RadioGroup>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+      <p style={{ margin: 0, fontSize: '14px', color: '#0a0a0a', fontFamily: "'IBM Plex Sans', sans-serif" }}>
+        Hvordan vil du modtage notifikationer?
+      </p>
+      <RadioGroup defaultValue="email">
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <RadioGroupItem value="email" id="notif-email" />
+          <Label htmlFor="notif-email">E-mail</Label>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <RadioGroupItem value="sms" id="notif-sms" />
+          <Label htmlFor="notif-sms">SMS</Label>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <RadioGroupItem value="ingen" id="notif-ingen" disabled />
+          <Label htmlFor="notif-ingen" style={{ opacity: 0.5 }}>Ingen notifikationer</Label>
+        </div>
+      </RadioGroup>
+    </div>
   ),
 };
 

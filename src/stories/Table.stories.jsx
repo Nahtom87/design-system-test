@@ -8,6 +8,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 
 const FIGMA_URL = 'https://www.figma.com/design/6IyBOQAD2rysMi9SzXmzFX/Design-system-POC?node-id=164-18405';
 
@@ -62,27 +63,45 @@ export const Playground = {
   ),
 };
 
+const medarbejdere = [
+  { navn: 'Anna Moth',    afdeling: 'Design',        rolle: 'Senior Designer',    status: 'Aktiv' },
+  { navn: 'Lars Jensen',  afdeling: 'Udvikling',     rolle: 'Frontend Developer', status: 'Aktiv' },
+  { navn: 'Sara Nielsen', afdeling: 'Borgerservice', rolle: 'Sagsbehandler',      status: 'Afventer' },
+  { navn: 'Mads Olsen',   afdeling: 'Økonomi',       rolle: 'Controller',         status: 'Inaktiv' },
+  { navn: 'Lise Poulsen', afdeling: 'HR',            rolle: 'HR-koordinator',     status: 'Aktiv' },
+];
+
 export const Default = {
+  name: 'Medarbejderoversigt',
   render: () => (
     <Table>
-      <TableCaption>Oversigt over brugere</TableCaption>
+      <TableCaption>Medarbejderoversigt</TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead>ID</TableHead>
           <TableHead>Navn</TableHead>
+          <TableHead>Afdeling</TableHead>
+          <TableHead>Rolle</TableHead>
           <TableHead>Status</TableHead>
-          <TableHead style={{ textAlign: 'right' }}>Beløb</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {data.map((row) => (
-          <TableRow key={row.id}>
-            <TableCell>{row.id}</TableCell>
-            <TableCell>{row.navn}</TableCell>
+        {medarbejdere.map((row) => (
+          <TableRow key={row.navn}>
+            <TableCell>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <Avatar size="extra-tiny" roundness="round">
+                  <AvatarFallback size="extra-tiny">
+                    {row.navn.split(' ').map((n) => n[0]).join('')}
+                  </AvatarFallback>
+                </Avatar>
+                {row.navn}
+              </div>
+            </TableCell>
+            <TableCell>{row.afdeling}</TableCell>
+            <TableCell>{row.rolle}</TableCell>
             <TableCell>
               <Badge variant={statusVariant[row.status]}>{row.status}</Badge>
             </TableCell>
-            <TableCell style={{ textAlign: 'right' }}>{row.beløb}</TableCell>
           </TableRow>
         ))}
       </TableBody>

@@ -91,16 +91,16 @@ export const MultipleOpen = {
   render: () => (
     <Accordion type="multiple" style={{ width: '480px' }}>
       <AccordionItem value="item-1">
-        <AccordionTrigger>Punkt 1</AccordionTrigger>
-        <AccordionContent>Indhold for punkt 1 — kan åbnes samtidig med andre.</AccordionContent>
+        <AccordionTrigger>Hvad er KK Groups digitale strategi?</AccordionTrigger>
+        <AccordionContent>KK Group fokuserer på digitalisering af borgerservice med sikre, tilgængelige løsninger på tværs af alle platforme.</AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-2">
-        <AccordionTrigger>Punkt 2</AccordionTrigger>
-        <AccordionContent>Indhold for punkt 2.</AccordionContent>
+        <AccordionTrigger>Hvordan anmelder jeg en sag?</AccordionTrigger>
+        <AccordionContent>Sager kan anmeldes via selvbetjeningsportalen, telefonisk på 33 66 33 66 eller ved personligt fremmøde.</AccordionContent>
       </AccordionItem>
       <AccordionItem value="item-3">
-        <AccordionTrigger>Punkt 3</AccordionTrigger>
-        <AccordionContent>Indhold for punkt 3.</AccordionContent>
+        <AccordionTrigger>Hvad er sagsbehandlingstiden?</AccordionTrigger>
+        <AccordionContent>Standard sagsbehandlingstid er 4 uger. For akutte sager kan der søges om ekspederet behandling.</AccordionContent>
       </AccordionItem>
     </Accordion>
   ),

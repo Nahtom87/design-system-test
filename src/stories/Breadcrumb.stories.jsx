@@ -14,31 +14,43 @@ export default {
   title: 'Design System/Breadcrumb',
   component: Breadcrumb,
   parameters: { design: { type: 'figma', url: FIGMA_URL } },
+  argTypes: {
+    depth: {
+      control: { type: 'number', min: 2, max: 5 },
+      description: 'Antal niveauer i stien (2–5)',
+    },
+  },
+  args: { depth: 4 },
 };
+
+const ALL_SEGMENTS = ['Hjem', 'Administration', 'Brugere', 'Profiler', 'Detaljer'];
 
 export const Playground = {
   name: 'Playground',
-  render: () => (
-    <Breadcrumb>
-      <BreadcrumbList>
-        <BreadcrumbItem>
-          <BreadcrumbLink href="#">Hjem</BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbLink href="#">Produkter</BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbLink href="#">Komponenter</BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
-        </BreadcrumbItem>
-      </BreadcrumbList>
-    </Breadcrumb>
-  ),
+  render: ({ depth }) => {
+    const segments = ALL_SEGMENTS.slice(0, depth);
+    return (
+      <Breadcrumb>
+        <BreadcrumbList>
+          {segments.map((segment, index) => {
+            const isLast = index === segments.length - 1;
+            return (
+              <BreadcrumbItem key={segment}>
+                {isLast ? (
+                  <BreadcrumbPage>{segment}</BreadcrumbPage>
+                ) : (
+                  <>
+                    <BreadcrumbLink href="#">{segment}</BreadcrumbLink>
+                    <BreadcrumbSeparator />
+                  </>
+                )}
+              </BreadcrumbItem>
+            );
+          })}
+        </BreadcrumbList>
+      </Breadcrumb>
+    );
+  },
 };
 
 export const Default = {

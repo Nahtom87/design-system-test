@@ -61,19 +61,31 @@ export const Default = {
   render: () => (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline">Åbn popover</Button>
+        <Button variant="outline">Filtrer brugere</Button>
       </PopoverTrigger>
-      <PopoverContent style={{ width: '240px' }}>
+      <PopoverContent style={{ width: '220px' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-            <Label htmlFor="pop-w">Bredde</Label>
-            <Input id="pop-w" defaultValue="100%" />
+          <span style={{ fontSize: '13px', fontWeight: 500, color: '#0a0a0a', fontFamily: "'IBM Plex Sans', sans-serif" }}>
+            Filtrer
+          </span>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: '#0a0a0a', cursor: 'pointer', fontFamily: "'IBM Plex Sans', sans-serif" }}>
+              <input type="checkbox" defaultChecked />
+              Aktive brugere
+            </label>
+            <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: '#0a0a0a', cursor: 'pointer', fontFamily: "'IBM Plex Sans', sans-serif" }}>
+              <input type="checkbox" />
+              Inaktive brugere
+            </label>
+            <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: '#0a0a0a', cursor: 'pointer', fontFamily: "'IBM Plex Sans', sans-serif" }}>
+              <input type="checkbox" />
+              Afventer godkendelse
+            </label>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-            <Label htmlFor="pop-h">Højde</Label>
-            <Input id="pop-h" defaultValue="auto" />
+          <div style={{ display: 'flex', justifyContent: 'space-between', gap: '8px' }}>
+            <Button variant="ghost" size="small">Ryd filtre</Button>
+            <Button size="small">Anvend</Button>
           </div>
-          <Button size="small">Anvend</Button>
         </div>
       </PopoverContent>
     </Popover>

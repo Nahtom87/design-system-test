@@ -135,12 +135,25 @@ export const Default = {
 export const ManyTabs = {
   name: 'Mange tabs',
   render: () => (
-    <Tabs defaultValue="tab1">
+    <Tabs defaultValue="tab1" style={{ width: '480px' }}>
       <TabsList>
-        {['Oversigt', 'Aktivitet', 'Dokumenter', 'Indstillinger'].map((t, i) => (
-          <TabsTrigger key={i} value={`tab${i + 1}`}>{t}</TabsTrigger>
-        ))}
+        <TabsTrigger value="tab1">Oversigt</TabsTrigger>
+        <TabsTrigger value="tab2">Aktivitet</TabsTrigger>
+        <TabsTrigger value="tab3">Dokumenter</TabsTrigger>
+        <TabsTrigger value="tab4">Indstillinger</TabsTrigger>
       </TabsList>
+      <TabsContent value="tab1">
+        <p className="text-sm text-muted-foreground pt-3">Oversigt over systemets status og nøgletal.</p>
+      </TabsContent>
+      <TabsContent value="tab2">
+        <p className="text-sm text-muted-foreground pt-3">Seneste aktivitet og hændelseslog.</p>
+      </TabsContent>
+      <TabsContent value="tab3">
+        <p className="text-sm text-muted-foreground pt-3">Dokumenter og vedhæftede filer.</p>
+      </TabsContent>
+      <TabsContent value="tab4">
+        <p className="text-sm text-muted-foreground pt-3">Konfiguration og systemindstillinger.</p>
+      </TabsContent>
     </Tabs>
   ),
 };

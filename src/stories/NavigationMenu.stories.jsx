@@ -30,16 +30,10 @@ const ListItem = ({ title, children, href = '#' }) => (
     <NavigationMenuLink asChild>
       <a
         href={href}
-        style={{
-          display: 'block', padding: '8px 12px', borderRadius: '6px',
-          textDecoration: 'none', color: '#0a0a0a',
-          fontFamily: "'IBM Plex Sans', sans-serif", fontSize: '14px',
-        }}
-        onMouseEnter={e => (e.currentTarget.style.background = '#f5f5f5')}
-        onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
+        className="block rounded-md px-3 py-2 text-sm no-underline hover:bg-muted transition-colors"
       >
-        <div style={{ fontWeight: 500, marginBottom: '2px' }}>{title}</div>
-        <div style={{ fontSize: '12px', color: '#737373' }}>{children}</div>
+        <div className="font-medium text-foreground mb-0.5">{title}</div>
+        <div className="text-xs text-muted-foreground">{children}</div>
       </a>
     </NavigationMenuLink>
   </li>

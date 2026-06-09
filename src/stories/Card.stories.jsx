@@ -51,18 +51,23 @@ export const Default = {
   render: () => (
     <Card style={{ width: '360px' }}>
       <CardHeader>
-        <CardTitle>Kortoverskrift</CardTitle>
-        <CardDescription>En kort beskrivelse af indholdet i kortet.</CardDescription>
+        <CardTitle>Månedlig aktivitet</CardTitle>
+        <CardDescription>Opdateret 5 min. siden</CardDescription>
       </CardHeader>
       <CardContent>
-        <p className="text-sm text-[#404040] leading-5">
-          Her er selve indholdet i kortet.
-        </p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          {[
+            { label: 'Nye sager', value: '42' },
+            { label: 'Afsluttede sager', value: '38' },
+            { label: 'Gennemsnitlig behandlingstid', value: '3,2 dage' },
+          ].map(({ label, value }) => (
+            <div key={label} className="flex justify-between text-sm">
+              <span className="text-muted-foreground">{label}</span>
+              <span className="font-medium">{value}</span>
+            </div>
+          ))}
+        </div>
       </CardContent>
-      <CardFooter>
-        <Button variant="outline">Annuller</Button>
-        <Button>Gem</Button>
-      </CardFooter>
     </Card>
   ),
 };
