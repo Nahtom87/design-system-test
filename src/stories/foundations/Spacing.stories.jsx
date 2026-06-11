@@ -36,29 +36,3 @@ export const SpacingSkala = {
   ),
 };
 
-export const BorderRadius = {
-  name: 'Border radius (afrunding)',
-  render: () => (
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px' }}>
-      {[
-        { token: '--rounded-sm',   value: '4px',    px: 4 },
-        { token: '--rounded-md',   value: '6px',    px: 6 },
-        { token: '--rounded-lg',   value: '8px',    px: 8 },
-        { token: '--radius',       value: '10px',   px: 10 },
-        { token: '--rounded-full', value: '9999px', px: 9999 },
-      ].map(({ token, value, px }) => (
-        <div key={token} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-          <div style={{
-            width: '64px', height: '64px',
-            background: '#171717',
-            borderRadius: Math.min(px, 32) + 'px',
-          }} />
-          <div style={{ textAlign: 'center' }}>
-            <p style={{ fontFamily: fontMono, fontSize: '11px', color: '#0a0a0a', margin: 0 }}>{token}</p>
-            <p style={{ fontFamily: fontMono, fontSize: '11px', color: '#737373', margin: 0 }}>{value}</p>
-          </div>
-        </div>
-      ))}
-    </div>
-  ),
-};

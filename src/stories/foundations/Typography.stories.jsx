@@ -1,5 +1,5 @@
 export default {
-  title: 'Foundations/Typografi',
+  title: 'Foundations/Typography',
   parameters: { layout: 'padded' },
 };
 
