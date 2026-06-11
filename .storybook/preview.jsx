@@ -36,6 +36,11 @@ const preview = {
     },
   ],
   parameters: {
+    options: {
+      storySort: {
+        order: ['Getting Started', 'Foundations', 'Design System', 'Patterns'],
+      },
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,
